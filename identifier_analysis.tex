@@ -1,0 +1,41 @@
+\chapter{Análisis de Identificadores: Estado del arte}
+
+\section{Identificadores}
+Formalmente, un identificador t es una secuencia de caracteres c0, c1, …, cn, dondel el caracter ci representa una letra, un dígito o un caracter especial. Hard words, soft words.
+
+\subsection{Identificadores concisos y consistentes}
+DeiBenbock y Pizka definen un modelo formal para una estrategia de nombres bien formados para identificadores, que incluye reglas para un nombramiento conciso y consistente [DeiBenbock Pizka. Concise and consistent naming. 2005]. La premisa sobre la que basan sus reglas viene dada por la correlación de indentificadores con el conjunto de conceptos que son utilizados en un programa.
+Estas reglas pueden ser formalizadas de la siguiente manera:
+Un identificador i es un homónimo si representa más de un concepto dentro del programa. (-figura-)
+Dos identificadores i1 e i2 son sinónimos si los conceptos asociados con i1 tienen un non-empty overlap con los conceptos asociados a i2. (-figura-)
+Un identificador i para el concepto c es conciso si no otro concepto menos general que c es representado por otro identificador. (-ver ejemplo-)
+La presencia de homónimos o sinónimos indica un nombramiento inconsistente de los conceptos y por lo tanto viola las reglas de consistencia de DeiBenbock y Pizka.
+
+Ante la ausencia de un mapeo entre indentificadores y conceptos, una forma restrictiva de la consistencia y conciseness de sinónimos puede alcanzar, la cual se conoce como consistencia y conciness sintática [Lawrie Binkley Feild. Syntactic identifier conciseness and consistency. 2006]. 
+El enfoque se basa en la contención de identificadores: un identificador está contenido dentro de otro si todas sus soft words están presentes, en el mismo orden, en el identifcador contenedor. 
+%Por ejemplo, el identificador position está contenido dentro del identificador relative_position. El principal supuesto del enfoque sintáctico es que un identificar máximo () ( un identificador no contenido por otros ) está asociado con un único concepto. 
+Por lo tanto, el conjunto de conceptos se aproxima utilizando estos maximal identifiers.
+Cuando un identificador está contenido dentro de otro, una de dos posibles violaciones han ocurrido. Una posibilidad es que hay un solo concepto asociado a dos identificadores; por lo tanto, violando el requerimiento de consistencia de DeiBenbrock y Pizka. Por otro lado, que dos indentificadores mapeen a diferentes conceptos. En este caso, la violación es sobre la regla de conciseness. (- ver figuras-)
+
+FUENTE: Extracting meaning from abbreviated identifiers. Lawrie, Feild, Binkley.
+
+\section{División}
+El objetivo de un algoritmo divisor de identificadores es tomar un identificador como entrada, y generar como salida
+ una lista de sub-elementos que que particionan al identificador original. Estos sub-elementos pueden palabras de diccionario, las cuales tienen un significado obvio; abreviaturas, las cuales representan una sola palabra del diccionario; o acrónimos, los cuales representan varias palabras de diccionario [Hill Binkley Lawrie. An empirical study of identifier splitting techniques].
+
+VER: mixed-case/same-case splitting problem.
+
+Algunas de las principales técnicas para la división de identificadores son:
+Greedy. Esta técnica utiliza un diccionario, una lista de abreviaturas conocidas y una lista de finalización (stop-list), la cual incluye identificadores predefinidos, liberías, funciones y nombres de variables comunes, y letras individuales. Después de retornar cada hard word encontrada en alguna de las tres listas de palabras como una soft word simple, el resto de las hard words se consideran para división. Por lo tanto, el enfoque Greedy se basa en un diccionario predefinido de palabras y abreviaturas, donde las divisiones están basadas en que la palabra se encuentre en alguna de las listas, prefieriendo palabras m’as largas.
+Samurai. Este algoritmo se basa en la premisa que strings que componen identifcadores multi-palabras en un determinado programa, son frecuentemente utilizados en algún otro lugar, tanto del mismo programa como de otros. Por lo tanto, la frecuencia es el principal elemento tenido en cuenta a la hora de dividir identificadores. La división se realiza de izquierda a derecha, “dampening the score for shorter words”.
+GenTest. El algoritmo de GenTest tiene su fuerte en los términos same-case (focus on the same-case splitting problem). Dado un término same-case, esta técnica genera primero todas las posibles divisiones (dados que los identificadores son relativamente cortos, el potencialmente exponencial número de divisiones es manejable en la práctica), para luego scorear cada división, eligiendo la de mayor resultado. La función de scoring se basa en la premisa de que soft words expandidas deberían encontrarse co-ubicadas en la documentación o texto general (similarity metric).
+DTW. Este approach se basa en la observación de que los programadores construyen nuevos identificadores aplicando un conjunto de transformaciones a las palabras, como por ejemplo quitar todas las vocales o quitar uno o más caracteres. Utilizando un diccionario que contenga palabras y términos pertenecientes a una ontología superior, al dominio de la aplicación o ambos, el objetivo es identificar “a near optimal” matching entre los substrings del indentificador y las palabras en el diccionario. El identificador es considerado una señal de significado desconocido, descrita por un vector. Cada palabra del diccionario es utilizada como una segunda (conocida) señal  descrita también por un “feature vector”. El algoritmo realiza un dynamic time warping (DTW) de los dos vectores para encontrar el matcheo óptimo. El “time warp” de la búsqueda permite que las longitudes de los dos vectores difieran y se permitan abreviaturas en el dominio de la división (splitting domain). El match óptimo se obtiene de computar las distancias locales y luego elegir los matcheos que minimicen la distancia total utilizando programación dinámica. (Buscar PAPER).
+INTT. El enfoque INTT busca realizar un división más acertada (accurate) que las técnicas previas al utilizar una heurística especializada para manejar identificadores con dígitos, opuesto a la separación de los digitos del resto del texto en etapas tempranas del proceso de división. La principal modificación es reemplazar greedy por dos algoritmos, greedy y greedier, el cual puede tokenizar same-case identifiers sin el requerimiento de que comience o termine con una palabra conocida. Se utiliza una lista de acrónimos que contienen dígitos. (Buscar PAPER).
+
+Para el presente informe, sólo son de interés - y por lo tanto explicadas en mayor detalle - las primeras tres técnicas listadas anteriormente.
+
+\subsection{Algoritmo Greedy}
+\subsection{Algoritmo Samurai}
+\subsection{Algoritmo GenTest}
+
+\section{Expansión}

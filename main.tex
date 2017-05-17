@@ -1,0 +1,35 @@
+\documentclass[a4paper,11pt,twoside,openright]{book}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[spanish]{babel}
+\usepackage{fancyhdr}
+
+\title{Título}
+\author{Emiliano Roatta}
+
+\begin{document}
+\frontmatter
+
+\maketitle
+
+% begin "dedication"
+\begin{flushright}
+\null\vspace{\stretch{1}}
+  Dedicatoria
+\vspace{\stretch{3}}\null
+\end{flushright}
+% end "dedication"
+
+\input{abstract}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\mainmatter
+\input{identifier_analysis}
+
+\backmatter
+
+\end{document}
