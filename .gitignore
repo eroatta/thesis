@@ -8,4 +8,8 @@
 *.synctex.gz
 *.tex~
 *.toc
+*.bib.bak
+*.bib.sav
+*.bbl
+*.blg
 
