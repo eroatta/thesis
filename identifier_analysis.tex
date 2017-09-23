@@ -3,6 +3,10 @@
 \section{Identificadores}
 Formalmente, un identificador t es una secuencia de caracteres c0, c1, …, cn, dondel el caracter ci representa una letra, un dígito o un caracter especial. Hard words, soft words. COMPLETAR
 
+Ver Rilling y Klemola - Identifying comprehension bottlenecks using program slicing and cognitive complexity metrics.
+
+Ver Caprille y Tonella - Reestructuring program identifier names.
+
 \subsection{Identificadores concisos y consistentes}
 Cada lenguaje de programación plantea sus propios estilos de codificación, así como también convenciones para los nombres de los identificadores. Sin embargo, éstas suelen enfocarse solamente en la sintaxis, dejando de lado uno de los aspectos de mayor interés, el cual se corresponde a la semántica de los nombres empleados. La importancia en la definición de nombres de calidad radica en la influencia que los mismos tienen durante la comprensión de programas, y como consecuencia, en la calidad y productividad a lo largo del ciclo de vida del software. La ofuscación de código a través de la conversión de identificadores a secuencias aleatorias de caracteres es un claro ejemplo del impacto que tienen los nombres en el proceso de comprensión.
 
@@ -49,13 +53,13 @@ Sea $p \in P$ un elemento del programa y $c \in C$ el concepto que implementa, t
 \\$i(p) = n(c)$
 \\Esta definición requiere que un identificador tenga exactamente el mismo nombre del concepto que representa.
 
-Ante la ausencia de un mapeo entre indentificadores y conceptos, una forma restrictiva de la consistencia y conciseness de sinónimos puede alcanzar, la cual se conoce como consistencia y conciness sintática [Lawrie Binkley Feild. Syntactic identifier conciseness and consistency. 2006]. 
-El enfoque se basa en la contención de identificadores: un identificador está contenido dentro de otro si todas sus soft words están presentes, en el mismo orden, en el identifcador contenedor. 
-%Por ejemplo, el identificador position está contenido dentro del identificador relative_position. El principal supuesto del enfoque sintáctico es que un identificar máximo () ( un identificador no contenido por otros ) está asociado con un único concepto. 
-Por lo tanto, el conjunto de conceptos se aproxima utilizando estos maximal identifiers.
-Cuando un identificador está contenido dentro de otro, una de dos posibles violaciones han ocurrido. Una posibilidad es que hay un solo concepto asociado a dos identificadores; por lo tanto, violando el requerimiento de consistencia de DeiBenbrock y Pizka. Por otro lado, que dos indentificadores mapeen a diferentes conceptos. En este caso, la violación es sobre la regla de conciseness. (- ver figuras-)
+\subsubsection{Consistencia y Conciseness sintácticas}
+El modelo formal descrito por DeiBenbock y Pizka requiere que exista un mapeo entre los elementos del dominio de conceptos y los identificadores. Sin esta definición, se hace imposible la relación entre los dos conjuntos. Ahora bien, para nuevos programas, la construcción de este mapeo puede hacerse al mismo tiempo que el desarrollo con un mínimo costo extra. Sin embargo, para aquellos proyectos existentes, el costo puede ser demasiado. Para contrarestar esta limitación, se plantea el uso de la \textit{consistencia y conciseness sintática}, en donde sólo se considera la construcción sintática de los identificadores \cite{LawrieFeildBinkley06}.
 
-FUENTE: Extracting meaning from abbreviated identifiers. Lawrie, Feild, Binkley.
+El enfoque se basa en la contención de identificadores. Se dice que un identificador está contenido dentro de otro si todas sus \textit{soft words} están presentes, en el mismo orden, en el identificador contenedor. Cuando un identificador está contenido dentro de otro, una de dos posibles violaciones han ocurrido. Por un lado, puede que haya un solo concepto asociado a dos identificadores, lo que implica una violación al requerimiento respecto a los sinónimos en la consistencia; por otro, que los dos identificadores refieran a diferentes conceptos. En este caso, no se cumpliría la regla de nombres concisos. (- ver figuras-)
+
+\paragraph{Definición: Conciseness y Consistencia de sinónimos sintática}
+Sea el identificador $id_1$ una secuencia de soft words $sw_1 sw_2 ... sw_n1$. Los identificadores $id_1$ e $id_2$ no cumplen el \textit{requerimiento sobre sinónimos en la consistencia sintáctia} si $id_2$ incluye la secuencia de soft words $w_1 w_2 ... sw_1 sw_2 ... sw_n1 ... w_n2$. Además, $id_1$ falla el \textit{requerimiento sobre la concisenss sintáctica} si existe un tercer identificador $id_3$ que incluya la secuencia de soft words $u_1 u_2 ... sw_1 sw_2 ... sw_n1 ... u_n3$.
 
 \section{División}
 El objetivo de un algoritmo divisor de identificadores es tomar un identificador como entrada, y generar como salida
