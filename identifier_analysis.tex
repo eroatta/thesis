@@ -70,11 +70,23 @@ El primer paso para analizar los identificadores que se utilizan consiste en div
  
 El objetivo de un algoritmo divisor de identificadores es tomar uno de estos últimos como entrada, y obtener como salida una lista de sub-elementos que particionan al identificador original. Estos sub-elementos pueden ser palabras de diccionario, las cuales tienen un significado obvio; abreviaturas, las cuales refieren a una sola palabra del diccionario; o acrónimos, los cuales representan varias palabras de diccionario \cite{HillBinkleyLawrie14}.
 
-VER: mixed-case/same-case splitting problem.
-Ahora bien, estos algoritmos deben ser capaces de afrontar una serie de problemas relacionados a la división correcta de los identificadores. Como se dijo anteriormente, una forma de marcar una separación entre las palabras componentes de un indicador es el uso de caracteres especiales, o a través de \textit{camel-casing}.  
-Estos algoritmos enfocados en particionar de forma correcta (o al menos, más acertada) 
-\cite{EnslenHillPollock09}
+\subsection{El problema de la división de tokens}
+Ahora bien, estos algoritmos deben ser capaces de afrontar una serie de problemas relacionados a la correcta división de los identificadores. Como se dijo anteriormente, una forma de establecer una separación entre las palabras componentes de un indicador es el uso de caracteres especiales, o a través de la técnica de \textit{camel-casing}. Esta última permite reducidir la cantidad de caracteres sin comprometer la legibilidad, aunque existen situaciones donde no hay convenciones establecidas y esto puede afectar negativamente la comprensión, siendo ejemplos de este caso la incorporación de acrónimos al identificador (ej: \textit{sqlList, SQLList, SQLlist}) o la no utilización de delimitadores para conceptos multi palabras que son de uso común, como en \textit{sizeof} o \textit{hostname}.
 
+Un token puede ser definido formalmente como $t = (s_0, s_1, s_2, ..., s_n)$ donde $s_i$ es una letra, un dígito o un caracter especial. El primer paso consiste en separar el token a través utilizando los dígitos y caracteres especiales como marcadores. Cada sub-string es considerado como un token potencialmente divisible, recibe el nombre de \textit{token alfabético}, y existen cuatro casos posibles a la hora de decidir si dividirlo en un cierto punto entre $s_i$ y $s_j$\cite{EnslenHillPollock09}:
+
+\begin{enumerate}
+  \item $s_i$ está en minúsculas y $s_j$ en mayúsculas (ej: getString, setPoint)
+  \item $s_i$ está en mayúsculas y $s_j$ en minúsculas (ej: getMAXstring, GPSstate, ASTVisitor)
+  \item tanto $s_i$ como $s_j$ están en minúsculas (ej: notype, databasefield, actionparameters)
+  \item tanto $s_i$ como $s_j$ están en mayúsculas (ej: USERLIB, NONNEGATIVEDECIMALTYPE, COUNTRYCODE)
+\end{enumerate}
+
+El primer caso, es el lugar natural para realizar la división. En el segundo caso, en el cual el lugar donde dividir existen alternaciones de mayúsculas y minúsculas, presenta el problema de la separación de tokens \textit{mixed-case}, particularmente complicado por la utilización de acrónimos. Por último, los casos 3 y 4 corresponden al problema de la separación de tokens \textit{same-case}; en donde los programadores no han dejado rastro donde cualquier palabra o concepto deba ser extraída del token.
+
+Un algoritmo de división de tokens completamente automático debería ser capaz de resolver los sub-problemas de mixed-case y same-case, de forma efectiva.
+
+\subsection{Estado del arte}
 De acuerdo a la recopilación de Hill et. all (Cómo se pone?), algunas de las principales técnicas para la división de identificadores son:
 
 \begin{itemize}
