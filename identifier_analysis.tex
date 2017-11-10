@@ -104,6 +104,32 @@ De acuerdo a la recopilación de Hill et. all (Cómo se pone?), algunas de las p
 Para el presente informe, sólo son de interés - y por lo tanto explicadas en mayor detalle - las primeras tres técnicas listadas anteriormente.
 
 \subsection{Algoritmo Greedy}
+Este algoritmo, desarrollado por XXX, recibe su nombre por el enfoque emplea para dividir un token en las supuestas partes que lo componen.
+
+Para este algoritmo se emplean tres listas:
+\begin{itemize}
+  \item \textbf{Diccionario:} se utilizan los diccionarios de dominio público que son consultados en la herramienta de verificación de gramática disponible en Linux, llamada \textit{ispell}.
+  
+  \item \textbf{Abreviaturas conocidas:} se conforma de abreviaturas que son de uso común y relacionadas tanto al dominio del problema como a la programación.
+  
+  \item \textbf{Stop-list:} es la lista de corte y está compuesta de tres tipos de palabras, dentro de las cuales encontramos a los tipos de datos predefinidos, variables globales (tanto del lenguage como del ambiente), y los nombres de librerías estándar.
+\end{itemize}
+
+En el algoritmo se busca por el prefijo y el sufijo más largo que estén en una lista.
+Por cada hard word que no esté en el diccionario, se hacen dos búsquedas y se queda con el mejor resultado.
+La primera búsqueda busca el prefijo más largo de la palabra actual, que se encuentre en una lista. Luego se llama recursivamente, trabajando sobre el fragmento restante de la palabra original (prefijos y sufijos).
+La segunda búsqueda es idéntica, excepto que se basa en el sufijo más largo.
+Los resultados de las dos búsquedas se comparan, y aquella que arroje el ratio más alto de soft words en listas vs el total de palabras es elegida.
+Si ni la búsqueda por prefijo o sufijo generan alguna palabra que se encuentre en una lista, el proceso se repite con el primer caracter removido.
+Los caracteres removidos son agrupados y agregados al resultado. Si la primera palabra (soft word) en el identificador dividido no está en una lista, se adicionan. Si lo es, se agregan como una nueva soft word.
+La salida del algoritmo consiste en el identificador dividido.
+
+A continuación se presenta, en pseudocódigo, el algoritmo Greedy.
+PSEUDOCODIGO
+
+El algoritmo es independiente del juego de datos sobre el que se ejecuta, lo cual es una ventaja. Sin embargo, tiene algunos puntos negativos, como ser que el tiempo de ejecución puede ser elevado debido a dos factores: por un lado, la inicialización puede tornarse lenta ya que está dominada por la carga de varios diccionarios en "hash tables"; por otro, debido al uso de la recursividad y de explorar las posibilidades al arrancar de los extremos y finalmente comparar (identifier splitting: a study of two techniques). Otra desventaja que posee es que tiende a realizar más divisiones que las esperadas, o como se conoce, hace oversplitting (an empirical comparison of...).
+Una ventaja de este algoritmo es que el mismo es independiente de los datos sobre los que se ejecuta.
+
 \subsection{Algoritmo Samurai}
 \subsection{Algoritmo GenTest}
 
