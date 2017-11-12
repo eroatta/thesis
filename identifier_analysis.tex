@@ -126,8 +126,48 @@ Si ni la búsqueda por prefijo o sufijo generan alguna palabra que se encuentre 
 Estos caracteres removidos son agrupados y luego agregados al resultado. Si la primera palabra (softword) en el identificador dividido no está en una de las listas, los caracteres se van acoplando. Si lo está, se agregan como una nueva softword.
 Al finalizar la ejecución del algoritmo, la salida que se obtiene es el identificador dividido, separando cada una de las softwords con espacios en blanco.
 
-A continuación se presenta, en pseudocódigo, el algoritmo Greedy.
-PSEUDOCODIGO
+\begin{algorithm}[H]
+\caption{Greedy}
+\label{algGreedy}
+  \SetKwData{Token}{token}
+  \SetKwData{SplitToken}{splitToken}
+  \SetKwData{Dictionary}{dictionary}
+  \SetKwData{KnownAbbrs}{knownAbbreviations}
+  \SetKwData{StopList}{stopList}
+  \SetKwData{Preffix}{preffix}
+  \SetKwData{Suffix}{suffix}
+  
+  \SetKwFunction{SplitChars}{splitOnSpecialCharactersAndDigits(\Token)}
+  \SetKwFunction{SplitLowerUpperCase}{splitOnLowerCaseToUpperCase(\Token)}
+  \SetKwFunction{FindPreffix}{findPreffix($s_i$,$""$)}
+  \SetKwFunction{FindSuffix}{findSuffix($s_i$,$""$)}
+  \SetKwFunction{Compare}{compare(\Preffix,\Suffix)}
+  
+  \KwIn{\Token, para ser divido}
+  \KwOut{\SplitToken, token dividido delimitado por espacios}
+  
+  \BlankLine
+  var \Dictionary\;
+  var \KnownAbbrs\;
+  var \StopList\;
+  
+  \BlankLine
+  \Token $\leftarrow$ \SplitChars\;
+  \Token $\leftarrow$ \SplitLowerUpperCase\;
+  \SplitToken $\leftarrow$ $""$\;
+  
+  \BlankLine
+  \ForEach{$s_i \in \Token$}{
+    \eIf{$s_i \not \in (\Dictionary \cup \KnownAbbrs \cup \StopList)$}{
+      \Preffix $\leftarrow$ \FindPreffix\;
+      \Suffix $\leftarrow$ \FindSuffix\;
+      \SplitToken $\leftarrow$ \Compare\;
+    }
+    {\SplitToken $\leftarrow$ $s_i$}
+  }
+  \BlankLine
+  \KwRet \SplitToken\;
+\end{algorithm}
 
 El algoritmo es independiente del conjunto de datos sobre el que se ejecuta, lo cual es una ventaja. Sin embargo, tiene algunos puntos negativos, como ser que el tiempo de ejecución puede ser elevado debido a dos factores: por un lado, la inicialización puede tornarse lenta ya que está dominada por la carga de varios diccionarios en "hash tables"; por otro, debido al uso de la recursividad y de explorar las posibilidades al arrancar de los extremos y finalmente comparar (identifier splitting: a study of two techniques). Otra desventaja que posee es que tiende a realizar más divisiones que las esperadas, o como se conoce, hace oversplitting (an empirical comparison of...).
 Una ventaja de este algoritmo es que el mismo es independiente de los datos sobre los que se ejecuta.
