@@ -129,6 +129,7 @@ Al finalizar la ejecución del algoritmo, la salida que se obtiene es el identif
 \begin{algorithm}[H]
 \caption{Greedy}
 \label{algGreedy}
+\DontPrintSemicolon
   \SetKwData{Token}{token}
   \SetKwData{SplitToken}{splitToken}
   \SetKwData{Dictionary}{dictionary}
@@ -167,6 +168,42 @@ Al finalizar la ejecución del algoritmo, la salida que se obtiene es el identif
   }
   \BlankLine
   \KwRet \SplitToken\;
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Función findPreffix}
+\label{funFindPreffix}
+\DontPrintSemicolon
+  \SetKwData{S}{s}
+  \SetKwData{SSplit}{sSplit}
+  \SetKwData{Dictionary}{dictionary}
+  \SetKwData{KnownAbbrs}{knownAbbreviations}
+  \SetKwData{StopList}{stopList}
+  
+  \SetKwFunction{Size}{size}
+  \SetKwFunction{FindPreffix}{findPreffix($s_i$,$""$)}
+  
+  \KwIn{\S, string para ser analizado}
+  \KwOut{\SSplit, string dividido y delimitado por espacios}
+  
+  \BlankLine
+  \If{$\S.\Size == 0$}{
+    \KwRet \SSplit \tcp*{punto de corte en la recursión}
+  }
+  
+  \BlankLine
+  \If{$\S \in (\Dictionary \cup \KnownAbbrs \cup \StopList)$}{
+    \KwRet $\S + "" + \FindPreffix$
+  }
+  
+  \BlankLine
+  \SSplit $\leftarrow \S[length(\S) - 1] + \SSplit$\;
+  
+  \BlankLine
+  \S $\leftarrow \S[0, length(\S) - 1]$\;
+  
+  \BlankLine
+  \KwRet \FindPreffix
 \end{algorithm}
 
 El algoritmo es independiente del conjunto de datos sobre el que se ejecuta, lo cual es una ventaja. Sin embargo, tiene algunos puntos negativos, como ser que el tiempo de ejecución puede ser elevado debido a dos factores: por un lado, la inicialización puede tornarse lenta ya que está dominada por la carga de varios diccionarios en "hash tables"; por otro, debido al uso de la recursividad y de explorar las posibilidades al arrancar de los extremos y finalmente comparar (identifier splitting: a study of two techniques). Otra desventaja que posee es que tiende a realizar más divisiones que las esperadas, o como se conoce, hace oversplitting (an empirical comparison of...).
