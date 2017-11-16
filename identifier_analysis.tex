@@ -114,17 +114,15 @@ Desarrollado por Feild, Binkley and Lawrie \cite{FieldBinkleyLawrie06}, este alg
   \item \textbf{Stop-list:} es la lista de corte y está compuesta de tres tipos de palabras, dentro de las cuales encontramos a los tipos de datos predefinidos, variables globales (tanto del lenguage como del ambiente), y los nombres de librerías estándar.
 \end{itemize}
 
-El proceso comienza dividiendo el token en hardwords, tomando como delimitadores a los caracteres especiales y la técnica de \textit{camel-casing}.
-Hechos tanto el reemplazo de números y caracteres especiales, como la división inicial del token, comienza la evaluación de cada una de las hardwords.
-En primera instancia, se verifica si la palabra candidata existe en alguna de las listas con las que trabaja el algoritmo. Si es así, el fragmento del token es considerado parte de la división y por lo tanto de la salida del proceso.
-En caso contrario, al asumirse que está formado por múltiples palabras, se analiza en búsqueda de las softwords que lo componen.
+Tal como puede verse en el algorimo \ref{algGreedy}, el proceso comienza dividiendo el token de entrada en hardwords, tomando como delimitadores a los caracteres especiales y la técnica de \textit{camel-casing}.
+Una vez hecho tanto el reemplazo de números y caracteres especiales (línea 4), como la división inicial del token (línea 5), se procede con la evaluación de cada una de las hardwords resultantes.
+En primera instancia, se verifica si la palabra candidata existe en alguna de las listas con las que trabaja el algoritmo (línea 8). Si es así, el fragmento del token es considerado parte de la división y por lo tanto de la salida del proceso (línea 13).
+En caso contrario, al asumirse que está formado por múltiples palabras, se procesa en búsqueda de las softwords que lo componen.
 Este análisis consiste en realizar dos búsquedas sobre cada hardword, quedándose con el mejor resultado entre ambas.
-En la primera búsqueda se trata de obtener el prefijo más largo, de la palabra actual, que se encuentre en una lista. Luego se llama recursivamente, trabajando sobre el fragmento restante de la palabra original (prefijos y sufijos).
-La segunda búsqueda es idéntica, excepto que se basa en el sufijo más largo.
-Los resultados de ambas búsquedas se evalúan, y aquella que arroje la relación más alta entre la cantidad de softwords encontradas en listas vs. el total de palabras es elegida.
-Si ni la búsqueda por prefijo o sufijo generan alguna palabra que se encuentre en alguna de las listas, el proceso se repite removiendo el primer caracter.
-Estos caracteres removidos son agrupados y luego agregados al resultado. Si la primera palabra (softword) en el identificador dividido no está en una de las listas, los caracteres se van acoplando. Si lo está, se agregan como una nueva softword.
-Al finalizar la ejecución del algoritmo, la salida que se obtiene es el identificador dividido, separando cada una de las softwords con espacios en blanco.
+En la primera búsqueda (línea 9) se trata de obtener el prefijo más largo que se encuentre en una de las listas, y forme parte de la palabra actual. Luego se llama recursivamente, trabajando sobre el fragmento restante de la palabra original (prefijos y sufijos).
+La segunda búsqueda (línea 10) es idéntica, excepto que trata de obtener el sufijo más largo.
+Los resultados de ambos procesamientos son evaluados, y aquel que arroje la relación más alta entre la cantidad de softwords encontradas en listas vs. el total de palabras, es el elegido (línea 11).
+Al finalizar la ejecución del algoritmo, la salida que se obtiene es el identificador original dividido, separando cada una de los componentes encontrados, a través de espacios en blanco (línea 16).
 
 \begin{algorithm}[H]
 \caption{Greedy}
@@ -170,6 +168,13 @@ Al finalizar la ejecución del algoritmo, la salida que se obtiene es el identif
   \KwRet \SplitToken\;
 \end{algorithm}
 
+La función \textit{findPreffix} es descrita en el algoritmo \ref{funFindPreffix}. 
+La primer validación que se realiza sirve como punto de corte para la recursión (línea 1), cuando el token a analizar está vacío.
+Si el parámetro recibido es parte de alguna de las listas (línea 4), la función finaliza separando el prefijo encontrado y llamándose recursivamente con el fragmento restante (línea 5).
+En caso contrario, el último caracter es removido (línea 8) y el proceso continúa llamándose a si mismo (línea 9).
+Los caracteres removidos son agrupados (línea 7) y luego agregados al resultado. 
+Si la primera palabra en el identificador dividido no está en una de las listas, los caracteres se van acoplando. Si lo está, se agregan como una nueva softword.
+
 \begin{algorithm}
 \caption{Función findPreffix}
 \label{funFindPreffix}
@@ -206,6 +211,11 @@ Al finalizar la ejecución del algoritmo, la salida que se obtiene es el identif
   \BlankLine
   \KwRet \FindPreffixSSSplit
 \end{algorithm}
+
+Una lógica similar se sigue para la función \textit{findSuffix}, visible en el algoritmo \ref{funFindSuffix}. 
+Cuando el parámetro se encuentra de alguna de las listas (línea 4), el sufijo se extrae y la función continúa llamándose recursivamente (línea 5).
+En caso contrario, el primer caracter es removido (línea 8) y el proceso continúa llamándose a si mismo (línea 9), reduciendo la longitud del sufijo a evaluar.
+Al igual que en la otra función, los caracteres removidos son agrupados (línea 7) y luego agregados al resultado.
 
 \begin{algorithm}
 \caption{Función findSuffix}
@@ -244,8 +254,12 @@ Al finalizar la ejecución del algoritmo, la salida que se obtiene es el identif
   \KwRet \FindSuffixSSSplit
 \end{algorithm}
 
-El algoritmo es independiente del conjunto de datos sobre el que se ejecuta, lo cual es una ventaja. Sin embargo, tiene algunos puntos negativos, como ser que el tiempo de ejecución puede ser elevado debido a dos factores: por un lado, la inicialización puede tornarse lenta ya que está dominada por la carga de varios diccionarios en "hash tables"; por otro, debido al uso de la recursividad y de explorar las posibilidades al arrancar de los extremos y finalmente comparar (identifier splitting: a study of two techniques). Otra desventaja que posee es que tiende a realizar más divisiones que las esperadas, o como se conoce, hace oversplitting (an empirical comparison of...).
-Una ventaja de este algoritmo es que el mismo es independiente de los datos sobre los que se ejecuta.
+Este algoritmo, en comparación con otros existentes, tiene la ventaja de que es independiente del conjunto de datos sobre el que se ejecuta. Además, su lógica e implementación, son sencillas, lo que lo convierte en el punto de comparación a la hora de evaluar la performance de otras propuestas.
+
+Sin embargo, tiene algunos aspectos negativos. El tiempo de ejecución puede ser elevado, particularmente por dos factores.
+Por un lado, la inicialización está dominada por la carga de varios diccionarios en en tablas \textit{hash}.
+Por otro, debido al uso de la recursividad y al tratar explorar las posibilidades arrancando desde los extremos para finalmente comparar los resultados (identifier splitting: a study of two techniques).
+Otra desventaja que posee es que tiende a realizar más divisiones que las esperadas, o como se conoce, hace oversplitting (an empirical comparison of...).
 
 \subsection{Algoritmo Samurai}
 \subsection{Algoritmo GenTest}
