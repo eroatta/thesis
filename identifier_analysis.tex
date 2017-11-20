@@ -104,7 +104,7 @@ De acuerdo a la recopilación de Hill et. all (Cómo se pone?), algunas de las p
 Para el presente informe, sólo son de interés - y por lo tanto explicadas en mayor detalle - las primeras tres técnicas listadas anteriormente.
 
 \subsection{Algoritmo Greedy}
-Desarrollado por Feild, Binkley and Lawrie \cite{FieldBinkleyLawrie06}, este algoritmo recibe su nombre gracias al enfoque que toma para resolver el problema, eligiendo en cada paso local la opción más conveniente con la idea de lograr, a nivel general, una solución óptima. El proceso comienza realizando una búsqueda por cada hard word dentro de un conjunto de listas de palabras y abreviaturas. Si la palabra candidata existe en alguna de ellas, se devuelve como válida, si no, se asume que se compone de múltiples palabras, y éstas son tratadas recursivamente hasta encontrar sus componentes \cite{Feild06anempirical}. Las tres listas que se utilizan son:
+Desarrollado por Feild, Binkley and Lawrie \cite{FieldBinkleyLawrie06, Feild06anempirical, Lawrie2007, Lawrie:2007:EMA:1306878.1307350, EnslenHillPollock09}, este algoritmo recibe su nombre gracias al enfoque que toma para resolver el problema, eligiendo en cada paso local la opción más conveniente con la idea de lograr, a nivel general, una solución óptima. El proceso comienza realizando una búsqueda por cada hard word dentro de un conjunto de listas de palabras y abreviaturas. Si la palabra candidata existe en alguna de ellas, se devuelve como válida, si no, se asume que se compone de múltiples palabras, y éstas son tratadas recursivamente hasta encontrar sus componentes \cite{Feild06anempirical}. Las tres listas que se utilizan son:
 
 \begin{itemize}
   \item \textbf{Diccionario:} se conforma con diccionarios de dominio público, los cuales son consultados en la herramienta de verificación de gramática \textit{ispell}, disponible en Linux.
@@ -260,6 +260,8 @@ Sin embargo, tiene algunos aspectos negativos. El tiempo de ejecución puede ser
 Otra desventaja que presenta es que tiende a realizar una mayor cantidad de divisiones que las esperadas \cite{Feild06anempirical}.
 
 \subsection{Algoritmo Samurai}
+
+
 \subsection{Algoritmo GenTest}
 
 \section{Expansión}
