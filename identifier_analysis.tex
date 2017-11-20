@@ -271,7 +271,79 @@ Al trabajar sobre los tokens extraídos del código fuente bajo análisis, se co
 La segunda tabla, construída a partir de un conjunto mayor de programas, recibe el nombre de \textit{tabla de frecuencias global}.
 Ambas tablas son empleadas en la función de scoring que se utiliza para evaluar las posibles divisiones durante el proceso de separación.
 
+\begin{algorithm}[H]
+\caption{mixedCaseSplit}
+\label{algSamurai}
+\DontPrintSemicolon
+  \SetKwData{Token}{token}
+  \SetKwData{SplitToken}{splitToken}
+  \SetKwData{S}{s}
+  \SetKwData{N}{n}
+  \SetKwData{CamelScore}{camelScore}
+  \SetKwData{AltScore}{altScore}
+  
+  \SetKwFunction{SplitChars}{splitOnSpecialCharactersAndDigits(\Token)}
+  \SetKwFunction{SplitLowerUpperCase}{splitOnLowerCaseToUpperCase(\Token)}
+  \SetKwFunction{IsUpper}{isUpper}
+  \SetKwFunction{IsLower}{isLower}
+  \SetKwFunction{Length}{length(\S)}
+  \SetKwFunction{Score}{score}
+  \SetKwFunction{ScoreS}{\Score(\S)}
+  \SetKwFunction{SameCaseSplit}{sameCaseSplit(\S, \ScoreS)}
 
+  \KwIn{\Token, para ser dividido}
+  \KwOut{\SplitToken, token dividido delimitado por espacios}
+  
+  \BlankLine
+  \Token $\leftarrow$ \SplitChars\;
+  \Token $\leftarrow$ \SplitLowerUpperCase\;
+  \SplitToken $\leftarrow$ $""$\;
+  
+  \BlankLine
+  \ForEach{$\S \in \Token$}{
+    \If{$\exists \{ i | \IsUpper(\S[i]) \land \IsLower(\S[i + 1])$\}}{
+      \N $\leftarrow \Length - 1$\;
+      
+      \BlankLine
+      \tcp{calcular el score para el split del camel case}
+      \eIf{$i > 0$}{
+        \CamelScore $\leftarrow \Score(\S[i, n])$\;
+      }
+      {
+        \CamelScore $\leftarrow \Score(\S[0, n])$\;
+      }
+      
+      \BlankLine
+      \tcp{calcular el score alternativo}
+      \AltScore $\leftarrow \Score(\S[i + 1, \N])$\;
+      
+      \BlankLine
+      \tcp{elegir el split con base en el score}
+      \eIf{$\CamelScore > \sqrt{\AltScore}$}{
+        \If{$i > 0$}{
+          \S $\leftarrow \S[0, i - 1] + "$ $" + \S[i, n]$\;
+        }
+      }{
+        \S $\leftarrow \S[0, i] + "$ $" + \S[i + 1, n]$\;
+      }
+    }
+    
+    \BlankLine
+    \SplitToken $\leftarrow \SplitToken + " " + \S$\;
+  }
+
+  \BlankLine
+  \Token $\leftarrow$ \SplitToken\;
+  \SplitToken $\leftarrow$ $""$\;
+  
+  \BlankLine
+  \ForEach{$s_i \in \Token$}{
+    \SplitToken $\leftarrow \SplitToken + "$ $" + \SameCaseSplit$\;
+  }
+  
+  \BlankLine
+  \KwRet \SplitToken\;
+\end{algorithm}
 
 \subsection{Algoritmo GenTest}
 
