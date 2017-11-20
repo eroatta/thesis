@@ -256,10 +256,8 @@ Al igual que en la otra función, los caracteres removidos son agrupados (línea
 
 Este algoritmo, en comparación con otros existentes, tiene la ventaja de que es independiente del conjunto de datos sobre el que se ejecuta. Además, su lógica e implementación, son sencillas, lo que lo convierte en el punto de comparación a la hora de evaluar la performance de otras propuestas.
 
-Sin embargo, tiene algunos aspectos negativos. El tiempo de ejecución puede ser elevado, particularmente por dos factores.
-Por un lado, la inicialización está dominada por la carga de varios diccionarios en en tablas \textit{hash}.
-Por otro, debido al uso de la recursividad y al tratar explorar las posibilidades arrancando desde los extremos para finalmente comparar los resultados (identifier splitting: a study of two techniques).
-Otra desventaja que posee es que tiende a realizar más divisiones que las esperadas, o como se conoce, hace oversplitting (an empirical comparison of...).
+Sin embargo, tiene algunos aspectos negativos. El tiempo de ejecución puede ser elevado, ya que la inicialización está dominada por la carga de varios diccionarios en tablas \textit{hash} y por la utilización de recursividad \cite{FieldBinkleyLawrie06}.
+Otra desventaja que presenta es que tiende a realizar una mayor cantidad de divisiones que las esperadas \cite{Feild06anempirical}.
 
 \subsection{Algoritmo Samurai}
 \subsection{Algoritmo GenTest}
