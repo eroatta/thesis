@@ -345,6 +345,60 @@ Ambas tablas son empleadas en la función de scoring que se utiliza para evaluar
   \KwRet \SplitToken\;
 \end{algorithm}
 
+\begin{algorithm}[H]
+\caption{sameCaseSplit}
+\label{funSameCaseSplit}
+\DontPrintSemicolon
+  \SetKwData{S}{s}
+  \SetKwData{Score}{score}
+  \SetKwData{ScoreNS}{$\Score_{ns}$}
+  \SetKwData{SplitToken}{splitToken}
+  
+  \SetKwFunction{Length}{length}
+  \SetKwFunction{FunScore}{score}
+  \SetKwFunction{IsPrefix}{isPrefix}
+  \SetKwFunction{IsSuffix}{isSuffix}
+  \SetKwFunction{Max}{max}
+  \SetKwFunction{SameCaseSplit}{sameCaseSplit}
+
+  \KwIn{\S, string same-case}
+  \KwIn{\ScoreNS, score para la NO división}
+  \KwOut{\SplitToken, token dividido delimitado por espacios}
+  
+  \BlankLine
+  \SplitToken $\gets$ \S\;
+  $n \gets \Length(\S) - 1$\;
+  $i \gets 0$\;
+  $maxScore \gets -1$\;
+  
+  \BlankLine
+  \While{$i < n$}{
+    $score_l \gets \FunScore(\S[0, i])$\;
+    $score_r \gets \FunScore(\S[i + 1, n])$\;
+    $prefix \gets \IsPrefix(\S[0, i]) \lor \IsSuffix(\S[i + 1, n])$\;
+    $toSplit_l \gets \sqrt{score_l} > \Max(\FunScore(\S), \ScoreNS)$\;
+    $toSplit_r \gets \sqrt{score_r} > \Max(\FunScore(\S), \ScoreNS)$\;
+    
+    \BlankLine
+    \uIf{$!prefix \land toSplit_l \land toSplit_r$}{
+      \If{$(score_l + score_r) > maxScore)$}{
+        $maxScore \gets score_l + score_r$\;
+        $\SplitToken \gets \S[0, i] + "$ $" + \S[i + 1, n]$\;
+      }
+    }
+    \ElseIf{$!prefix \land toSplit_l$}{
+      $temp \gets \SameCaseSplit(\S[i + 1, n], \ScoreNS)$\;
+      \If{$temp.size > 1$}{
+        $\SplitToken \gets \S[0, i] + "$ $" + temp$\;
+      }
+    }
+    
+    \BlankLine
+    $i \gets i + 1$\;
+  }
+  
+\end{algorithm}
+
 \subsection{Algoritmo GenTest}
 
 \section{Expansión}
