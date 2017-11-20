@@ -265,11 +265,15 @@ Las hipótesis sobre las que basan la lógica del proceso son que, en primera in
 En segunda instancia, se apoyan en la hipótesis de que las divisiones suelen ser en favor de aquellos tokens que ocurren más a menudo en un programa. Por lo tanto, la frecuencia de una palabra se utiliza para determinar los cortes en el token analizado.
 
 Para poder llevar adelante la división, es necesario explorar el conjunto de tokens existentes en el código y crear dos tablas de frecuencia.
-Este proceso de minado se realiza ejecutando el algoritmo de división de tokens conservativo basado en marcadores de separación sobre un conjunto de tokens del código fuente, para así generar un listado de todas las ocurrencias de los strings delimitados por marcadores.
+Este proceso de minado se realiza ejecutando el algoritmo de división de tokens conservativo basado en marcadores de separación (VER) sobre un conjunto de tokens del código fuente, para así generar un listado de todas las ocurrencias de los strings delimitados por marcadores.
 Este listado es luego procesado para obtener la información de frecuencias, en la forma de una tabla de búsqueda que almacena el número de ocurrencias para una determinada y única palabra.
 Al trabajar sobre los tokens extraídos del código fuente bajo análisis, se construye  la \textit{tabla de frecuencias específica del programa}.
 La segunda tabla, construída a partir de un conjunto mayor de programas, recibe el nombre de \textit{tabla de frecuencias global}.
-Ambas tablas son empleadas en la función de scoring que se utiliza para evaluar las posibles divisiones durante el proceso de separación.
+Ambas son empleadas en la función de scoring que se utiliza para evaluar las posibles divisiones durante el proceso de separación.
+
+El pseudocódigo de Samurai puede observarse en el Algoritmo \ref{algSamurai}.
+El proceso comienza con la división del token original, al reemplazar los caracteres especiales y los números por espacios en blanco (línea 1).
+Luego, cada uno de estos sub-strings es analizado y se separa 
 
 \begin{algorithm}[H]
 \caption{mixedCaseSplit}
