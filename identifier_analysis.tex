@@ -273,9 +273,11 @@ La segunda tabla, construída a partir de un conjunto mayor de programas, recibe
 Ambas son empleadas en la función de scoring para evaluar las posibles divisiones durante el proceso de separación.
 
 Por cada token a analizar, Samurai inicia ejecutando \textit{mixedCaseSplit}, que puede observarse en el Algoritmo \ref{mixedCaseSplit}.
-El token original es dividido, reemplazando los caracteres especiales y los números por espacios en blanco (línea 1).
-
-El resultado de la ejecución de \textit{mixedCaseSplit} consiste en una serie de cadenas de caracteres delimitadas por espacios, donde cada una de estas presenta alguno de estos patrones: (a) todas minúsculas, (b) todas mayúsculas, o (c) una mayúscula seguida de todas minúsculas.
+El token original es dividido, añadiendo espacios en blanco en reemplazo de los caracteres especiales y, tanto antes como después, de cada conjunto de dígitos (línea 1).
+Luego, se añade un espacio en blanco cuando encuentra una secuencia de dos caracteres en los cuales el primero es una minúscula y el segundo una mayúscula (línea 2). En este punto, cada elemento tiene la forma de cero o más mayúsculas seguidas por cero o más minúsculas.
+Después del procesamiento inicial, cada substring es examinado y evaluado para determinar si se continúa con la división camel-case regular, o si se opta por la alternativa. Para esto, se determinan los scores para la separación por camel-case (líneas 9 y 11), y para la alternativa (línea 14).
+Ambas evaluaciones son comparadas (línea 16), y si hay evidencia suficiente que justifique la separación a la derecha del supuesto punto de corte, entonces el string original es reemplazado por esta división (líneas 18 y 21).
+Finalizados todos estos pasos, se llama a \textit{sameCaseSplit} por cada uno de las subcadenas generadas (línea 29).
 
 \begin{algorithm}[H]
 \caption{mixedCaseSplit}
