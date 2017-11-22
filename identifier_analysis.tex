@@ -353,9 +353,14 @@ Finalizados todos estos pasos, se llama a \textit{sameCaseSplit} por cada uno de
   \KwRet \SplitToken\;
 \end{algorithm}
 
+Presentado en el Algoritmo \ref{sameCaseSplit}, \textit{sameCaseSplit} recibe como parámetros un string que puede estar en una de tres formas: a) mayúsculas, b) minúsculas, c) una mayúscula seguida de minúsculas; así como el scoring del token original.
+Desde la posición inicial en el string (línea 3), el algoritmo analiza cada punto posible de separación en \textit{s}.
+Para ello se calculan los scorings tanto para el lado izquierdo como para el derecho (líneas 6 y 7) de este tentativo punto de corte.
+La raíz cuadrada del scoring aplicada en distintos puntos del algoritmo tiene la finalidad de reducir el impacto del score de palabras cortas, ya que estas suelen tener mucha frecuencia y eso podría desembarcar en divisiones no relevantes, como por ejemplo \textit{per-formed} en lugar de \textit{performed}.
+
 \begin{algorithm}[H]
 \caption{sameCaseSplit}
-\label{funSameCaseSplit}
+\label{sameCaseSplit}
 \DontPrintSemicolon
   \SetKwData{S}{s}
   \SetKwData{Score}{score}
