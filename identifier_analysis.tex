@@ -415,7 +415,18 @@ La raíz cuadrada del scoring aplicada en distintos puntos del algoritmo tiene l
   
 \end{algorithm}
 
+Tanto \textit{mixedCaseSplit} como \textit{sameCaseSplit} se apoyan en la función de \textbf{scoring}.
+Esta función determina una puntuación basada en qué tan frecuentemente aparece \textit{s} en el código fuente bajo análisis, y en un conjunto mayor de programas; y viene dada por:
+\begin{center}
+$Freq(s,p) + (globalFreq(s) / log_{10} (AllStrsFreq(p))$ 
+\end{center}
 
+Donde:
+\begin{itemize}  \item $p \rightarrow$ programa bajo análisis.
+  \item $Freq(s,p) \rightarrow$ frecuencia de \textit{s} en \textit{p}.
+  \item $globalFreq(s) \rightarrow$ frecuencia de \textit{s} en un conjunto mayor de programas.
+  \item $AllStrsFreq(p) \rightarrow$ frecuencia total de todos las cadenas de texto en \textit{p}.
+\end{itemize}
 
 \subsection{Algoritmo GenTest}
 
