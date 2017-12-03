@@ -436,9 +436,51 @@ Este algoritmo, definido por Lawrie, Binkley y Morrell, se encarga de dividir ef
 Recibe su nombre por la estrategia de \textit{generación} y \textit{prueba} que aplica.
 Para la generación, simplemente se arman todas las divisiones posibles.
 Si bien esto podría generar un número exponencial de opciones a explorar, la mayoría de las hard words son palabras cortas y por lo tanto el esfuerzo computacional requerido no es excesivo.
-La prueba es más compleja pero sin embargo más eficiente, ya que sólo consiste en aplicar una función de \textit{scoring} sobre cada división propuesta.
+La prueba es más compleja pero sin embargo más eficiente, ya que sólo consiste en aplicar una función de \textit{scoring} sobre cada división propuesta, y aquella que presente el mayor puntaje es la elegida.
 
+El corazón de este algoritmo es una métrica de \textit{similaridad}, computada con base en los datos de ocurrencia.
+Estos datos se utilizan porque se han probado útiles para resolver ambig:uedades en traducciones, y se apoyan en la hipótesis de que soft-words expandidas deberían encontrarse ubicadas cerca tanto en la documentación como en textos generales.
 
+La función de scoring se compone de tres categorías de métricas.
+\paragraph{Características de las softwords.}
+Corresponde a las carasterísticas propias de cada cadena de texto generada en la división.
+Dentro de estas métricas encontramos:
+\begin{itemize}
+  \item Número de palabras.
+  \item Tamaño promedio de la palabra.
+  \item Palabra más larga.
+  \item Palabras con vocales.
+  \item Número de palabras con un solo caracter.
+\end{itemize}
+
+\paragraph{Información externa.}
+Incluye diccionarios y otra información que es provista tanto por humanos como fuentes que no son código.
+Se utilizan dos diccionarios, en donde uno, el \textit{pequeño} es un subconjunto del diccionario \textit{grande}.
+Además, dos métricas hacen uso de la información de co-ocurrencia desarrollada por Google, en donde se consulta un conjunto de datos que indica el número de veces que una serie de cinco palabras se observa en las páginas indexadas por el motor de búsqueda hasta 2006.
+Las métricas que caben dentro de esta categoría son:
+\begin{itemize}
+  \item Cantidad de matches en el diccionario pequeño.
+  \item Cantidad de matches en el diccionario grande.
+  \item Cantidad de matches en el diccionario grande con longitud 3.
+  \item Cantidad de palabras de programación.
+  \item Cantidad de expansiones del diccionario.
+  \item Co-ocurrencia.
+  \item Co-ocurrencia con longitud 3.
+\end{itemize}
+
+\paragraph{Información interna.}
+Ésta se deriva del código fuente, así sea tanto del programa bajo análisis como de otros conjuntos de programas.
+Además, se implementan también las tablas de frecuencia que son utilizadas en el Algoritmo Samurai, con la diferencia que dichas frecuencias se encuentran normalizadas.
+En esta categoría las métricas son:
+\begin{itemize}
+  \item Presente en el código (ya que los caracteres forman un acrónimo para una frase encontrada en el código).
+  \item Union-program probability (VER)
+  \item Union-global probability (VER)
+  \item Intersection-program probability (VER)
+\end{itemize}
+
+Como la variable de respuesta es binaria, es decir, si una división es correcta o incorrecta, se utilizó regresión logística para modelar la asociación entre la variable de respuesta y las variables explicativas (VER).
+El modelo resultante es una combinación ponderada de las métricas estadísticamente significativas, y es la función de scoring que se aplica para evaluar divisiones potenciales.
 
 \section{Expansión}
 \subsection{Algoritmo de Expansión Básico}
