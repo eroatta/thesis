@@ -482,6 +482,10 @@ En esta categoría las métricas son:
 Como la variable de respuesta es binaria, es decir, si una división es correcta o incorrecta, se utilizó regresión logística para modelar la asociación entre la variable de respuesta y las variables explicativas (VER).
 El modelo resultante es una combinación ponderada de las métricas estadísticamente significativas, y es la función de scoring que se aplica para evaluar divisiones potenciales.
 
+El algoritmo emplea una función \textit{Splits(id)}, la cual determina el conjunto de todas las posibles divisiones de un identificador \textit{id}.
+Una división $s \in Splits(id)$ está compuesta por una serie de soft-words $s_1 s_2 ... s_n$.
+Para cada soft-word $s_i$, la función $E(s_i)$ establece el conjunto de distintas expansiones $e_{i,1}, e_{i,2}, ..., e_{i,m}$ para $s_i$.
+
 \section{Expansión}
 \subsection{Algoritmo de Expansión Básico}
 \subsection{Algoritmo AMAP}
