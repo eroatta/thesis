@@ -432,6 +432,13 @@ En comparación con los otros algoritmos, Samurai performa de manera similar a c
 En same-case, tiene la ventaja de que comete menos errores que Greedy y reduce drásticamente el \textit{oversplitting}, aunque a veces divide el token en menos partes que las esperadas.
 
 \subsection{Algoritmo GenTest}
+Este algoritmo, definido por Lawrie, Binkley y Morrell, se encarga de dividir eficientemente un indicador como parte de un proceso mayor dedicado a la normalización del vocabulario en el código fuente \cite{LawrieBinkleyMorrell2010}.
+Recibe su nombre por la estrategia de \textit{generación} y \textit{prueba} que aplica.
+Para la generación, simplemente se arman todas las divisiones posibles.
+Si bien esto podría generar un número exponencial de opciones a explorar, la mayoría de las hard words son palabras cortas y por lo tanto el esfuerzo computacional requerido no es excesivo.
+La prueba es más compleja pero sin embargo más eficiente, ya que sólo consiste en aplicar una función de \textit{scoring} sobre cada división propuesta.
+
+
 
 \section{Expansión}
 \subsection{Algoritmo de Expansión Básico}
