@@ -432,7 +432,7 @@ En comparación con los otros algoritmos, Samurai performa de manera similar a c
 En same-case, tiene la ventaja de que comete menos errores que Greedy y reduce drásticamente el \textit{oversplitting}, aunque a veces divide el token en menos partes que las esperadas.
 
 \subsection{Algoritmo GenTest}
-Este algoritmo, definido por Lawrie, Binkley y Morrell, se encarga de dividir eficientemente un indicador como parte de un proceso mayor dedicado a la normalización del vocabulario en el código fuente \cite{LawrieBinkleyMorrell2010}.
+Este algoritmo, definido por Lawrie, Binkley y Morrell, se encarga de dividir eficientemente un indicador como parte de un proceso mayor dedicado a la normalización del vocabulario en el código fuente \cite{LawrieBinkleyMorrell2010} INSERTAR LA OTRA REF.
 Recibe su nombre por la estrategia de \textit{generación} y \textit{prueba} que aplica.
 Para la generación, simplemente se arman todas las divisiones posibles.
 Si bien esto podría generar un número exponencial de opciones a explorar, la mayoría de las hard words son palabras cortas y por lo tanto el esfuerzo computacional requerido no es excesivo.
@@ -509,6 +509,13 @@ En comparación con Greedy y Samurai, el algoritmo GenTest performa mucho mejor,
 En los casos en los que no logra obtener el resultado esperado, se observa que este algoritmo tiende a realizar menos divisiones que las esperadas (\textit{undersplit}).
 
 \section{Expansión}
+Una vez que el identificador se descompone, se prosigue a darle significado a cada una de las partes constituyentes.
+Pueden ocurrir dos situaciones.
+La primera es el caso fácil en donde la soft-word es una palabra de diccionario y tiene un significado bien establecido que condice con el uso que tiene dentro del código fuente.
+En la segunda, para aquellas palabras que no estén en el diccionario, se asume que son abreviaturas o acrónimos, y es aquí donde se aplican los \textbf{algoritmos de expansión}.
+
+El objetivo de un algoritmo de expansión es tomar una abreviatura o acrónimo como entrada, identificar a qué tipo pertenece, y luego por medio de diferentes técnicas obtener el significado asociado, siendo éste la salida del proceso.
+
 \subsection{Algoritmo de Expansión Básico}
 \subsection{Algoritmo AMAP}
 \subsection{Algoritmo Normalize}
