@@ -483,8 +483,30 @@ Como la variable de respuesta es binaria, es decir, si una división es correcta
 El modelo resultante es una combinación ponderada de las métricas estadísticamente significativas, y es la función de scoring que se aplica para evaluar divisiones potenciales.
 
 El algoritmo emplea una función \textit{Splits(id)}, la cual determina el conjunto de todas las posibles divisiones de un identificador \textit{id}.
-Una división $s \in Splits(id)$ está compuesta por una serie de soft-words $s_1 s_2 ... s_n$.
-Para cada soft-word $s_i$, la función $E(s_i)$ establece el conjunto de distintas expansiones $e_{i,1}, e_{i,2}, ..., e_{i,m}$ para $s_i$.
+Una división $s \in Splits(id)$ está compuesta por una serie de soft-words $s_1 s_2 \dots s_n$.
+Para cada soft-word $s_i$, la función $E(s_i)$ establece el conjunto de las distintas expansiones posibles $e_{i,1}, e_{i,2}, \dots, e_{i,m}$ para $s_i$.
+En el algoritmo, la similitud entre dos expansiones, $sim(e_1, e_2)$ viene dada por la probabilidad de que $e_1$ y $e_2$ co-ocurran en una ventana de cinco palabras en el conjunto de datos de Google.
+
+Para una división $s = s_1 s_2 \dots s_n$, por cada expansión $e_{i,j} \in E(s_i)$, se define el puntaje de la similiridad entre $e_{i,j}$ y las otras soft-words de $s$, donde $s_k (k \neq i)$ como la suma de las similaridades entre $e_{i,j}$ y los elementos de $E(s_k)$:
+
+\begin{center}
+  $\underset{(k \neq i)}{sim(e_{i,j}, s_k)} = \displaystyle\sum_{e \in E(s_k)} sim(e_{i,j}, e)$
+\end{center}
+
+La \textit{cohesión} para $e_{i,j}$ relativa a $s$ se define como:
+
+\begin{center}
+  $cohesion(e_{i,j}, s) = log \displaystyle [\sum_{s_k \in s \neq s_i} sim(e_{i,j}, s_k)]$
+\end{center}
+
+Por cada $s_i \in s$, $score(s_i)$ es la cohesión de la expansión $e_{i,j} \in E(s_i)$ que tiene el valor máximo de \textit{cohesion}:
+
+\begin{center}
+  $score(s_i) = max_{e_{i,j} \in E(s_i)} [cohesion(e_{i,j}, s)]$
+\end{center}
+
+En comparación con Greedy y Samurai, el algoritmo GenTest performa mucho mejor, con un nivel de precisón mayor.
+En los casos en los que no logra obtener el resultado esperado, se observa que este algoritmo tiende a realizar menos divisiones que las esperadas (\textit{undersplit}).
 
 \section{Expansión}
 \subsection{Algoritmo de Expansión Básico}
