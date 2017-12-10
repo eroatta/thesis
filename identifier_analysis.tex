@@ -607,4 +607,23 @@ En caso de haber múltiples coincidencias, no se puede determinar cuál es la co
 Este algoritmo, suele acoplarse a la división de identificadores realizada por Greedy, y tiene la ventaja de que trabaja independientemente en el contexto del código fuente para una función particular, sin depender de otras partes del sistema. Sin embargo, esto hace que la visión sea acotada.
 
 \subsection{Algoritmo AMAP}
+AMAP, cuyas siglas representan \textit{Automatically Mining Abbreviations expansions in Programs}, es un algortimo que permite buscar expansiones potenciales y además seleccionar la que mejor se ajuste, en caso de que haya más de un resultado posible.
+Se basa en la hipótesis de que el minado automático de las abreviaturas desde el programa mismo puede identificar las expansiones más apropiadas dentro del contexto de cada ocurrencia en particular.
+Por lo tanto, no necesita disponer de un diccionario de palabras en lenguaje natural.
+
+El algoritmo trabaja sobre varios tipos diferentes de palabras que no se encuentran en el diccionario.
+Dentro de estos tipos tenemos las abreviaturas de una sola palabra (\textit{single word}), las abreviaturas de múltiples palabras {\textit{multi-word abbreviations}) y otros tipos de formas cortas.
+
+Las abreviaturas de una sola palabra son aquellas formas cortas en las que sus expansiones, o formas largas, se componen de una sola palabra.
+Dentro de esta categoría tenemos los \textbf{prefijos}, que se forman al descartar la última parte de una forma larga, reteniendo solamente unas pocas letras del principio. Un subconjunto de éstos son aquellos prefijos conformados por una sola letra.
+También caen en esta categoría las \textbf{dropped letters}, las cuales son abreviaturas en las que se remueven una o más letras dentro de la forma larga, excepto la primera.
+
+Las abreviaturas de múltiples palabras son aquellas en las que, como su nombre lo indica, cuando se expande la forma corta, el resultado es una forma larga compuesta por un grupo de palabras.
+Pueden ser de dos tipos.
+Por un lado estás los \textbf{acrónimos}, que se conforman con la primera letra de cada palabra de la expansión, y son la forma más común.
+Por otro, la \textbf{combinación multi-palabra}, que incluye más de una letra por cada una de las palabras, y pueden ser abreviaturas de una sola palabra, acrónimos o palabras del diccionario.
+
+Por último, los \textit{otros tipos de formas cortas} son aquellos en los que no están claros los límites de las múltiples palabras que las componen.
+Aquí se incluyen tanto las palabras que a menudo aparecen adjacentemente una a la otra y representan un forma convencional de decir cosas, denominadas \textbf{collocations}; así como la \textbf{notación matemática y otros}.
+
 \subsection{Algoritmo Normalize}
