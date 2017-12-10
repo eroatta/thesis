@@ -554,6 +554,53 @@ En caso de haber múltiples coincidencias, no se puede determinar cuál es la co
 \begin{algorithm}[H]
 \caption{Expansión LBF}
 \label{algLBF}
+\DontPrintSemicolon
+  \SetKwData{Abbrev}{abbrev}
+  \SetKwData{WordList}{wordList}
+  \SetKwData{PhraseList}{phraseList}
+  \SetKwData{StopList}{stopList}
+  \SetKwData{Dict}{dictionary}
+  \SetKwData{Candidates}{candidates}
+  \SetKwData{Expansions}{expansions}
+  \SetKwData{Expansion}{expansion}
+  
+  \KwIn{\Abbrev, la abreviatura o acrónimo a expandir}
+  \KwOut{\Expansion, la expansión resultante}
+  
+  \BlankLine
+  var \WordList\;
+  var \PhraseList\;
+  var \StopList\;
+  var \Dict\;
+  
+  \BlankLine
+  \If{$\Abbrev \in \StopList$}{
+    \KwRet \Abbrev\;
+  }
+  
+  \BlankLine
+  \If{$\Abbrev \in \PhraseList$}{
+    \KwRet $\PhraseList.get(\Abbrev)$ \;
+  }
+  
+  \BlankLine
+  \If{$\Abbrev \in \WordList$}{
+    \KwRet $\WordList.get(\Abbrev)$ \;
+  }
+  
+  \BlankLine 
+  $\Expansions \gets []$\;
+  $\Candidates \gets \Dict.find(\Abbrev)$\;
+  $\Expansions.add(\Candidates)$\;
+  
+  \BlankLine
+  $\Expansion \gets null$\;
+  \If{$\Expansions.size == 1$}{
+    $\Expansion \gets \Expansions[0]$\;
+  }
+  
+  \BlankLine
+  \KwRet \Expansion\;
 
 \end{algorithm}
 
