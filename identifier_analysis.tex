@@ -530,16 +530,34 @@ Durante la conformación de la lista de palabras del lenguaje natural extraídas
 La primera consiste en los comentarios que aparecen antes o dentro de la función.
 La segunda implica las hard-words de diccionario encontradas en los identificadores presentes en la función.
 
-VER (b).
+La lista de frases (b) se obtiene al pasar los comentarios y los identificadores multi-palabras a través de un buscador de frases \cite{Feng01}.
+Aquí, la primera letra de cada palabra en la frase se utiliza para construir un acrónimo que luego se utiliza para las comparaciones.
 
 En el proceso de extracción se utilizan dos técnicas de IR (\textit{Information Retrieval}), para mejorar la calidad del mismo.
-\textit{Stemming} es la primera técnica, y consiste en eliminar los sufijos de las palabras; por lo tanto, ignorando la forma particular de esa palabra remitiéndose a la raíz.
-Por ejemplo: $stem(walk, walking, walk) \sets walk$.
-Se utiliza para determinar con mayor acierto si las hard-words son palabras de diccionario.
+\textit{Stemming} es la primera, y consiste en eliminar los sufijos de las palabras; por lo tanto, ignorando la forma particular de esa palabra remitiéndose a la raíz.
+Por ejemplo: $stem(walk, walking, walk) \rightarrow walk$.
+Se utiliza para determinar si las hard-words son palabras de diccionario, ya que el tipo particular de \textit{stemming} (Krovetz) recorta las palabras a las disponibles en diccionario.
 La segunda técnica, \textit{stopping}, filtra soft-words que no son relevantes a través de una lista de corte.
 Cuando se tiene en cuenta el código fuente, se usa una lista especial que tiene entradas específicas del lenguaje de programación.
 
+Una vez que la lista de palabras y frases potenciales fue extraída, el proceso comienza. 
+Este proceso básico de expansión, como puede verse en el algoritmo \ref{algLBF}, consta de dos pasos.
+En el primero, se busca una expansión entre la lista de palabras y frases extraídas del código fuente.
+Si no hay coincidencias, se continúa con el segundo paso, en donde la búsqueda se realiza sobre el diccionario.
+Las palabras extraídas del código fuente, así como las que forman parte de la lista de corte, siempre tienen mayor prioridad que las del lenguaje natural.
 
+Una abreviatura o acrónimo coincide con alguna palabra de las listas siempre y cuando comience con la misma letra, y el resto de sus letras individuales aparezcan, en orden, dentro de la palabra candidata.
+Si hay una coincidencia en cualquier instancia de la búsqueda, se retorna como la expansión de la abrevitura/acrónimo.
+El algoritmo sólo retorna un valor cuando existe una única coincidencia.
+En caso de haber múltiples coincidencias, no se puede determinar cuál es la correcta, por lo que no se retorna ninguna.
+
+\begin{algorithm}[H]
+\caption{Expansión LBF}
+\label{algLBF}
+
+\end{algorithm}
+
+Este algoritmo, suele acoplarse a la división de identificadores realizada por Greedy, y tiene la ventaja de que trabaja independientemente en el contexto del código fuente para una función particular, sin depender de otras partes del sistema. Sin embargo, esto hace que la visión sea acotada.
 
 \subsection{Algoritmo AMAP}
 \subsection{Algoritmo Normalize}
