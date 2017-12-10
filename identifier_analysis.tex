@@ -626,4 +626,11 @@ Por otro, la \textbf{combinación multi-palabra}, que incluye más de una letra 
 Por último, los \textit{otros tipos de formas cortas} son aquellos en los que no están claros los límites de las múltiples palabras que las componen.
 Aquí se incluyen tanto las palabras que a menudo aparecen adjacentemente una a la otra y representan un forma convencional de decir cosas, denominadas \textbf{collocations}; así como la \textbf{notación matemática y otros}.
 
+La técnica de minado automático está inspirada en la representación del alcance de las variables en la tabla de símbolos para un compilador.
+Para la búsqueda de formas largas potenciales, se comienza con el alcance más cercano a la abreviatura, como los nombres de tipos y sentencias, y gradualmente se extiende el alcance para incluir el método, sus comentarios y los comentarios de la clase.
+Si la técnica continúa sin dar resultados, se expande la búsqueda al programa completo y al código de Java SE 1.5.
+Con cada extensión del alcance se incluye información más general, y por lo tanto menos específica la búsqueda.
+
+
+
 \subsection{Algoritmo Normalize}
