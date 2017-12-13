@@ -661,4 +661,22 @@ La expresión se construye de manera que sólo las letras que aparezcan en la fo
 Se utiliza una expresión más conservadora para favorecer las expansiones más cortas, con menos espacios.
 Como la expresión ya es más general, pueden coincidir con expansiones incorrectas, por lo que la búsqueda se aplica solamente para formas cortas con una longitud de cuatro o más caracteres.
 
+De acuerdo a los creadores del algoritmo, el mejor orden para aplicar los patrones viene dado por (1) acrónimos, (2) prefijo, (3) dropped letters y (4) combinación de palabras.
+
+A medida que se expande el espectro de búsqueda, como métodos o comentarios, es posible que un tipo de patrón coincida con varias expansiones potenciales.
+Para resolver estos casos de \textbf{múltiples coincidencias}, se sigue un determinado número de pasos, hasta encontrar la expansión que mejor aplique a la situación.
+Estos pasos son:
+\begin{enumerate}
+  \item Utilizar la expansión que coincida más frecuentemente con la forma corta, dentro del alcance.
+  Por ejemplo, si "value" coincidió el patrón prefijo para "val" tres veces y "valid" sólo una, entonces se elige "value".
+  \item Agrupar las palabras con la misma raíz y actualizar las frecuencias en base a esto.
+  Por ejemplo, si para el patrón prefijo sobre 'def' coinciden las palabras 'default' (2 veces), 'defaults' (2 veces), y 'define' (2 veces), se agrupan 'default' y 'defaults' en la forma más corta, siendo 'default' (4 veces), y por lo tanto se retorna esta, ya que tiene la mayor frecuencia.
+  \item Si todavía no hay un ganador claro, continuar buscando por el patrón en alcances mayores.
+  Se deben almacenar las frecuencias de las expansiones encontradas, así las más frecuentes son las más favorecias a medida que extendemos el alcance.
+  \item Si todo lo anterior falla, abandonar la búsqueda y dejar que EMF elija la expansión.
+\end{enumerate}
+
+\subsubsection{Expansión Más Frecuente (EMF)}
+
+
 \subsection{Algoritmo Normalize}
