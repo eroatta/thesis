@@ -642,4 +642,14 @@ Es mucho menos conservativo que el patrón usado para los prefijos.
 Se construye insertando la expresión \verb;"[a-z]*"; después de cada letra de la forma corta.
 Si la forma corta viene dada por $fc = c_0, c_1,\dots, c_n$, donde \textit{n} es la longitud, entonces el patrón resultante es $c_0$\verb;[a-z]*;$c_1$\verb;[a-z]*;$\dots$\verb;[a-z]*;$c_n$.HORRIBLE
 
+Para las formas cortas de \textbf{múltiples palabras}, y debido a que los patrones deben buscar sobre espacios, es importante limitar qué tan lejos se puede extender la expresión.
+Para ello, el texto que compone el cuerpo de un método y sus comentarios son preprocesados... VER
+Los comentarios y las cadenas de texto son divididos en frases, a partir de los signos de puntuación (? ! , ; .).
+Las palabras de corte, las cuales son comunes, se remueven.
+
+\paragraph{Patrón acrónimo:}
+Se conforma insertando la expresión \verb;"[a-z]+[ ]+"; después de cada letra en la forma corta.
+Si ésta viene dada por $fc = c_0, c_1,\dots, c_n$, donde \textit{n} es la longitud, entonces el patrón que se genera es $c_0$\verb;[a-z]+[ ]+;$c_1$\verb;[a-z]+[ ]+;$\dots$\verb;[a-z]+[ ]+;$c_n$.HORRIBLE
+
+
 \subsection{Algoritmo Normalize}
