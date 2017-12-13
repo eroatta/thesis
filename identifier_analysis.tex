@@ -654,4 +654,11 @@ Al igual que con los prefijos, la letra \verb;x; es un caso especial.
 Cuando se compone un patrón acrónimo, cualquier ocurrencia de \verb;x; en la forma corta se reemplaza por la expresión \verb;"e?x";.
 Esto le permite a la técnica encontrar expansiones para acrónimos como \textit{xml (eXtensible Markup Language)}.
 
+\paragraph{Patrón combinación de palabras:}
+Este patrón se obtiene añadiendo la expresión \verb;"[a-z]*?[ ]*?"; a cada una de las letras que pertenecen a la forma corta.
+Sea $fc = c_0, c_1, \dots, c_n$, donde \textit{n} es la longitud, entonces el patrón resultante es $c_0$\verb;[a-z]*?[ ]*?;$c_1$\verb;[a-z]*?[ ]*?;$\dots$\verb;[a-z]*?[ ]*?;$c_n$.HORRIBLE
+La expresión se construye de manera que sólo las letras que aparezcan en la forma corta puedan ser el inicio de una palabra.
+Se utiliza una expresión más conservadora para favorecer las expansiones más cortas, con menos espacios.
+Como la expresión ya es más general, pueden coincidir con expansiones incorrectas, por lo que la búsqueda se aplica solamente para formas cortas con una longitud de cuatro o más caracteres.
+
 \subsection{Algoritmo Normalize}
