@@ -631,6 +631,15 @@ Para la búsqueda de formas largas potenciales, se comienza con el alcance más 
 Si la técnica continúa sin dar resultados, se expande la búsqueda al programa completo y al código de Java SE 1.5.
 Con cada extensión del alcance se incluye información más general, y por lo tanto menos específica la búsqueda.
 
+En el caso de las \textbf{palabras únicas}, el primer paso en la búsqueda de las formas largas consiste en construir una expresión regular, a partir de la forma corta, y luego utilizar ese patrón para analizar las diferentes partes del cuerpo del método, en pos de encontrar palabras candidatas.
 
+\paragraph{Patrón prefijo:}
+Se genera al agregarle la expresión regular \verb;"[a-z]+"; a la forma corta \textit{fc}, quedando \verb;"fc[a-z]+";.
+La \verb;x; es un caso especial, ya que suele referirse a palabras que comienzan con \textit{ex}, por lo que al inicio se añade el fragmento \verb;"e?";.
+
+\paragraph{Patrón dropped letters:}
+Es mucho menos conservativo que el patrón usado para los prefijos.
+Se construye insertando la expresión \verb;"[a-z]*"; después de cada letra de la forma corta.
+Si la forma corta viene dada por $fc = c_0, c_1,\dots, c_n$, donde \textit{n} es la longitud, entonces el patrón resultante es $c_0$\verb;[a-z]*;$c_1$\verb;[a-z]*;$\dots$\verb;[a-z]*;$c_n$.HORRIBLE
 
 \subsection{Algoritmo Normalize}
