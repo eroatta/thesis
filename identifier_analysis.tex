@@ -677,6 +677,11 @@ Estos pasos son:
 \end{enumerate}
 
 \subsubsection{Expansión Más Frecuente (EMF)}
+El razonamiento detrás de EMF es que si bien no todas las expansiones son correctas, al considerar el programa completo, aquella que ocurra más frecuentemente puede asumirse como la correcta.
+Para ello, MFE se calcula ejecutando el enfoque de expansión local de las abreviaturas sobre el programa entero, en un primer nivel, y sobre las implementaciones de Java para un nivel más general.
+Luego, por cada forma corta, se cuenta cuántas veces coincidió con una expansión particular, y se establece la frecuencia relativa, agrupando las expansiones por su raíz.
 
+Sin embargo, ocasionalmente una expansión incorrecta puede considerarse como la más adecuada.
+Para evitar esto, sólo se toman las expansiones que coincidieron para más de la mitad (0.5) de las formas cortas, y con al menos 3 coincidencias dentro del programa entero.
 
 \subsection{Algoritmo Normalize}
