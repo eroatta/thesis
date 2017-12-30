@@ -684,4 +684,32 @@ Luego, por cada forma corta, se cuenta cuántas veces coincidió con una expansi
 Sin embargo, ocasionalmente una expansión incorrecta puede considerarse como la más adecuada.
 Para evitar esto, sólo se toman las expansiones que coincidieron para más de la mitad (0.5) de las formas cortas, y con al menos 3 coincidencias dentro del programa entero.
 
+\begin{algorithm}[H]
+\caption{Búsqueda de formas largas para abreviaturas de una sola palabra.}
+\label{algSingleWords}
+\DontPrintSemicolon
+  \SetKwData{SF}{sf}
+  \SetKwData{Pattern}{pattern}
+  \SetKwData{Null}{null}
+  
+  \KwIn{\SF, forma corta potencial}
+  \KwIn{\Pattern, expresión regular}
+  \KwIn{comentarios y texto del método}
+  \KwIn{comentarios de clase}
+  \KwOut{expansiones candidatas, o \Null si no hay}
+  
+  \BlankLine
+  \If{((prefix \Pattern) or (\SF matches))}{
+    \tcp{cuando un resultado único es encontrado, se devuelve}
+    Buscar en los comentarios de JavaDoc por "@param \SF \Pattern"\;
+    Buscar nombres de tipos y los correspondientes nombres de variables declarados para "\Pattern \SF"\;
+    Buscar nombres de métodos para "\Pattern"\;
+    Buscar sentencias para "\Pattern \SF" y "\SF \Pattern"\;
+    \BlankLine
+    \If{$length(\SF) \neq 2$}{
+      Buscar palabras en el método para "\Pattern"\;
+      Buscar \Pattern en los comentarios del método\;
+    }
+  }
+\end{algorithm}
 \subsection{Algoritmo Normalize}
