@@ -710,6 +710,10 @@ Para evitar esto, sólo se toman las expansiones que coincidieron para más de l
       Buscar palabras en el método para "\Pattern"\;
       Buscar \Pattern en los comentarios del método\;
     }
+    \BlankLine
+    \If{$length(\SF) > 1 \and preffix \Pattern$}{
+      Buscar \Pattern en los comentarios de clase\;
+    }
   }
 \end{algorithm}
 \subsection{Algoritmo Normalize}
