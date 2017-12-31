@@ -705,15 +705,50 @@ Para evitar esto, sólo se toman las expansiones que coincidieron para más de l
     Buscar nombres de tipos y los correspondientes nombres de variables declarados para "\Pattern \SF"\;
     Buscar nombres de métodos para "\Pattern"\;
     Buscar sentencias para "\Pattern \SF" y "\SF \Pattern"\;
+    
     \BlankLine
     \If{$length(\SF) \neq 2$}{
       Buscar palabras en el método para "\Pattern"\;
       Buscar \Pattern en los comentarios del método\;
     }
+    
     \BlankLine
     \If{$length(\SF) > 1 \and preffix \Pattern$}{
       Buscar \Pattern en los comentarios de clase\;
     }
   }
 \end{algorithm}
+
+\begin{algorithm}
+\caption{Búsqueda de formas largas para abreviaturas de múltiples palabras.}
+\label{algMultiWords}
+\DontPrintSemicolon
+  \SetKwData{SF}{sf}
+  \SetKwData{Pattern}{pattern}
+  \SetKwData{Null}{null}
+  
+  \KwIn{\SF, forma corta potencial}
+  \KwIn{\Pattern, expresión regular}
+  \KwIn{comentarios y texto del método}
+  \KwIn{comentarios de clase, sólo acrónimos}
+  \KwOut{expansiones candidatas, o \Null si no hay}
+
+  \BlankLine
+  \If{$\Pattern acrónimo || length(\SF) > 3$}{
+    \tcp{cuando un resultado único es encontrado, se devuelve}
+    Buscar por "@param \SF \Pattern" en los comentarios de la JavaDoc\;
+    Buscar por "\Pattern \SF" en los nombres de tipos y las declaraciones de variables\;
+    Buscar por \Pattern en el nombre del método\;
+    Buscar por \Pattern en todos los identificadores del método (incluyendo los nombres de tipos)\;
+    Buscar por \Pattern en todas las cadenas de texto\;
+    \tcp{en este punto ya se buscaron todas las frases posibles en el cuerpo del método}
+    Buscar por \Pattern en los comentarios del método\;
+    
+    \BlankLine
+    \If{\Pattern is acrónimo}{
+      Buscar por \Pattern en los comentarios de clase\;
+    }
+  }
+\end{algorithm}
+
 \subsection{Algoritmo Normalize}
