@@ -1,0 +1,80 @@
+\section{Identificadores}
+Formalmente, un identificador $t$ es una secuencia de caracteres $c_0 c_1 \dots c_n$, donde el caracter $c_i$ representa una letra, un dígito o un caracter especial.
+A su vez, un identificador se compone de distintas partes, también llamadas \textit{palabras}, las cuales son secuencias de caracteres con algún significado asociado.
+Las palabras son atómicas, por lo tanto, no pueden dividirse.
+En la literatura relacionada, existen dos tipos de palabras que componen un identificador: \textit{hard words} y \textit{soft words}.
+En las hard words, se denota el uso de marcadores (por ejemplo guiones bajos o CamelCase).
+Para muchos identificadores, la división en hard words es suficiente, y esto ocurre cuando son miembros de alguna lista (de corte, diccionario, etc).
+En caso de no pertenecer a alguna de ellas, se consideran soft words, y diferentes algoritmos tratan de dividir y encontrar las partes con significado que las componen.
+
+\subsection{Identificadores concisos y consistentes}
+Cada lenguaje de programación plantea sus propios estilos de codificación, así como también convenciones para los nombres de los identificadores. 
+Sin embargo, éstas suelen enfocarse solamente en la sintaxis, dejando de lado uno de los aspectos de mayor interés, el cual se corresponde a la semántica de los nombres empleados. 
+La importancia en la definición de nombres adecuados radica en la influencia que los mismos tienen durante la comprensión de programas, y como consecuencia, en la calidad y productividad a lo largo del ciclo de vida del software. 
+La ofuscación de código a través de la conversión de identificadores a secuencias aleatorias de caracteres es un claro ejemplo del impacto que tienen los nombres en el proceso de comprensión.
+
+Deissenbock y Pizka definen, a través de un \textbf{modelo formal}, una estrategia para la creación de nombres bien formados. 
+En ésta se incluyen dos reglas, las cuales permiten un nombramiento conciso y consistente de variables, funciones y clases \cite{DeiBenbockPizka05}. 
+La premisa sobre la que basan estas reglas viene dada por la correlación entre los identificadores y el conjunto de conceptos que son utilizados en un programa.
+
+\subsubsection{Conceptos nombrados}
+Primero, se establece a \textit{C} como el conjunto de todos los conceptos relevantes dentro de un determinado alcance (un componente de un programa, el dominio de la aplicación o una organización). 
+A su vez, se define un concepto como una unidad con un significado asociado en términos de comportamiento o propiedades. 
+Se modelan también todos los nombres posibles y se denotan por \textit{N}, junto con la asignación de nombres a conceptos como una relación formal $R \subseteq N \times C$.
+
+\subsubsection{Regla 1: Consistencia}
+Del lenguaje natural heredamos dos tipos de incosistencias: homónimos y sinónimos.
+
+Un \textbf{homónimo} es aquella palabra que se escribe o pronuncia igual que otra, pero tiene diferente significado, y su definición formal viene dada por: un nombre $n \in N$ es llamado homónimo sí y solo sí $|C_n| > 1$ donde $C_n = \{ c \in C : (n,c) \in R\}$.
+
+A su vez, un \textbf{sinónimo} es aquella palabra que, si bien se escribe de forma diferente, refiere al mismo concepto que otra. 
+La definición formal se establece como: dos nombres $s,n \in N$ son sinónimos sí y sólo sí $C_s \cap C_n \neq 0$.
+
+Ante la ausencia de homónimos, el daño de los sinónimos es limitado ya que siempre apuntan a un único concepto. 
+Sin embargo, incrementan innecesariamente el dominio \textit{N} y la relación \textit{R}, y por consiguiente aumentan el esfuerzo para comprender el lenguaje utilizado. 
+La presencia de homónimos y sinónimos tiene un impacto negativo importante ya que para cada identificador \textit{n}, el desarrollador tiene que considerar todos los conceptos en
+\begin{center}
+  $M_n = \bigcup_{e \in n} C_e$
+\end{center}
+donde $S_n$ es el conjunto de todos los nombres sinónimos a \textit{n} (incluyendo a \textit{n} mismo).
+
+Dadas estas condiciones, podemos decir que un sistema de nombres \textit{C}, \textit{N} y \textit{R} es \textit{consistente} sí y sólo sí $R \subseteq N \times C$ es una relación bijectiva. 
+Por lo tanto, se define como:
+\begin{center}
+  $n : C \rightarrow N$
+  
+  $n(c) = \mbox{nombre único del concepto} \ c$.  
+\end{center}
+
+\subsubsection{Regla 2: Conciso}
+Para definir \textit{conciseness} debemos introducir el orden parcial $\sqsubset$ para el conjunto de conceptos \textit{C}, de acuerdo a su nivel de abstracción.
+
+Dado el conjunto \textit{P}, el cual contiene elementos del programa que son identificados como unidades a través de un nombre simbólico, y dada \textit{i}, que representa el mapeo de los elementos del programa con sus identificadores.
+\\$i : P \rightarrow N$
+\\$i(p) = \mbox{identificador de} \ p$.
+
+Además, dado $\lbrack c \rbrack$, el cual denota la semántica en el sentido del significado de un concepto $c \in C$. De la misma manera, $\lbrack p \rbrack$ denota la semántica de un elemento del programa \textit{p}.
+
+Establecidas estas condiciones, definimos el problema de \textit{conciseness} en dos pasos. Primero se requiere la \textit{correcta} identificación, y luego la validación de \textit{conciseness}.
+
+\paragraph{Definición: correctitud}
+Sea $p \in P$ un elemento del programa y $c \in C$ el concepto que implementa, tal que $\lbrack p \rbrack = \lbrack c \rbrack$. El identificador \textit{i(p)} es \textit{correcto} sí y solo sí ocurre lo siguiente:
+\\$i(p) \in \lbrace n(c') : c' \in C \land c' \sqsupseteq c \rbrace$
+\\Esto significa que el identificador de un elemento del programa \textit{p} que manifiesta el concepto \textit{c} debe corresponderse al nombre de \textit{c} o a una generalización del mismo. Sin embargo, a veces ocurre que de alguna manera, los nombres de los identificadores son correctos pero no lo suficientemente consisos. Para contrarestar esta situación, se agrega el siguiente requerimiento:
+
+\paragraph{Definición: conciso}
+Sea $p \in P$ un elemento del programa y $c \in C$ el concepto que implementa, tal que $\lbrack p \rbrack = \lbrack c \rbrack$. El identificador \textit{i(p)} para el elemento \textit{p} del programa es \textit{conciso} sí y sólo sí lo siguiente es verdad:
+\\$i(p) = n(c)$
+\\Esta definición requiere que un identificador tenga exactamente el mismo nombre del concepto que representa.
+
+INSERTAR IMAGENES
+
+\subsubsection{Consistencia y Conciseness sintácticas}
+El modelo formal descrito por DeiBenbock y Pizka requiere que exista un mapeo entre los elementos del dominio de conceptos y los identificadores. Sin esta definición, se hace imposible la relación entre los dos conjuntos. Ahora bien, para nuevos programas, la construcción de este mapeo puede hacerse al mismo tiempo que el desarrollo con un mínimo costo extra. Sin embargo, para aquellos proyectos existentes, el costo puede ser demasiado. Para contrarestar esta limitación, se plantea el uso de las \textit{consistencia y conciseness sintáticas}, en donde sólo se considera la construcción sintática de los identificadores \cite{LawrieFeildBinkley06}.
+
+El enfoque se basa en la contención de identificadores. Se dice que un identificador está contenido dentro de otro si todas sus \textit{soft words} están presentes, en el mismo orden, en el identificador contenedor. Cuando un identificador está contenido dentro de otro, una de dos posibles violaciones han ocurrido. Por un lado, puede que haya un solo concepto asociado a dos identificadores, lo que implica una violación al requerimiento respecto a los sinónimos en la consistencia; por otro, que los dos identificadores refieran a diferentes conceptos. En este caso, no se cumpliría la regla de nombres concisos.
+
+INSERTAR IMAGENES
+
+\paragraph{Definición: Conciseness y Consistencia de sinónimos sintática}
+Sea el identificador $id_1$ una secuencia de soft words $sw_1 sw_2 ... sw_n1$. Los identificadores $id_1$ e $id_2$ no cumplen el \textit{requerimiento sobre sinónimos en la consistencia sintáctia} si $id_2$ incluye la secuencia de soft words $w_1 w_2 ... sw_1 sw_2 ... sw_n1 ... w_n2$. Además, $id_1$ falla el \textit{requerimiento sobre la concisenss sintáctica} si existe un tercer identificador $id_3$ que incluya la secuencia de soft words $u_1 u_2 ... sw_1 sw_2 ... sw_n1 ... u_n3$.
