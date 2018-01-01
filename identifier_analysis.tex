@@ -1,7 +1,13 @@
 \chapter{Análisis de Identificadores}
 
 \section{Identificadores}
-Formalmente, un identificador t es una secuencia de caracteres c0, c1, …, cn, dondel el caracter ci representa una letra, un dígito o un caracter especial. Hard words, soft words. COMPLETAR
+Formalmente, un identificador $t$ es una secuencia de caracteres $c_0 c_1 \dots c_n$, donde el caracter $c_i$ representa una letra, un dígito o un caracter especial.
+A su vez, un identificador se compone de distintas partes, también llamadas \textit{palabras}, las cuales son secuencias de caracteres con algún significado asociado.
+Las palabras son atómicas, por lo tanto, no pueden dividirse.
+En la literatura relacionada, existen dos tipos de palabras que componen un identificador: \textit{hard words} y \textit{soft words}.
+En las hard words, se denota el uso de marcadores (por ejemplo guiones bajos o CamelCase).
+Para muchos identificadores, la división en hard words es suficiente, y esto ocurre cuando son miembros de alguna lista (de corte, diccionario, etc).
+En caso de no pertenecer a alguna de ellas, se consideran soft words, y diferentes algoritmos tratan de dividir y encontrar las partes con significado que las componen.
 
 Ver Rilling y Klemola - Identifying comprehension bottlenecks using program slicing and cognitive complexity metrics.
 
