@@ -47,34 +47,59 @@ Por lo tanto, se define como:
 \end{center}
 
 \subsubsection{Regla 2: Conciso}
-Para definir \textit{conciseness} debemos introducir el orden parcial $\sqsubset$ para el conjunto de conceptos \textit{C}, de acuerdo a su nivel de abstracción.
+Para definir \textit{concisión} en los identificadores, debemos introducir el orden parcial $\sqsubset$ para el conjunto de conceptos \textit{C}, de acuerdo a su nivel de abstracción.
 
 Dado el conjunto \textit{P}, el cual contiene elementos del programa que son identificados como unidades a través de un nombre simbólico, y dada \textit{i}, que representa el mapeo de los elementos del programa con sus identificadores.
-\\$i : P \rightarrow N$
-\\$i(p) = \mbox{identificador de} \ p$.
+\begin{center}
+  $i : P \rightarrow N$
+  
+  $i(p) = \mbox{identificador de} \ p$.
+\end{center}
 
-Además, dado $\lbrack c \rbrack$, el cual denota la semántica en el sentido del significado de un concepto $c \in C$. De la misma manera, $\lbrack p \rbrack$ denota la semántica de un elemento del programa \textit{p}.
+Además, dado $\lbrack c \rbrack$, el cual denota la semántica en el sentido del significado de un concepto $c \in C$.
+De la misma manera, $\lbrack p \rbrack$ denota la semántica de un elemento del programa \textit{p}.
 
-Establecidas estas condiciones, definimos el problema de \textit{conciseness} en dos pasos. Primero se requiere la \textit{correcta} identificación, y luego la validación de \textit{conciseness}.
+Establecidas estas condiciones, definimos el problema de \textit{concisión} en dos pasos.
+Primero se requiere la \textit{correcta} identificación, y luego la validación de \textit{concisión}.
 
 \paragraph{Definición: correctitud}
-Sea $p \in P$ un elemento del programa y $c \in C$ el concepto que implementa, tal que $\lbrack p \rbrack = \lbrack c \rbrack$. El identificador \textit{i(p)} es \textit{correcto} sí y solo sí ocurre lo siguiente:
-\\$i(p) \in \lbrace n(c') : c' \in C \land c' \sqsupseteq c \rbrace$
-\\Esto significa que el identificador de un elemento del programa \textit{p} que manifiesta el concepto \textit{c} debe corresponderse al nombre de \textit{c} o a una generalización del mismo. Sin embargo, a veces ocurre que de alguna manera, los nombres de los identificadores son correctos pero no lo suficientemente consisos. Para contrarestar esta situación, se agrega el siguiente requerimiento:
+Sea $p \in P$ un elemento del programa y $c \in C$ el concepto que implementa, tal que $\lbrack p \rbrack = \lbrack c \rbrack$.
+El identificador \textit{i(p)} es \textit{correcto} sí y solo sí ocurre lo siguiente:
+\begin{center}
+  $i(p) \in \lbrace n(c') : c' \in C \land c' \sqsupseteq c \rbrace$
+\end{center}
+
+Esto significa que el identificador de un elemento del programa \textit{p} que manifiesta el concepto \textit{c} debe corresponderse al nombre de \textit{c} o a una generalización del mismo.
+Sin embargo, a veces ocurre que de alguna manera, los nombres de los identificadores son correctos pero no lo suficientemente consisos.
+Para contrarestar esta situación, se agrega el siguiente requerimiento:
 
 \paragraph{Definición: conciso}
-Sea $p \in P$ un elemento del programa y $c \in C$ el concepto que implementa, tal que $\lbrack p \rbrack = \lbrack c \rbrack$. El identificador \textit{i(p)} para el elemento \textit{p} del programa es \textit{conciso} sí y sólo sí lo siguiente es verdad:
-\\$i(p) = n(c)$
-\\Esta definición requiere que un identificador tenga exactamente el mismo nombre del concepto que representa.
+Sea $p \in P$ un elemento del programa y $c \in C$ el concepto que implementa, tal que $\lbrack p \rbrack = \lbrack c \rbrack$.
+El identificador \textit{i(p)} para el elemento \textit{p} del programa es \textit{conciso} sí y sólo sí lo siguiente es verdad:
+\begin{center}
+  $i(p) = n(c)$
+\end{center}
+
+Esta definición requiere que un identificador tenga exactamente el mismo nombre del concepto que representa.
 
 INSERTAR IMAGENES
 
-\subsubsection{Consistencia y Conciseness sintácticas}
-El modelo formal descrito por DeiBenbock y Pizka requiere que exista un mapeo entre los elementos del dominio de conceptos y los identificadores. Sin esta definición, se hace imposible la relación entre los dos conjuntos. Ahora bien, para nuevos programas, la construcción de este mapeo puede hacerse al mismo tiempo que el desarrollo con un mínimo costo extra. Sin embargo, para aquellos proyectos existentes, el costo puede ser demasiado. Para contrarestar esta limitación, se plantea el uso de las \textit{consistencia y conciseness sintáticas}, en donde sólo se considera la construcción sintática de los identificadores \cite{LawrieFeildBinkley06}.
+\subsubsection{Consistencia y Concisión sintácticas}
+El modelo formal descrito por Deissenbock y Pizka requiere que exista un mapeo entre los elementos del dominio de conceptos y los identificadores.
+Sin esta definición, se hace imposible la relación entre los dos conjuntos.
+Ahora bien, para nuevos programas, la construcción de este mapeo puede hacerse al mismo tiempo que el desarrollo con un mínimo costo extra.
+Sin embargo, para aquellos proyectos existentes, el costo puede ser demasiado.
+Para contrarestar esta limitación, se plantea el uso de las \textit{consistencia y concisión sintáticas}, en donde sólo se considera la construcción sintática de los identificadores \cite{LawrieFeildBinkley06}.
 
-El enfoque se basa en la contención de identificadores. Se dice que un identificador está contenido dentro de otro si todas sus \textit{soft words} están presentes, en el mismo orden, en el identificador contenedor. Cuando un identificador está contenido dentro de otro, una de dos posibles violaciones han ocurrido. Por un lado, puede que haya un solo concepto asociado a dos identificadores, lo que implica una violación al requerimiento respecto a los sinónimos en la consistencia; por otro, que los dos identificadores refieran a diferentes conceptos. En este caso, no se cumpliría la regla de nombres concisos.
+El enfoque se basa en la contención de identificadores.
+Se dice que un identificador está contenido dentro de otro si todas sus \textit{soft words} están presentes, en el mismo orden, en el identificador contenedor.
+Cuando un identificador está contenido dentro de otro, una de dos posibles violaciones han ocurrido.
+Por un lado, puede que haya un solo concepto asociado a dos identificadores, lo que implica una violación al requerimiento respecto a los sinónimos en la consistencia; por otro, que los dos identificadores refieran a diferentes conceptos.
+En este caso, no se cumpliría la regla de nombres concisos.
 
 INSERTAR IMAGENES
 
-\paragraph{Definición: Conciseness y Consistencia de sinónimos sintática}
-Sea el identificador $id_1$ una secuencia de soft words $sw_1 sw_2 ... sw_n1$. Los identificadores $id_1$ e $id_2$ no cumplen el \textit{requerimiento sobre sinónimos en la consistencia sintáctia} si $id_2$ incluye la secuencia de soft words $w_1 w_2 ... sw_1 sw_2 ... sw_n1 ... w_n2$. Además, $id_1$ falla el \textit{requerimiento sobre la concisenss sintáctica} si existe un tercer identificador $id_3$ que incluya la secuencia de soft words $u_1 u_2 ... sw_1 sw_2 ... sw_n1 ... u_n3$.
+\paragraph{Definición: Concisión y Consistencia de sinónimos sintática}
+Sea el identificador $id_1$ una secuencia de soft words $sw_1 sw_2 ... sw_n1$. 
+Los identificadores $id_1$ e $id_2$ no cumplen el \textit{requerimiento sobre sinónimos en la consistencia sintáctia} si $id_2$ incluye la secuencia de soft words $w_1 w_2 ... sw_1 sw_2 ... sw_n1 ... w_n2$. 
+Además, $id_1$ falla el \textit{requerimiento sobre la concisión sintáctica} si existe un tercer identificador $id_3$ que incluya la secuencia de soft words $u_1 u_2 ... sw_1 sw_2 ... sw_n1 ... u_n3$.
