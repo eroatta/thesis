@@ -1,0 +1,263 @@
+\section{Expansión}
+Una vez que el identificador se descompone, se prosigue a darle significado a cada una de las partes constituyentes.
+Pueden ocurrir dos situaciones.
+La primera es el caso fácil en donde la soft-word es una palabra de diccionario y tiene un significado bien establecido que condice con el uso que tiene dentro del código fuente.
+En la segunda, para aquellas palabras que no estén en el diccionario, se asume que son abreviaturas o acrónimos, y es aquí donde se aplican los \textbf{algoritmos de expansión}.
+
+El objetivo de un algoritmo de expansión es tomar una abreviatura o acrónimo como entrada, identificar a qué tipo pertenece, y luego por medio de diferentes técnicas obtener el significado asociado, siendo éste la salida del proceso.
+
+\subsection{Algoritmo de Expansión Básico}
+Este algoritmo, descrito por Lawrie et al. \cite{Lawrie:2007:EMA:1306878.1307350}, permite expandir abreviaturas y acrónimos en palabras y frases con significado, basándose en la información disponible a nivel local (de función).
+Para llevar a cabo su propósito, utiliza cuatro listas de expansiones potenciales:
+\begin{enumerate}[(a)]
+  \item Una lista de \textbf{palabras del lenguaje natural} extraída desde el código fuente.
+  \item Una lista de \textbf{frases} extraídas también desde el código fuente.
+  \item Una lista de corte (\textit{stoplist}), que consiste en \textbf{palabras reservadas} del lenguaje de programación.
+  \item Un \textbf{diccionario} del lenguaje natural.
+\end{enumerate}
+
+Durante la conformación de la lista de palabras del lenguaje natural extraídas desde el código (a) se emplean dos fuentes.
+La primera consiste en los comentarios que aparecen antes o dentro de la función.
+La segunda implica las hard-words de diccionario encontradas en los identificadores presentes en la función.
+
+La lista de frases (b) se obtiene al pasar los comentarios y los identificadores multi-palabras a través de un buscador de frases \cite{Feng01}.
+Aquí, la primera letra de cada palabra en la frase se utiliza para construir un acrónimo que luego se utiliza para las comparaciones.
+
+En el proceso de extracción se utilizan dos técnicas de IR (\textit{Information Retrieval}), para mejorar la calidad del mismo.
+\textit{Stemming} es la primera, y consiste en eliminar los sufijos de las palabras; por lo tanto, ignorando la forma particular de esa palabra remitiéndose a la raíz.
+Por ejemplo: $stem(walk, walking, walk) \rightarrow walk$.
+Se utiliza para determinar si las hard-words son palabras de diccionario, ya que el tipo particular de \textit{stemming} (Krovetz) recorta las palabras a las disponibles en diccionario.
+La segunda técnica, \textit{stopping}, filtra soft-words que no son relevantes a través de una lista de corte.
+Cuando se tiene en cuenta el código fuente, se usa una lista especial que tiene entradas específicas del lenguaje de programación.
+
+Una vez que la lista de palabras y frases potenciales fue extraída, el proceso comienza. 
+Este proceso básico de expansión, como puede verse en el algoritmo \ref{algLBF}, consta de dos pasos.
+En el primero, se busca una expansión entre la lista de palabras y frases extraídas del código fuente.
+Si no hay coincidencias, se continúa con el segundo paso, en donde la búsqueda se realiza sobre el diccionario.
+Las palabras extraídas del código fuente, así como las que forman parte de la lista de corte, siempre tienen mayor prioridad que las del lenguaje natural.
+
+Una abreviatura o acrónimo coincide con alguna palabra de las listas siempre y cuando comience con la misma letra, y el resto de sus letras individuales aparezcan, en orden, dentro de la palabra candidata.
+Si hay una coincidencia en cualquier instancia de la búsqueda, se retorna como la expansión de la abrevitura/acrónimo.
+El algoritmo sólo retorna un valor cuando existe una única coincidencia.
+En caso de haber múltiples coincidencias, no se puede determinar cuál es la correcta, por lo que no se retorna ninguna.
+
+\begin{algorithm}[H]
+\caption{Expansión LBF}
+\label{algLBF}
+\DontPrintSemicolon
+  \SetKwData{Abbrev}{abbrev}
+  \SetKwData{WordList}{wordList}
+  \SetKwData{PhraseList}{phraseList}
+  \SetKwData{StopList}{stopList}
+  \SetKwData{Dict}{dictionary}
+  \SetKwData{Candidates}{candidates}
+  \SetKwData{Expansions}{expansions}
+  \SetKwData{Expansion}{expansion}
+  
+  \KwIn{\Abbrev, la abreviatura o acrónimo a expandir}
+  \KwOut{\Expansion, la expansión resultante}
+  
+  \BlankLine
+  var \WordList\;
+  var \PhraseList\;
+  var \StopList\;
+  var \Dict\;
+  
+  \BlankLine
+  \If{$\Abbrev \in \StopList$}{
+    \KwRet \Abbrev\;
+  }
+  
+  \BlankLine
+  \If{$\Abbrev \in \PhraseList$}{
+    \KwRet $\PhraseList.get(\Abbrev)$ \;
+  }
+  
+  \BlankLine
+  \If{$\Abbrev \in \WordList$}{
+    \KwRet $\WordList.get(\Abbrev)$ \;
+  }
+  
+  \BlankLine 
+  $\Expansions \gets []$\;
+  $\Candidates \gets \Dict.find(\Abbrev)$\;
+  $\Expansions.add(\Candidates)$\;
+  
+  \BlankLine
+  $\Expansion \gets null$\;
+  \If{$\Expansions.size == 1$}{
+    $\Expansion \gets \Expansions[0]$\;
+  }
+  
+  \BlankLine
+  \KwRet \Expansion\;
+
+\end{algorithm}
+
+Este algoritmo, suele acoplarse a la división de identificadores realizada por Greedy, y tiene la ventaja de que trabaja independientemente en el contexto del código fuente para una función particular, sin depender de otras partes del sistema. Sin embargo, esto hace que la visión sea acotada.
+
+\subsection{Algoritmo AMAP}
+AMAP, cuyas siglas representan \textit{Automatically Mining Abbreviations expansions in Programs}, es un algortimo que permite buscar expansiones potenciales y además seleccionar la que mejor se ajuste, en caso de que haya más de un resultado posible.
+Se basa en la hipótesis de que el minado automático de las abreviaturas desde el programa mismo puede identificar las expansiones más apropiadas dentro del contexto de cada ocurrencia en particular.
+Por lo tanto, no necesita disponer de un diccionario de palabras en lenguaje natural.
+
+El algoritmo trabaja sobre varios tipos diferentes de palabras que no se encuentran en el diccionario.
+Dentro de estos tipos tenemos las abreviaturas de una sola palabra (\textit{single word}), las abreviaturas de múltiples palabras {\textit{multi-word abbreviations}) y otros tipos de formas cortas.
+
+Las abreviaturas de una sola palabra son aquellas formas cortas en las que sus expansiones, o formas largas, se componen de una sola palabra.
+Dentro de esta categoría tenemos los \textbf{prefijos}, que se forman al descartar la última parte de una forma larga, reteniendo solamente unas pocas letras del principio. Un subconjunto de éstos son aquellos prefijos conformados por una sola letra.
+También caen en esta categoría las \textbf{dropped letters}, las cuales son abreviaturas en las que se remueven una o más letras dentro de la forma larga, excepto la primera.
+
+Las abreviaturas de múltiples palabras son aquellas en las que, como su nombre lo indica, cuando se expande la forma corta, el resultado es una forma larga compuesta por un grupo de palabras.
+Pueden ser de dos tipos.
+Por un lado estás los \textbf{acrónimos}, que se conforman con la primera letra de cada palabra de la expansión, y son la forma más común.
+Por otro, la \textbf{combinación multi-palabra}, que incluye más de una letra por cada una de las palabras, y pueden ser abreviaturas de una sola palabra, acrónimos o palabras del diccionario.
+
+Por último, los \textit{otros tipos de formas cortas} son aquellos en los que no están claros los límites de las múltiples palabras que las componen.
+Aquí se incluyen tanto las palabras que a menudo aparecen adjacentemente una a la otra y representan un forma convencional de decir cosas, denominadas \textbf{collocations}; así como la \textbf{notación matemática y otros}.
+
+La técnica de minado automático está inspirada en la representación del alcance de las variables en la tabla de símbolos para un compilador.
+Para la búsqueda de formas largas potenciales, se comienza con el alcance más cercano a la abreviatura, como los nombres de tipos y sentencias, y gradualmente se extiende el alcance para incluir el método, sus comentarios y los comentarios de la clase.
+Si la técnica continúa sin dar resultados, se expande la búsqueda al programa completo y al código de Java SE 1.5.
+Con cada extensión del alcance se incluye información más general, y por lo tanto menos específica la búsqueda.
+
+En el caso de las \textbf{palabras únicas}, el primer paso en la búsqueda de las formas largas consiste en construir una expresión regular, a partir de la forma corta, y luego utilizar ese patrón para analizar las diferentes partes del cuerpo del método, en pos de encontrar palabras candidatas.
+
+\paragraph{Patrón prefijo:}
+Se genera al agregarle la expresión regular \verb;"[a-z]+"; a la forma corta \textit{fc}, quedando \verb;"fc[a-z]+";.
+La \verb;x; es un caso especial, ya que suele referirse a palabras que comienzan con \textit{ex}, por lo que al inicio se añade el fragmento \verb;"e?";.
+
+\paragraph{Patrón dropped letters:}
+Es mucho menos conservativo que el patrón usado para los prefijos.
+Se construye insertando la expresión \verb;"[a-z]*"; después de cada letra de la forma corta.
+Si la forma corta viene dada por $fc = c_0, c_1,\dots, c_n$, donde \textit{n} es la longitud, entonces el patrón resultante es $c_0$\verb;[a-z]*;$c_1$\verb;[a-z]*;$\dots$\verb;[a-z]*;$c_n$.HORRIBLE
+
+Para las formas cortas de \textbf{múltiples palabras}, y debido a que los patrones deben buscar sobre espacios, es importante limitar qué tan lejos se puede extender la expresión.
+Para ello, el texto que compone el cuerpo de un método y sus comentarios son preprocesados... VER
+Los comentarios y las cadenas de texto son divididos en frases, a partir de los signos de puntuación (? ! , ; .).
+Las palabras de corte, las cuales son comunes, se remueven.
+
+\paragraph{Patrón acrónimo:}
+Se conforma insertando la expresión \verb;"[a-z]+[ ]+"; después de cada letra en la forma corta.
+Si ésta viene dada por $fc = c_0, c_1,\dots, c_n$, donde \textit{n} es la longitud, entonces el patrón que se genera es $c_0$\verb;[a-z]+[ ]+;$c_1$\verb;[a-z]+[ ]+;$\dots$\verb;[a-z]+[ ]+;$c_n$.HORRIBLE
+Al igual que con los prefijos, la letra \verb;x; es un caso especial.
+Cuando se compone un patrón acrónimo, cualquier ocurrencia de \verb;x; en la forma corta se reemplaza por la expresión \verb;"e?x";.
+Esto le permite a la técnica encontrar expansiones para acrónimos como \textit{xml (eXtensible Markup Language)}.
+
+\paragraph{Patrón combinación de palabras:}
+Este patrón se obtiene añadiendo la expresión \verb;"[a-z]*?[ ]*?"; a cada una de las letras que pertenecen a la forma corta.
+Sea $fc = c_0, c_1, \dots, c_n$, donde \textit{n} es la longitud, entonces el patrón resultante es $c_0$\verb;[a-z]*?[ ]*?;$c_1$\verb;[a-z]*?[ ]*?;$\dots$\verb;[a-z]*?[ ]*?;$c_n$.HORRIBLE
+La expresión se construye de manera que sólo las letras que aparezcan en la forma corta puedan ser el inicio de una palabra.
+Se utiliza una expresión más conservadora para favorecer las expansiones más cortas, con menos espacios.
+Como la expresión ya es más general, pueden coincidir con expansiones incorrectas, por lo que la búsqueda se aplica solamente para formas cortas con una longitud de cuatro o más caracteres.
+
+De acuerdo a los creadores del algoritmo, el mejor orden para aplicar los patrones viene dado por (1) acrónimos, (2) prefijo, (3) dropped letters y (4) combinación de palabras.
+
+A medida que se expande el espectro de búsqueda, como métodos o comentarios, es posible que un tipo de patrón coincida con varias expansiones potenciales.
+Para resolver estos casos de \textbf{múltiples coincidencias}, se sigue un determinado número de pasos, hasta encontrar la expansión que mejor aplique a la situación.
+Estos pasos son:
+\begin{enumerate}
+  \item Utilizar la expansión que coincida más frecuentemente con la forma corta, dentro del alcance.
+  Por ejemplo, si "value" coincidió el patrón prefijo para "val" tres veces y "valid" sólo una, entonces se elige "value".
+  \item Agrupar las palabras con la misma raíz y actualizar las frecuencias en base a esto.
+  Por ejemplo, si para el patrón prefijo sobre 'def' coinciden las palabras 'default' (2 veces), 'defaults' (2 veces), y 'define' (2 veces), se agrupan 'default' y 'defaults' en la forma más corta, siendo 'default' (4 veces), y por lo tanto se retorna esta, ya que tiene la mayor frecuencia.
+  \item Si todavía no hay un ganador claro, continuar buscando por el patrón en alcances mayores.
+  Se deben almacenar las frecuencias de las expansiones encontradas, así las más frecuentes son las más favorecias a medida que extendemos el alcance.
+  \item Si todo lo anterior falla, abandonar la búsqueda y dejar que EMF elija la expansión.
+\end{enumerate}
+
+\subsubsection{Expansión Más Frecuente (EMF)}
+El razonamiento detrás de EMF es que si bien no todas las expansiones son correctas, al considerar el programa completo, aquella que ocurra más frecuentemente puede asumirse como la correcta.
+Para ello, MFE se calcula ejecutando el enfoque de expansión local de las abreviaturas sobre el programa entero, en un primer nivel, y sobre las implementaciones de Java para un nivel más general.
+Luego, por cada forma corta, se cuenta cuántas veces coincidió con una expansión particular, y se establece la frecuencia relativa, agrupando las expansiones por su raíz.
+
+Sin embargo, ocasionalmente una expansión incorrecta puede considerarse como la más adecuada.
+Para evitar esto, sólo se toman las expansiones que coincidieron para más de la mitad (0.5) de las formas cortas, y con al menos 3 coincidencias dentro del programa entero.
+
+\begin{algorithm}[H]
+\caption{Búsqueda de formas largas para abreviaturas de una sola palabra.}
+\label{algSingleWords}
+\DontPrintSemicolon
+  \SetKwData{SF}{sf}
+  \SetKwData{Pattern}{pattern}
+  \SetKwData{Null}{null}
+  
+  \KwIn{\SF, forma corta potencial}
+  \KwIn{\Pattern, expresión regular}
+  \KwIn{comentarios y texto del método}
+  \KwIn{comentarios de clase}
+  \KwOut{expansiones candidatas, o \Null si no hay}
+  
+  \BlankLine
+  \If{((prefix \Pattern) or (\SF matches))}{
+    \tcp{cuando un resultado único es encontrado, se devuelve}
+    Buscar en los comentarios de JavaDoc por "@param \SF \Pattern"\;
+    Buscar nombres de tipos y los correspondientes nombres de variables declarados para "\Pattern \SF"\;
+    Buscar nombres de métodos para "\Pattern"\;
+    Buscar sentencias para "\Pattern \SF" y "\SF \Pattern"\;
+    
+    \BlankLine
+    \If{$length(\SF) \neq 2$}{
+      Buscar palabras en el método para "\Pattern"\;
+      Buscar \Pattern en los comentarios del método\;
+    }
+    
+    \BlankLine
+    \If{$length(\SF) > 1 \and preffix \Pattern$}{
+      Buscar \Pattern en los comentarios de clase\;
+    }
+  }
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Búsqueda de formas largas para abreviaturas de múltiples palabras.}
+\label{algMultiWords}
+\DontPrintSemicolon
+  \SetKwData{SF}{sf}
+  \SetKwData{Pattern}{pattern}
+  \SetKwData{Null}{null}
+  
+  \KwIn{\SF, forma corta potencial}
+  \KwIn{\Pattern, expresión regular}
+  \KwIn{comentarios y texto del método}
+  \KwIn{comentarios de clase, sólo acrónimos}
+  \KwOut{expansiones candidatas, o \Null si no hay}
+
+  \BlankLine
+  \If{$\Pattern acrónimo || length(\SF) > 3$}{
+    \tcp{cuando un resultado único es encontrado, se devuelve}
+    Buscar por "@param \SF \Pattern" en los comentarios de la JavaDoc\;
+    Buscar por "\Pattern \SF" en los nombres de tipos y las declaraciones de variables\;
+    Buscar por \Pattern en el nombre del método\;
+    Buscar por \Pattern en todos los identificadores del método (incluyendo los nombres de tipos)\;
+    Buscar por \Pattern en todas las cadenas de texto\;
+    \tcp{en este punto ya se buscaron todas las frases posibles en el cuerpo del método}
+    Buscar por \Pattern en los comentarios del método\;
+    
+    \BlankLine
+    \If{\Pattern is acrónimo}{
+      Buscar por \Pattern en los comentarios de clase\;
+    }
+  }
+\end{algorithm}
+
+En comparación con los otros algoritmos, cuenta con la ventaja de que puede elegir un resultado entre varias opciones, y además, mejora su performance y eficacia en un 57\%.
+
+\subsection{Algoritmo Normalize}
+Corresponde la segunda fase en el algoritmo propuesto por Lawrie et al. \cite{} para la normalización del vocabulario en el código fuente, y toma como entrada la división hecha por GenTest (REFERENCIA).
+
+Permite la asignación de significado a cada softword analizada.
+Pueden darse dos situaciones.
+En la primera, el caso fácil, la softword es una palabra del diccionario y tiene un significado bien establecido que coincide con el uso de la palabra dentro del código fuente.
+En la segunda, las palabras que no son parte de algún diccionario, se asume que son abreviaturas o acrónimos.
+
+Para resolver estos casos de abreviaturas y acrónimos, se utilizan técnicas de traducción automática (machine translation) y así obtener palabras y frases coherentes.
+La técnica del modelo de máxima coherencia (REFERENCIA) es la base de este algoritmo.
+
+El algoritmo consiste en la elección de aquella combinación de expansiones sobre las divisiones hechas previamente que logre el puntaje acumulado de coherencia más alto, y se define como:
+
+\begin{center}
+  $Normalize(id) = max_{s \in Splits(id)} \displaystyle [\sum_{s_i \in s} score(s_i)]$
+\end{center}
+
+VENTAJAS/DESVENTAJAS???
