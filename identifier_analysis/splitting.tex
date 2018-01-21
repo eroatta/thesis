@@ -1,12 +1,22 @@
 \section{División}
-El primer paso para analizar los identificadores que se utilizan consiste en dividir cada uno de ellos, en los elementos que lo conforman. Los desarrolladores componen estos identificadores concatenando palabras y abreviaciones, a veces, empleando convenciones claras en la demarcación de sus partes, como lo son el uso de caracteres no alfabéticos (por ejemplo: ``\_'' o ``-''), o la técnica camel-case, donde la primera letra de cada palabra se escribe en mayúsculas a excepción de la inicial. Esta situación permite que la división automática se lleve a cabo sin ningún problema. Sin embargo, en los casos en los que no se implementa una clara delimitación es donde surge la necesidad de aplicar técnicas más sofisticadas para lograr la separación de las partes. Aquí es donde entran en juego los \textbf{algoritmos de división}.
+El primer paso para analizar identificadores consiste en dividir, cada uno de ellos, en los elementos que lo conforman.
+Los desarrolladores componen estos identificadores concatenando palabras y abreviaturas, a veces, empleando convenciones claras en la demarcación de sus partes, como lo son el uso de caracteres no alfabéticos (por ejemplo: ``\_'' o ``-''), o la técnica camel-case, donde la primera letra de cada palabra se escribe en mayúsculas a excepción de la inicial.
+Esto permite que la división automática se lleve a cabo sin ningún problema.
+Sin embargo, en los casos en los que no se implementa una clara delimitación es donde surge la necesidad de aplicar técnicas más sofisticadas para lograr la separación de las partes.
+Aquí es donde entran en juego los \textbf{algoritmos de división}.
  
-El objetivo de un algoritmo divisor de identificadores es tomar uno de estos últimos como entrada, y obtener como salida una lista de sub-elementos que particionan al identificador original. Estos sub-elementos pueden ser palabras de diccionario, las cuales tienen un significado obvio; abreviaturas, las cuales refieren a una sola palabra del diccionario; o acrónimos, los cuales representan varias palabras de diccionario \cite{HillBinkleyLawrie14}.
+El objetivo de un algoritmo divisor de identificadores es tomar uno de estos últimos como entrada, y obtener como salida una lista de sub-elementos que particionan al identificador original.
+Estos sub-elementos pueden ser palabras de diccionario, las cuales tienen un significado obvio; abreviaturas, las cuales refieren a una sola palabra del diccionario; o acrónimos, los cuales representan varias palabras de diccionario \cite{HillBinkleyLawrie14}.
 
 \subsection{El problema de la división de tokens}
-Ahora bien, estos algoritmos deben ser capaces de afrontar una serie de problemas relacionados a la correcta división de los identificadores. Como se dijo anteriormente, una forma de establecer una separación entre las palabras componentes de un indicador es el uso de caracteres especiales, o a través de la técnica de \textit{camel-casing}. Esta última permite reducidir la cantidad de caracteres sin comprometer la legibilidad, aunque existen situaciones donde no hay convenciones establecidas y esto puede afectar negativamente la comprensión, siendo ejemplos de este caso la incorporación de acrónimos al identificador (ej: \textit{sqlList, SQLList, SQLlist}) o la no utilización de delimitadores para conceptos multi palabras que son de uso común, como en \textit{sizeof} o \textit{hostname}.
+Ahora bien, estos algoritmos deben ser capaces de afrontar una serie de problemas relacionados a la correcta división de los identificadores.
+Como se dijo anteriormente, una forma de establecer la separación entre las palabras componentes de un indicador es el uso de caracteres especiales, o a través de la técnica de \textit{camel-casing}.
+Esta última permite reducidir la cantidad de caracteres sin comprometer la legibilidad, aunque existen situaciones donde no hay convenciones establecidas y esto puede afectar negativamente la comprensión, siendo ejemplos de este caso la incorporación de acrónimos al identificador (ej: \textit{sqlList, SQLList, SQLlist}) o la no utilización de delimitadores para conceptos multi palabras que son de uso común, como en \textit{sizeof} o \textit{hostname}.
 
-Un token puede ser definido formalmente como $t = (s_0, s_1, s_2, ..., s_n)$ donde $s_i$ es una letra, un dígito o un caracter especial. El primer paso consiste en separar el token a través utilizando los dígitos y caracteres especiales como marcadores. Cada sub-string es considerado como un token potencialmente divisible, recibe el nombre de \textit{token alfabético}, y existen cuatro casos posibles a la hora de decidir si dividirlo en un cierto punto entre $s_i$ y $s_j$\cite{EnslenHillPollock09}:
+Un token puede ser definido formalmente como $t = (s_0, s_1, s_2, ..., s_n)$ donde $s_i$ es una letra, un dígito o un caracter especial.
+El primer paso consiste en separar el token utilizando los dígitos y caracteres especiales como marcadores.
+Cada sub-string es considerado como un token potencialmente divisible y recibe el nombre de \textit{token alfabético}.
+Existen cuatro casos posibles a la hora de decidir si dividir el token en un cierto punto entre $s_i$ y $s_j$\cite{EnslenHillPollock09}:
 
 \begin{enumerate}
   \item $s_i$ está en minúsculas y $s_j$ en mayúsculas (ej: getString, setPoint)
@@ -15,29 +25,40 @@ Un token puede ser definido formalmente como $t = (s_0, s_1, s_2, ..., s_n)$ don
   \item tanto $s_i$ como $s_j$ están en mayúsculas (ej: USERLIB, NONNEGATIVEDECIMALTYPE, COUNTRYCODE)
 \end{enumerate}
 
-El primer caso, es el lugar natural para realizar la división. En el segundo caso, en el cual el lugar donde dividir existen alternaciones de mayúsculas y minúsculas, presenta el problema de la separación de tokens \textit{mixed-case}, particularmente complicado por la utilización de acrónimos. Por último, los casos 3 y 4 corresponden al problema de la separación de tokens \textit{same-case}; en donde los programadores no han dejado rastro donde cualquier palabra o concepto deba ser extraída del token.
+El primer caso, es el lugar natural para realizar la división.
+En el segundo caso, existen mayúsculas y minúsculas alternadas en el probable punto de corte, lo que que requiere enfrentar el problema de la separación de tokens \textit{mixed-case}, particularmente complicado por la utilización de acrónimos.
+Por último, los casos 3 y 4 corresponden al problema de la separación de tokens \textit{same-case}; en el cual los programadores no han dejado rastro en dónde deben ser aplicados los puntos de corte.
 
 Un algoritmo de división de tokens completamente automático debería ser capaz de resolver los sub-problemas de mixed-case y same-case, de forma efectiva.
 
 \subsection{Estado del arte}
-De acuerdo a la recopilación de Hill et. all (Cómo se pone?), algunas de las principales técnicas para la división de identificadores son:
+De acuerdo a la recopilación de Hill et al \cite{HillBinkleyLawrie14}, algunas de las principales técnicas para la división de identificadores son:
 
 \begin{itemize}
-  \item \textbf{Greedy.} Esta técnica utiliza un diccionario, una lista de abreviaturas conocidas y una lista de corte, la cual incluye identificadores predefinidos, liberías, funciones, nombres de variables comunes y letras individuales. Después de retornar cada hard word encontrada en alguna de las tres listas, como una soft word simple, el resto de las hard words se consideran para división. A partir de ahí, recursivamente, se analizan los sufijos y prefijos de las palabras hasta que se encuentren en alguna de las listas, prefiriendo siempre las palabras de mayor longitud.
+  \item \textbf{Greedy.} Esta técnica utiliza un diccionario, una lista de abreviaturas conocidas y una lista de corte, la cual incluye identificadores predefinidos, librerías, funciones, nombres de variables comunes y letras individuales.
+Después de retornar cada hard word encontrada en alguna de las tres listas, como una soft word simple, el resto de las hard words se consideran para división.
+A partir de ahí, recursivamente, se analizan los sufijos y prefijos de las palabras hasta que se encuentren en alguna de las listas, prefiriendo siempre las palabras de mayor longitud.
   
-  \item \textbf{Samurai.} Este algoritmo se basa en la premisa de que las partes que componen a los identifcadores multi-palabras de un determinado programa, suelen ser utilizados en algún otro lugar, así sea en el mismo software como en otros. Por lo tanto, la frecuencia de aparición de las palabras es el principal elemento considerado a la hora de dividir identificadores.
+  \item \textbf{Samurai.} Este algoritmo se basa en la premisa de que las partes que componen a los identificadores multi-palabras de un determinado programa, suelen ser utilizados en algún otro lugar, así sea en el mismo software como en otros.
+Por lo tanto, la frecuencia de aparición de las palabras es el principal elemento considerado a la hora de realizar las divisiones.
   
-  \item \textbf{GenTest.} Tiene su fuerte en la división de términos same-case, generando primero todas las posibles divisiones (dado que los identificadores son relativamente cortos, el potencialmente exponencial número de fragmentos es manejable en la práctica), para luego aplicar un \textit{scoring} sobre cada elemento, seleccionando la de mayor valor. Esta función de scoring se apoya en que las soft words iguales o similares, deberían encontrarse ubicadas cerca una de otra en la documentación o texto general (métrica de similaridad). 
+  \item \textbf{GenTest.} Tiene su fuerte en la división de términos same-case, generando primero todas las posibles separaciones (dado que los identificadores son relativamente cortos, el potencialmente exponencial número de fragmentos es manejable en la práctica), para luego aplicar un \textit{scoring} sobre cada elemento, seleccionando la de mayor valor.
+Esta función de scoring se apoya en que las soft words iguales o similares, deberían encontrarse ubicadas cerca una de otra en la documentación o texto general (métrica de similaridad). 
   
-  \item \textbf{DTW.} Esta técnica se basa en la observación de que los programadores construyen nuevos identificadores aplicando un conjunto de transformaciones a las palabras, como por ejemplo quitar todas las vocales o algunos caracteres. Utilizando un diccionario que contenga palabras y terminos pertenecientes a una ontología superior, al dominio de la aplicación o ambos, el objetivo consiste en identificar un matcheo cuasi-óptimo entre las partes del identificador y las palabras en el diccionario.
+  \item \textbf{DTW.} Esta técnica se basa en la observación de que los programadores construyen nuevos identificadores aplicando un conjunto de transformaciones a las palabras, como por ejemplo quitar todas las vocales o algunos caracteres.
+Utilizando un diccionario que contenga palabras y términos pertenecientes a una ontología superior, al dominio de la aplicación o ambos, el objetivo consiste en identificar un nivel de coincidencia cuasi-óptimo entre las partes del identificador y las palabras en el diccionario.
   
-  \item \textbf{INTT.} El enfoque INTT busca realizar una división más precisa que las técnicas previas al utilizar una heurística especializada para manejar identificadores con dígitos, sin aplicar la separación de los digitos del resto del texto en etapas tempranas del proceso de división. Las principales modificaciones consisten en reemplazar greedy por dos algoritmos, greedy y greedier, los cuales pueden reconocer las partes de los identificadores same-case, sin requerir que comiencen o terminen con una palabra conocida; y además utilizar una lista de acrónimos que contiene dígitos.
+  \item \textbf{INTT.} El enfoque INTT busca realizar una división más precisa que las técnicas previas al utilizar una heurística especializada para manejar identificadores con dígitos, sin removerlos del texto en etapas tempranas del proceso de división.
+Las principales modificaciones consisten en reemplazar greedy por dos algoritmos, greedy y greedier, los cuales pueden reconocer las partes de los identificadores same-case, sin requerir que comiencen o terminen con una palabra conocida; y además utilizar una lista de acrónimos que contiene dígitos.
 \end{itemize}
 
 Para el presente informe, sólo son de interés - y por lo tanto explicadas en mayor detalle - las primeras tres técnicas listadas anteriormente.
 
 \subsection{Algoritmo Greedy}
-Desarrollado por Feild, Binkley and Lawrie \cite{FieldBinkleyLawrie06, Feild06anempirical, Lawrie2007, Lawrie:2007:EMA:1306878.1307350, EnslenHillPollock09}, este algoritmo recibe su nombre gracias al enfoque que toma para resolver el problema, eligiendo en cada paso local la opción más conveniente con la idea de lograr, a nivel general, una solución óptima. El proceso comienza realizando una búsqueda por cada hard word dentro de un conjunto de listas de palabras y abreviaturas. Si la palabra candidata existe en alguna de ellas, se devuelve como válida, si no, se asume que se compone de múltiples palabras, y éstas son tratadas recursivamente hasta encontrar sus componentes \cite{Feild06anempirical}. Las tres listas que se utilizan son:
+Desarrollado por Feild, Binkley and Lawrie \cite{FieldBinkleyLawrie06, Feild06anempirical, Lawrie2007, Lawrie:2007:EMA:1306878.1307350, EnslenHillPollock09}, este algoritmo recibe su nombre gracias al enfoque que toma para resolver el problema, eligiendo en cada paso local la opción más conveniente con la idea de lograr, a nivel general, una solución óptima.
+El proceso comienza realizando una búsqueda por cada hard word dentro de un conjunto de listas de palabras y abreviaturas.
+Si la palabra candidata existe en alguna de ellas, se devuelve como válida, si no, se asume que se conforma por múltiples palabras, y éstas son tratadas recursivamente hasta encontrar sus componentes \cite{Feild06anempirical}.
+Las tres listas que se utilizan son:
 
 \begin{itemize}
   \item \textbf{Diccionario:} se conforma con diccionarios de dominio público, los cuales son consultados en la herramienta de verificación de gramática \textit{ispell}, disponible en Linux.
