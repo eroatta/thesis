@@ -68,14 +68,16 @@ Las tres listas que se utilizan son:
   \item \textbf{Stop-list:} es la lista de corte y está compuesta de tres tipos de palabras, dentro de las cuales encontramos a los tipos de datos predefinidos, variables globales (tanto del lenguage como del ambiente), y los nombres de librerías estándar.
 \end{itemize}
 
-Tal como puede verse en el algorimo \ref{algGreedy}, el proceso comienza dividiendo el token de entrada en hardwords, tomando como delimitadores a los caracteres especiales y la técnica de \textit{camel-casing}.
-Una vez hecho tanto el reemplazo de números y caracteres especiales (línea 4), como la división inicial del token (línea 5), se procede con la evaluación de cada una de las hardwords resultantes.
-En primera instancia, se verifica si la palabra candidata existe en alguna de las listas con las que trabaja el algoritmo (línea 8). Si es así, el fragmento del token es considerado parte de la división y por lo tanto de la salida del proceso (línea 13).
+Tal como puede verse en el algoritmo \ref{algGreedy}, el proceso comienza dividiendo el token de entrada en hardwords, tomando como delimitadores a los caracteres especiales y la técnica de \textit{camel-casing}.
+Una vez hechos tanto el reemplazo de números y caracteres especiales (línea 4), como la división inicial del token (línea 5), se procede con la evaluación de cada una de las hardwords resultantes.
+En primera instancia, se verifica si la palabra candidata existe en alguna de las listas con las que trabaja el algoritmo (línea 8).
+Si es así, el fragmento del token es considerado parte de la división y por lo tanto de la salida del proceso (línea 13).
 En caso contrario, al asumirse que está formado por múltiples palabras, se procesa en búsqueda de las softwords que lo componen.
 Este análisis consiste en realizar dos búsquedas sobre cada hardword, quedándose con el mejor resultado entre ambas.
-En la primera búsqueda (línea 9) se trata de obtener el prefijo más largo que se encuentre en una de las listas, y forme parte de la palabra actual. Luego se llama recursivamente, trabajando sobre el fragmento restante de la palabra original (prefijos y sufijos).
+En la primera búsqueda (línea 9) se trata de obtener el prefijo más largo que se encuentre en una de las listas, y forme parte de la palabra actual.
+Luego se llama recursivamente, trabajando sobre el fragmento restante de la palabra original (prefijos y sufijos).
 La segunda búsqueda (línea 10) es idéntica, excepto que trata de obtener el sufijo más largo.
-Los resultados de ambos procesamientos son evaluados, y aquel que arroje la relación más alta entre la cantidad de softwords encontradas en listas vs. el total de palabras, es el elegido (línea 11).
+Los resultados de ambos procesamientos son evaluados, y aquel que arroje la relación más alta entre la cantidad de softwords encontradas en listas en comparación con el total de palabras, es el elegido (línea 11).
 Al finalizar la ejecución del algoritmo, la salida que se obtiene es el identificador original dividido, separando cada una de los componentes encontrados, a través de espacios en blanco (línea 16).
 
 \begin{algorithm}[H]
@@ -123,7 +125,7 @@ Al finalizar la ejecución del algoritmo, la salida que se obtiene es el identif
 \end{algorithm}
 
 La función \textit{findPreffix} es descrita en el algoritmo \ref{funFindPreffix}. 
-La primer validación que se realiza sirve como punto de corte para la recursión (línea 1), cuando el token a analizar está vacío.
+La primera validación que se realiza sirve como punto de corte para la recursión (línea 1), cuando el token a analizar está vacío.
 Si el parámetro recibido es parte de alguna de las listas (línea 4), la función finaliza separando el prefijo encontrado y llamándose recursivamente con el fragmento restante (línea 5).
 En caso contrario, el último caracter es removido (línea 8) y el proceso continúa llamándose a si mismo (línea 9).
 Los caracteres removidos son agrupados (línea 7) y luego agregados al resultado. 
@@ -208,30 +210,36 @@ Al igual que en la otra función, los caracteres removidos son agrupados (línea
   \KwRet \FindSuffixSSSplit
 \end{algorithm}
 
-Este algoritmo, en comparación con otros existentes, tiene la ventaja de que es independiente del conjunto de datos sobre el que se ejecuta. Además, su lógica e implementación, son sencillas, lo que lo convierte en el punto de comparación a la hora de evaluar la performance de otras propuestas.
+Este algoritmo, en comparación con otros existentes, tiene la ventaja de que es independiente del conjunto de datos sobre el que se ejecuta.
+Además, su lógica e implementación, son sencillas, lo que lo convierte en el punto de comparación a la hora de evaluar el rendimiento de otras propuestas.
 
-Sin embargo, tiene algunos aspectos negativos. El tiempo de ejecución puede ser elevado, ya que la inicialización está dominada por la carga de varios diccionarios en tablas \textit{hash} y por la utilización de recursividad \cite{FieldBinkleyLawrie06}.
+Sin embargo, tiene algunos aspectos negativos.
+El tiempo de ejecución puede ser elevado, ya que la inicialización está dominada por la carga de varios diccionarios en tablas \textit{hash} y por la utilización de recursividad \cite{FieldBinkleyLawrie06}.
 Otra desventaja que presenta es que tiende a realizar una mayor cantidad de divisiones que las esperadas \cite{Feild06anempirical}.
 
 \subsection{Algoritmo Samurai}
 Propuesto por Hill et al., este algoritmo está inspirado en un trabajo previo, sobre el minado automático de código fuente para la expansión de abreviaturas \cite{Hill:2008:AAM:1370750.1370771}.
 Las hipótesis sobre las que basan la lógica del proceso son dos. 
-En primera instancia, los strings que componen los tokens multi-palabras tienden a ser empleados en alguna otra parte del código, tanto del mismo programa como de otros. Estos tokens pueden aparecer tanto como una palabra independiente, o como parte de una composición.
-En segunda instancia, se apoyan en la hipótesis de que las divisiones suelen ser en favor de aquellos tokens que ocurren más a menudo en un programa. Por lo tanto, la frecuencia de una palabra se utiliza para determinar los cortes en el token analizado.
+En primera instancia, las cadenas de texto que componen los tokens multi-palabras tienden a ser empleadas en alguna otra parte del código, tanto del mismo programa como de otros.
+Estos tokens pueden aparecer tanto como una palabra independiente, o como parte de una composición.
+En segunda instancia, se apoyan en la hipótesis de que las divisiones suelen ser en favor de aquellos tokens que ocurren más a menudo en un programa.
+Por lo tanto, la frecuencia de una palabra se utiliza para determinar los cortes en el token analizado.
 
 Para poder llevar adelante la división, es necesario explorar el conjunto de tokens existentes en el código y crear dos tablas de frecuencia.
-Este proceso de minado se realiza ejecutando el algoritmo de división de tokens conservativo basado en marcadores de separación (VER) sobre un conjunto de tokens del código fuente, para así generar un listado de todas las ocurrencias de los strings delimitados por marcadores.
+Este proceso de minado se realiza ejecutando el algoritmo de división de tokens conservativo basado en marcadores de separación (caracteres especiales) sobre un conjunto de tokens del código fuente, para así generar un listado de todas las ocurrencias de los strings delimitados por marcadores.
 Este listado es luego procesado para obtener la información relativa de frecuencias, en la forma de una tabla de búsqueda que almacena el número de ocurrencias para una determinada y única palabra.
 Al trabajar sobre los tokens extraídos del código fuente bajo análisis, se construye  la \textit{tabla de frecuencias específica del programa}.
 La segunda tabla, construída a partir de un conjunto mayor de programas, recibe el nombre de \textit{tabla de frecuencias global}.
-Ambas son empleadas en la función de scoring para evaluar las posibles divisiones durante el proceso de separación.
+Ambas son empleadas en la función de scoring para evaluar las posibles divisiones durante el proceso.
 
 Por cada token a analizar, Samurai inicia ejecutando \textit{mixedCaseSplit}, que puede observarse en el Algoritmo \ref{mixedCaseSplit}.
 El token original es dividido, añadiendo espacios en blanco en reemplazo de los caracteres especiales y, tanto antes como después, de cada conjunto de dígitos (línea 1).
-Luego, se añade un espacio en blanco cuando encuentra una secuencia de dos caracteres en los cuales el primero es una minúscula y el segundo una mayúscula (línea 2). En este punto, cada elemento tiene la forma de cero o más mayúsculas seguidas por cero o más minúsculas.
-Después del procesamiento inicial, cada substring es examinado y evaluado para determinar si se continúa con la división camel-case regular, o si se opta por la alternativa. Para esto, se determinan los scores para la separación por camel-case (líneas 9 y 11), y para la alternativa (línea 14).
-Ambas evaluaciones son comparadas (línea 16), y si hay evidencia suficiente que justifique la separación a la derecha del supuesto punto de corte, entonces el string original es reemplazado por esta división (líneas 18 y 21).
-Finalizados todos estos pasos, se llama a \textit{sameCaseSplit} por cada uno de las subcadenas generadas (línea 29).
+Luego, se añade un espacio en blanco cuando encuentra una secuencia de dos caracteres en los cuales el primero es una minúscula y el segundo una mayúscula (línea 2).
+En este punto, cada elemento tiene la forma de cero o más mayúsculas seguidas por cero o más minúsculas.
+Después del procesamiento inicial, cada sub-cadena es examinada y evaluada para determinar si se continúa con la división camel-case regular, o si se opta por la alternativa.
+Para esto, se determinan los puntajes para la separación por camel-case (líneas 9 y 11), y para la alternativa (línea 14).
+Ambas puntajes son comparados (línea 16), y si hay evidencia suficiente que justifique la separación a la derecha del supuesto punto de corte, entonces la cadena de texto original es reemplazada por esta división (líneas 18 y 21).
+Finalizados todos estos pasos, se llama a \textit{sameCaseSplit} por cada una de las sub-cadenas generadas (línea 29).
 
 \begin{algorithm}[H]
 \caption{mixedCaseSplit}
@@ -309,11 +317,12 @@ Finalizados todos estos pasos, se llama a \textit{sameCaseSplit} por cada uno de
 
 Presentado en el Algoritmo \ref{sameCaseSplit}, \textit{sameCaseSplit} recibe como parámetros un string que puede estar en una de tres formas: a) mayúsculas, b) minúsculas, c) una mayúscula seguida de minúsculas; así como el scoring del token original.
 Desde la posición inicial en el string (línea 3), el algoritmo analiza cada punto posible de separación en \textit{s}.
-Para ello se calculan los scorings tanto para el lado izquierdo como para el derecho de este punto (líneas 6 y 7), y se evalúa dos condiciones para la separación: (a) los substrings no son prefijos o sufijos comunes, (b) hay suficiente evidencia como para soportar la división (líneas 11 y 12).
+Para ello se calculan los scorings tanto para el lado izquierdo como para el derecho de este punto (líneas 6 y 7), y se evalúan dos condiciones para la separación: (a) si los substrings no son prefijos o sufijos comunes, (b) si hay suficiente evidencia como para soportar la división (líneas 11 y 12).
 Si (a) se mantiene, pero sólo el substring de la izquierda provee suficiente evidencia para ser una palabra (línea 16), se llama recursivamente a \textit{sameCaseSplit} para determinar si existe una posible división dentro del fragmento de la derecha (línea 17).
-Si para este substring se alcanza alguna separación válida, entonces tomamos como efectivas las divisiones de izquierda y derecha (línea 19). De lo contrario, se descarta y continúa el proceso, ya se podría estar realizando una división prematura y no buscada.
+Si para este substring se alcanza alguna separación válida, entonces tomamos como efectivas las divisiones de izquierda y derecha (línea 19).
+De lo contrario, se descarta y continúa el proceso, ya que se podría estar realizando una división prematura y no deseada.
 
-La raíz cuadrada del scoring aplicada en distintos puntos del algoritmo tiene la finalidad de reducir el impacto del score de palabras cortas, ya que estas suelen tener mayor frecuencia y eso podría conducir a divisiones no relevantes, como por ejemplo \textit{per-formed} en lugar de \textit{performed}.
+La raíz cuadrada del scoring aplicada en distintos puntos del algoritmo tiene la finalidad de reducir el impacto del puntaje de palabras cortas, ya que estas suelen tener mayor frecuencia y eso podría conducir a divisiones no relevantes, como por ejemplo \textit{per-formed} en lugar de \textit{performed}.
 
 \begin{algorithm}[H]
 \caption{sameCaseSplit}
@@ -382,8 +391,8 @@ Donde:
   \item $AllStrsFreq(p) \rightarrow$ frecuencia total de todos las cadenas de texto en \textit{p}.
 \end{itemize}
 
-En comparación con los otros algoritmos, Samurai performa de manera similar a conserv(REFERENCIA) a la hora de atacar el problema de mixed-case.
-En same-case, tiene la ventaja de que comete menos errores que Greedy y reduce drásticamente el \textit{oversplitting}, aunque a veces divide el token en menos partes que las esperadas.
+En comparación con los otros algoritmos, Samurai performa de manera similar al algoritmo de división de tokens conservativo a la hora de atacar el problema de mixed-case.
+En same-case, tiene la ventaja de que comete menos errores que Greedy y reduce drásticamente el \textit{oversplitting} (sobre-división), aunque a veces divide el token en menos partes que las esperadas.
 
 \subsection{Algoritmo GenTest}
 Este algoritmo, definido por Lawrie, Binkley y Morrell, se encarga de dividir eficientemente un indicador como parte de un proceso mayor dedicado a la normalización del vocabulario en el código fuente \cite{LawrieBinkleyMorrell2010} INSERTAR LA OTRA REF.
