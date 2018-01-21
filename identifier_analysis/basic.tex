@@ -82,7 +82,11 @@ El identificador \textit{i(p)} para el elemento \textit{p} del programa es \text
 
 Esta definición requiere que un identificador tenga exactamente el mismo nombre del concepto que representa.
 
-INSERTAR IMAGENES
+\begin{figure}[H]
+  \includegraphics[width=12cm]{identifier_analysis/violations}
+  \centering
+  \caption{Ilustración de dos tipos de violaciones. La Figura (a) muestra una violación de homónimos. La Figura (b) cómo se introduce una violación sinónimos por la función que abre un archivo.}
+\end{figure}
 
 \subsubsection{Consistencia y Concisión sintácticas}
 El modelo formal descrito por Deissenbock y Pizka requiere que exista un mapeo entre los elementos del dominio de conceptos y los identificadores.
@@ -97,7 +101,11 @@ Cuando un identificador está contenido dentro de otro, una de dos posibles viol
 Por un lado, puede que haya un solo concepto asociado a dos identificadores, lo que implica una violación al requerimiento respecto a los sinónimos en la consistencia; por otro, que los dos identificadores refieran a diferentes conceptos.
 En este caso, no se cumpliría la regla de nombres concisos.
 
-INSERTAR IMAGENES
+\begin{figure}[H]
+  \includegraphics[width=12cm]{identifier_analysis/syntactic_violations}
+  \centering
+  \caption{Ilustración de violaciones sintácticas. La Figura(a) muestra una violación de concisón sintáctica. La Figura (b) muestra una violación de consistencias de sinónimos.}
+\end{figure}
 
 \paragraph{Definición: Concisión y Consistencia de sinónimos sintática}
 Sea el identificador $id_1$ una secuencia de soft words $sw_1 sw_2 ... sw_n1$. 
