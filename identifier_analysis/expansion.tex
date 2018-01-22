@@ -98,15 +98,16 @@ Este algoritmo, suele acoplarse a la división de identificadores realizada por 
 Sin embargo, esto hace que la visión sea acotada.
 
 \subsection{Algoritmo AMAP}
-AMAP, cuyas siglas representan \textit{Automatically Mining Abbreviations expansions in Programs}, es un algortimo que permite buscar expansiones potenciales y además seleccionar la que mejor se ajuste, en caso de que haya más de un resultado posible.
+AMAP, cuyas siglas representan \textit{Automatically Mining Abbreviations expansions in Programs}, es un algoritmo que permite buscar expansiones potenciales y además seleccionar la que mejor se ajuste, en caso de que haya más de un resultado posible.
 Se basa en la hipótesis de que el minado automático de las abreviaturas desde el programa mismo puede identificar las expansiones más apropiadas dentro del contexto de cada ocurrencia en particular.
 Por lo tanto, no necesita disponer de un diccionario de palabras en lenguaje natural.
 
 El algoritmo trabaja sobre varios tipos diferentes de palabras que no se encuentran en el diccionario.
-Dentro de estos tipos tenemos las abreviaturas de una sola palabra (\textit{single word}), las abreviaturas de múltiples palabras {\textit{multi-word abbreviations}) y otros tipos de formas cortas.
+Dentro de estos tipos tenemos las abreviaturas de una sola palabra (\textit{single-word abbreviations}), las abreviaturas de múltiples palabras {\textit{multi-word abbreviations}) y otros tipos de formas cortas.
 
 Las abreviaturas de una sola palabra son aquellas formas cortas en las que sus expansiones, o formas largas, se componen de una sola palabra.
-Dentro de esta categoría tenemos los \textbf{prefijos}, que se forman al descartar la última parte de una forma larga, reteniendo solamente unas pocas letras del principio. Un subconjunto de éstos son aquellos prefijos conformados por una sola letra.
+Dentro de esta categoría tenemos los \textbf{prefijos}, que se forman al descartar la última parte de una forma larga, reteniendo solamente unas pocas letras del principio.
+Un subconjunto de éstos son aquellos prefijos conformados por una sola letra.
 También caen en esta categoría las \textbf{dropped letters}, las cuales son abreviaturas en las que se remueven una o más letras dentro de la forma larga, excepto la primera.
 
 Las abreviaturas de múltiples palabras son aquellas en las que, como su nombre lo indica, cuando se expande la forma corta, el resultado es una forma larga compuesta por un grupo de palabras.
@@ -115,7 +116,7 @@ Por un lado estás los \textbf{acrónimos}, que se conforman con la primera letr
 Por otro, la \textbf{combinación multi-palabra}, que incluye más de una letra por cada una de las palabras, y pueden ser abreviaturas de una sola palabra, acrónimos o palabras del diccionario.
 
 Por último, los \textit{otros tipos de formas cortas} son aquellos en los que no están claros los límites de las múltiples palabras que las componen.
-Aquí se incluyen tanto las palabras que a menudo aparecen adjacentemente una a la otra y representan un forma convencional de decir cosas, denominadas \textbf{collocations}; así como la \textbf{notación matemática y otros}.
+Aquí se incluyen tanto las palabras que a menudo aparecen adjacentemente una a la otra y representan una forma convencional de decir cosas, denominadas \textbf{collocations}; así como la \textbf{notación matemática y otros}.
 
 La técnica de minado automático está inspirada en la representación del alcance de las variables en la tabla de símbolos para un compilador.
 Para la búsqueda de formas largas potenciales, se comienza con el alcance más cercano a la abreviatura, como los nombres de tipos y sentencias, y gradualmente se extiende el alcance para incluir el método, sus comentarios y los comentarios de la clase.
@@ -131,7 +132,7 @@ La \verb;x; es un caso especial, ya que suele referirse a palabras que comienzan
 \paragraph{Patrón dropped letters:}
 Es mucho menos conservativo que el patrón usado para los prefijos.
 Se construye insertando la expresión \verb;"[a-z]*"; después de cada letra de la forma corta.
-Si la forma corta viene dada por $fc = c_0, c_1,\dots, c_n$, donde \textit{n} es la longitud, entonces el patrón resultante es $c_0$\verb;[a-z]*;$c_1$\verb;[a-z]*;$\dots$\verb;[a-z]*;$c_n$.HORRIBLE
+Si la forma corta viene dada por $fc = c_0, c_1,\dots, c_n$, donde \textit{n} es la longitud, entonces el patrón resultante es $c_0$\verb;[a-z]*;$c_1$\verb;[a-z]*;$\dots$\verb;[a-z]*;$c_n$.
 
 Para las formas cortas de \textbf{múltiples palabras}, y debido a que los patrones deben buscar sobre espacios, es importante limitar qué tan lejos se puede extender la expresión.
 Para ello, el texto que compone el cuerpo de un método y sus comentarios son preprocesados... VER
@@ -140,7 +141,7 @@ Las palabras de corte, las cuales son comunes, se remueven.
 
 \paragraph{Patrón acrónimo:}
 Se conforma insertando la expresión \verb;"[a-z]+[ ]+"; después de cada letra en la forma corta.
-Si ésta viene dada por $fc = c_0, c_1,\dots, c_n$, donde \textit{n} es la longitud, entonces el patrón que se genera es $c_0$\verb;[a-z]+[ ]+;$c_1$\verb;[a-z]+[ ]+;$\dots$\verb;[a-z]+[ ]+;$c_n$.HORRIBLE
+Si ésta viene dada por $fc = c_0, c_1,\dots, c_n$, donde \textit{n} es la longitud, entonces el patrón que se genera es $c_0$\verb;[a-z]+[ ]+;$c_1$\verb;[a-z]+[ ]+;$\dots$\verb;[a-z]+[ ]+;$c_n$.
 Al igual que con los prefijos, la letra \verb;x; es un caso especial.
 Cuando se compone un patrón acrónimo, cualquier ocurrencia de \verb;x; en la forma corta se reemplaza por la expresión \verb;"e?x";.
 Esto le permite a la técnica encontrar expansiones para acrónimos como \textit{xml (eXtensible Markup Language)}.
@@ -163,12 +164,12 @@ Estos pasos son:
   \item Agrupar las palabras con la misma raíz y actualizar las frecuencias en base a esto.
   Por ejemplo, si para el patrón prefijo sobre 'def' coinciden las palabras 'default' (2 veces), 'defaults' (2 veces), y 'define' (2 veces), se agrupan 'default' y 'defaults' en la forma más corta, siendo 'default' (4 veces), y por lo tanto se retorna esta, ya que tiene la mayor frecuencia.
   \item Si todavía no hay un ganador claro, continuar buscando por el patrón en alcances mayores.
-  Se deben almacenar las frecuencias de las expansiones encontradas, así las más frecuentes son las más favorecias a medida que extendemos el alcance.
-  \item Si todo lo anterior falla, abandonar la búsqueda y dejar que EMF elija la expansión.
+  Se deben almacenar las frecuencias de las expansiones encontradas, así las más frecuentes son las más favorecidas a medida que extendemos el alcance.
+  \item Si todo lo anterior falla, abandonar la búsqueda y dejar que \texttt{EMF} elija la expansión.
 \end{enumerate}
 
 \subsubsection{Expansión Más Frecuente (EMF)}
-El razonamiento detrás de EMF es que si bien no todas las expansiones son correctas, al considerar el programa completo, aquella que ocurra más frecuentemente puede asumirse como la correcta.
+El razonamiento detrás de EMF es que si bien no todas las expansiones son correctas, al considerar el programa completo, aquella que ocurra más frecuentemente puede asumirse como la adecuada.
 Para ello, MFE se calcula ejecutando el enfoque de expansión local de las abreviaturas sobre el programa entero, en un primer nivel, y sobre las implementaciones de Java para un nivel más general.
 Luego, por cada forma corta, se cuenta cuántas veces coincidió con una expansión particular, y se establece la frecuencia relativa, agrupando las expansiones por su raíz.
 
