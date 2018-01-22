@@ -395,14 +395,14 @@ En comparación con los otros algoritmos, Samurai performa de manera similar al 
 En same-case, tiene la ventaja de que comete menos errores que Greedy y reduce drásticamente el \textit{oversplitting} (sobre-división), aunque a veces divide el token en menos partes que las esperadas.
 
 \subsection{Algoritmo GenTest}
-Este algoritmo, definido por Lawrie, Binkley y Morrell, se encarga de dividir eficientemente un indicador como parte de un proceso mayor dedicado a la normalización del vocabulario en el código fuente \cite{LawrieBinkleyMorrell2010} INSERTAR LA OTRA REF.
+Este algoritmo, definido por Lawrie, Binkley y Morrell, se encarga de dividir eficientemente un indicador como parte de un proceso mayor dedicado a la normalización del vocabulario en el código fuente \cite{LawrieBinkleyMorrell2010}.
 Recibe su nombre por la estrategia de \textit{generación} y \textit{prueba} que aplica.
-Para la generación, simplemente se arman todas las divisiones posibles.
-Si bien esto podría generar un número exponencial de opciones a explorar, la mayoría de las hard words son palabras cortas y por lo tanto el esfuerzo computacional requerido no es excesivo.
+Para la generacńo, simplemente se arman todas las divisiones posibles.
+Si bien esto podría llevar a un número exponencial de opciones a explorar, la mayoría de las hardwords son palabras cortas y por lo tanto el esfuerzo computacional requerido no es excesivo.
 La prueba es más compleja pero sin embargo más eficiente, ya que sólo consiste en aplicar una función de \textit{scoring} sobre cada división propuesta, y aquella que presente el mayor puntaje es la elegida.
 
 El corazón de este algoritmo es una métrica de \textit{similaridad}, computada con base en los datos de ocurrencia.
-Estos datos se utilizan porque se han probado útiles para resolver ambig:uedades en traducciones, y se apoyan en la hipótesis de que soft-words expandidas deberían encontrarse ubicadas cerca tanto en la documentación como en textos generales.
+Estos datos se utilizan porque se han probado útiles para resolver ambigüedades en traducciones, y se apoyan en la hipótesis de que softwords expandidas deberían encontrarse ubicadas cerca tanto en la documentación como en textos generales.
 
 La función de scoring se compone de tres categorías de métricas.
 \paragraph{Características de las softwords.}
@@ -422,9 +422,9 @@ Se utilizan dos diccionarios, en donde uno, el \textit{pequeño} es un subconjun
 Además, dos métricas hacen uso de la información de co-ocurrencia desarrollada por Google, en donde se consulta un conjunto de datos que indica el número de veces que una serie de cinco palabras se observa en las páginas indexadas por el motor de búsqueda hasta 2006.
 Las métricas que caben dentro de esta categoría son:
 \begin{itemize}
-  \item Cantidad de matches en el diccionario pequeño.
-  \item Cantidad de matches en el diccionario grande.
-  \item Cantidad de matches en el diccionario grande con longitud 3.
+  \item Cantidad de coincidencias en el diccionario pequeño.
+  \item Cantidad de coincidencias en el diccionario grande.
+  \item Cantidad de coincidencias en el diccionario grande con longitud 3.
   \item Cantidad de palabras de programación.
   \item Cantidad de expansiones del diccionario.
   \item Co-ocurrencia.
@@ -442,15 +442,15 @@ En esta categoría las métricas son:
   \item Intersection-program probability (VER)
 \end{itemize}
 
-Como la variable de respuesta es binaria, es decir, si una división es correcta o incorrecta, se utilizó regresión logística para modelar la asociación entre la variable de respuesta y las variables explicativas (VER).
+Como la variable de respuesta es binaria, es decir, si una división es correcta o incorrecta, se utilizó regresión logística para modelar la asociación entre la variable de respuesta y las variables explicativas.
 El modelo resultante es una combinación ponderada de las métricas estadísticamente significativas, y es la función de scoring que se aplica para evaluar divisiones potenciales.
 
 El algoritmo emplea una función \textit{Splits(id)}, la cual determina el conjunto de todas las posibles divisiones de un identificador \textit{id}.
-Una división $s \in Splits(id)$ está compuesta por una serie de soft-words $s_1 s_2 \dots s_n$.
-Para cada soft-word $s_i$, la función $E(s_i)$ establece el conjunto de las distintas expansiones posibles $e_{i,1}, e_{i,2}, \dots, e_{i,m}$ para $s_i$.
+Una división $s \in Splits(id)$ está compuesta por una serie de softwords $s_1 s_2 \dots s_n$.
+Para cada softword $s_i$, la función $E(s_i)$ establece el conjunto de las distintas expansiones posibles $e_{i,1}, e_{i,2}, \dots, e_{i,m}$ para $s_i$.
 En el algoritmo, la similitud entre dos expansiones, $sim(e_1, e_2)$ viene dada por la probabilidad de que $e_1$ y $e_2$ co-ocurran en una ventana de cinco palabras en el conjunto de datos de Google.
 
-Para una división $s = s_1 s_2 \dots s_n$, por cada expansión $e_{i,j} \in E(s_i)$, se define el puntaje de la similiridad entre $e_{i,j}$ y las otras soft-words de $s$, donde $s_k (k \neq i)$ como la suma de las similaridades entre $e_{i,j}$ y los elementos de $E(s_k)$:
+Para una división $s = s_1 s_2 \dots s_n$, por cada expansión $e_{i,j} \in E(s_i)$, se define el puntaje de la similiridad entre $e_{i,j}$ y las otras softwords de $s$, donde $s_k (k \neq i)$ como la suma de las similaridades entre $e_{i,j}$ y los elementos de $E(s_k)$:
 
 \begin{center}
   $\underset{(k \neq i)}{sim(e_{i,j}, s_k)} = \displaystyle\sum_{e \in E(s_k)} sim(e_{i,j}, e)$
@@ -468,5 +468,5 @@ Por cada $s_i \in s$, $score(s_i)$ es la cohesión de la expansión $e_{i,j} \in
   $score(s_i) = max_{e_{i,j} \in E(s_i)} [cohesion(e_{i,j}, s)]$
 \end{center}
 
-En comparación con Greedy y Samurai, el algoritmo GenTest performa mucho mejor, con un nivel de precisón mayor.
-En los casos en los que no logra obtener el resultado esperado, se observa que este algoritmo tiende a realizar menos divisiones que las esperadas (\textit{undersplit}).
+En comparación con Greedy y Samurai, el algoritmo GenTest performa mucho mejor, con un nivel de precisión mayor.
+En los casos en los que no logra obtener el resultado deseado, se observa que este algoritmo tiende a realizar menos divisiones que las esperadas (\textit{undersplit}).
