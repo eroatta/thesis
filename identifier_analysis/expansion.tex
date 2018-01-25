@@ -112,16 +112,16 @@ También caen en esta categoría las \textbf{dropped letters}, las cuales son ab
 
 Las abreviaturas de múltiples palabras son aquellas en las que, como su nombre lo indica, cuando se expande la forma corta, el resultado es una forma larga compuesta por un grupo de palabras.
 Pueden ser de dos tipos.
-Por un lado estás los \textbf{acrónimos}, que se conforman con la primera letra de cada palabra de la expansión, y son la forma más común.
+Por un lado están los \textbf{acrónimos}, que se conforman con la primera letra de cada palabra de la expansión, y corresponden a la forma más común.
 Por otro, la \textbf{combinación multi-palabra}, que incluye más de una letra por cada una de las palabras, y pueden ser abreviaturas de una sola palabra, acrónimos o palabras del diccionario.
 
 Por último, los \textit{otros tipos de formas cortas} son aquellos en los que no están claros los límites de las múltiples palabras que las componen.
 Aquí se incluyen tanto las palabras que a menudo aparecen adjacentemente una a la otra y representan una forma convencional de decir cosas, denominadas \textbf{collocations}; así como la \textbf{notación matemática y otros}.
 
 La técnica de minado automático está inspirada en la representación del alcance de las variables en la tabla de símbolos para un compilador.
-Para la búsqueda de formas largas potenciales, se comienza con el alcance más cercano a la abreviatura, como los nombres de tipos y sentencias, y gradualmente se extiende el alcance para incluir el método, sus comentarios y los comentarios de la clase.
+Para la búsqueda de formas largas potenciales, se comienza con el alcance más cercano a la abreviatura, como los nombres de tipos y sentencias, y gradualmente se extiende el alcance hasta incluir el método, sus comentarios y los comentarios de la clase.
 Si la técnica continúa sin dar resultados, se expande la búsqueda al programa completo y al código de Java SE 1.5.
-Con cada extensión del alcance se incluye información más general, y por lo tanto menos específica la búsqueda.
+Con cada extensión del alcance se incluye información más general, y por lo tanto se hace menos específica la búsqueda.
 
 En el caso de las \textbf{palabras únicas}, el primer paso en la búsqueda de las formas largas consiste en construir una expresión regular, a partir de la forma corta, y luego utilizar ese patrón para analizar las diferentes partes del cuerpo del método, en pos de encontrar palabras candidatas.
 
@@ -135,9 +135,9 @@ Se construye insertando la expresión \verb;"[a-z]*"; después de cada letra de 
 Si la forma corta viene dada por $fc = c_0, c_1,\dots, c_n$, donde \textit{n} es la longitud, entonces el patrón resultante es $c_0$\verb;[a-z]*;$c_1$\verb;[a-z]*;$\dots$\verb;[a-z]*;$c_n$.
 
 Para las formas cortas de \textbf{múltiples palabras}, y debido a que los patrones deben buscar sobre espacios, es importante limitar qué tan lejos se puede extender la expresión.
-Para ello, el texto que compone el cuerpo de un método y sus comentarios son preprocesados... VER
-Los comentarios y las cadenas de texto son divididos en frases, a partir de los signos de puntuación (? ! , ; .).
-Las palabras de corte, las cuales son comunes, se remueven.
+Para ello, el texto que compone el cuerpo de un método y sus comentarios son preprocesados de modo que no se busquen formas largas más allá de declaraciones de variables y los límites del método.
+Además, los comentarios y las cadenas de texto son divididos en frases, a partir de los signos de puntuación (?!,;.).
+A todo esto se suma qué, las palabras de corte (las cuales son comunes), son removidas.
 
 \paragraph{Patrón acrónimo:}
 Se conforma insertando la expresión \verb;"[a-z]+[ ]+"; después de cada letra en la forma corta.
@@ -148,7 +148,7 @@ Esto le permite a la técnica encontrar expansiones para acrónimos como \textit
 
 \paragraph{Patrón combinación de palabras:}
 Este patrón se obtiene añadiendo la expresión \verb;"[a-z]*?[ ]*?"; a cada una de las letras que pertenecen a la forma corta.
-Sea $fc = c_0, c_1, \dots, c_n$, donde \textit{n} es la longitud, entonces el patrón resultante es $c_0$\verb;[a-z]*?[ ]*?;$c_1$\verb;[a-z]*?[ ]*?;$\dots$\verb;[a-z]*?[ ]*?;$c_n$.HORRIBLE
+Sea $fc = c_0, c_1, \dots, c_n$, donde \textit{n} es la longitud, entonces el patrón resultante es $c_0$\verb;[a-z]*?[ ]*?;$c_1$\verb;[a-z]*?[ ]*?;$\dots$\verb;[a-z]*?[ ]*?;$c_n$.
 La expresión se construye de manera que sólo las letras que aparezcan en la forma corta puedan ser el inicio de una palabra.
 Se utiliza una expresión más conservadora para favorecer las expansiones más cortas, con menos espacios.
 Como la expresión ya es más general, pueden coincidir con expansiones incorrectas, por lo que la búsqueda se aplica solamente para formas cortas con una longitud de cuatro o más caracteres.
@@ -165,12 +165,12 @@ Estos pasos son:
   Por ejemplo, si para el patrón prefijo sobre 'def' coinciden las palabras 'default' (2 veces), 'defaults' (2 veces), y 'define' (2 veces), se agrupan 'default' y 'defaults' en la forma más corta, siendo 'default' (4 veces), y por lo tanto se retorna esta, ya que tiene la mayor frecuencia.
   \item Si todavía no hay un ganador claro, continuar buscando por el patrón en alcances mayores.
   Se deben almacenar las frecuencias de las expansiones encontradas, así las más frecuentes son las más favorecidas a medida que extendemos el alcance.
-  \item Si todo lo anterior falla, abandonar la búsqueda y dejar que \texttt{EMF} elija la expansión.
+  \item Si todo lo anterior falla, abandonar la búsqueda y dejar que \textit{EMF} elija la expansión.
 \end{enumerate}
 
 \subsubsection{Expansión Más Frecuente (EMF)}
 El razonamiento detrás de EMF es que si bien no todas las expansiones son correctas, al considerar el programa completo, aquella que ocurra más frecuentemente puede asumirse como la adecuada.
-Para ello, MFE se calcula ejecutando el enfoque de expansión local de las abreviaturas sobre el programa entero, en un primer nivel, y sobre las implementaciones de Java para un nivel más general.
+Para ello, EMF se calcula ejecutando el enfoque de expansión local de las abreviaturas sobre el programa entero en un primer nivel, y sobre las implementaciones de Java para un nivel más general.
 Luego, por cada forma corta, se cuenta cuántas veces coincidió con una expansión particular, y se establece la frecuencia relativa, agrupando las expansiones por su raíz.
 
 Sin embargo, ocasionalmente una expansión incorrecta puede considerarse como la más adecuada.
