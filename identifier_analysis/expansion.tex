@@ -246,17 +246,18 @@ Para evitar esto, sólo se toman las expansiones que coincidieron para más de l
 En comparación con los otros algoritmos, cuenta con la ventaja de que puede elegir un resultado entre varias opciones, y además, mejora su performance y eficacia en un 57\%.
 
 \subsection{Algoritmo Normalize}
-Corresponde la segunda fase en el algoritmo propuesto por Lawrie et al. \cite{} para la normalización del vocabulario en el código fuente, y toma como entrada la división hecha por GenTest (REFERENCIA).
+Corresponde la segunda fase en el algoritmo propuesto por Lawrie et al. \cite{LawrieBinkleyMorrell2010} para la normalización del vocabulario en el código fuente, y toma como entrada la división hecha por GenTest.
 
-Permite la asignación de significado a cada softword analizada.
-Pueden darse dos situaciones.
+El objetivo particular de este algoritmo es dar significado a cada una de las softwords analizadas.
+Durante este proceso, pueden presentarse dos situaciones.
 En la primera, el caso fácil, la softword es una palabra del diccionario y tiene un significado bien establecido que coincide con el uso de la palabra dentro del código fuente.
-En la segunda, las palabras que no son parte de algún diccionario, se asume que son abreviaturas o acrónimos.
+En la segunda, las palabras no son parte de algún diccionario, por lo que se asume son abreviaturas o acrónimos.
 
-Para resolver estos casos de abreviaturas y acrónimos, se utilizan técnicas de traducción automática (machine translation) y así obtener palabras y frases coherentes.
-La técnica del modelo de máxima coherencia (REFERENCIA) es la base de este algoritmo.
+Para resolver estos casos de abreviaturas y acrónimos, se utilizan técnicas de traducción automática (machine translation) que permiten obtener palabras y frases coherentes.
+Particularmente, se emplea la técnica del modelo de máxima coherencia \cite{LiuJinChai05}.
 
-El algoritmo consiste en la elección de aquella combinación de expansiones sobre las divisiones hechas previamente que logre el puntaje acumulado de coherencia más alto, y se define como:
+El algoritmo trabaja sobre las divisiones hechas previamente, comparando los puntajes de coherencia acumulados de las combinaciones de expansiones.
+Viene definido de la siguiente manera:
 
 \begin{center}
   $Normalize(id) = max_{s \in Splits(id)} \displaystyle [\sum_{s_i \in s} score(s_i)]$
