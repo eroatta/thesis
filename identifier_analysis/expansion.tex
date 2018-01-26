@@ -263,4 +263,5 @@ Viene definido de la siguiente manera:
   $Normalize(id) = max_{s \in Splits(id)} \displaystyle [\sum_{s_i \in s} score(s_i)]$
 \end{center}
 
-VENTAJAS/DESVENTAJAS???
+A diferencia de sus predecesores, los cuales tienen requerimientos estrictos sobre la fuente del lenguaje natural (por ejemplo, la necesidad de comentarios de la JavaDoc o un diccionario específico), \textit{Normalize} puede expandir abreviaturas desde código fuente arbitrario.
+A su vez, a pesar de que documentación interna y externa pueden ser buenas fuentes de vocabulario, el rendimiento del algoritmo no se degrada significativamente cuando sólo se encuentra disponible el código como fuente de vocabulario.
