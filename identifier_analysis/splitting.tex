@@ -68,8 +68,8 @@ Las tres listas que se utilizan son:
   \item \textbf{Stop-list:} es la lista de corte y está compuesta de tres tipos de palabras, dentro de las cuales encontramos a los tipos de datos predefinidos, variables globales (tanto del lenguage como del ambiente), y los nombres de librerías estándar.
 \end{itemize}
 
-Tal como puede verse en el algoritmo \ref{algGreedy}, el proceso comienza dividiendo el token de entrada en hardwords, tomando como delimitadores a los caracteres especiales y la técnica de \textit{camel-casing}.
-Una vez hechos tanto el reemplazo de números y caracteres especiales (línea 4), como la división inicial del token (línea 5), se procede con la evaluación de cada una de las hardwords resultantes.
+Tal como puede verse en el algoritmo \ref{algGreedy}, el proceso comienza dividiendo el token de entrada en hard-words, tomando como delimitadores a los caracteres especiales y la técnica de \textit{camel-casing}.
+Una vez hechas las divisiones tanto por números, caracteres especiales (línea 4), como por el cambio de minúsculas a mayúsculas en CamelCase (línea 5), se procede con la evaluación de cada una de las hard-words resultantes.
 En primera instancia, se verifica si la palabra candidata existe en alguna de las listas con las que trabaja el algoritmo (línea 8).
 Si es así, el fragmento del token es considerado parte de la división y por lo tanto de la salida del proceso (línea 13).
 En caso contrario, al asumirse que está formado por múltiples palabras, se procesa en búsqueda de las softwords que lo componen.
