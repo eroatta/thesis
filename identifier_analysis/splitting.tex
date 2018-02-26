@@ -238,7 +238,7 @@ Luego, se añade un espacio en blanco cuando encuentra una secuencia de dos cara
 En este punto, cada elemento tiene la forma de cero o más mayúsculas seguidas por cero o más minúsculas.
 Después del procesamiento inicial, cada sub-cadena es examinada y evaluada para determinar si se continúa con la división camel-case regular, o si se opta por la alternativa.
 Para esto, se determinan los puntajes para la separación por camel-case (líneas 9 y 11), y para la alternativa (línea 14).
-Ambas puntajes son comparados (línea 16), y si hay evidencia suficiente que justifique la separación a la derecha del supuesto punto de corte, entonces la cadena de texto original es reemplazada por esta división (líneas 18 y 21).
+Ambos puntajes son comparados (línea 16), y si hay evidencia suficiente que justifique la separación a la derecha del supuesto punto de corte, entonces la cadena de texto original es reemplazada por esta división (líneas 18 y 21).
 Finalizados todos estos pasos, se llama a \textit{sameCaseSplit} por cada una de las sub-cadenas generadas (línea 29).
 
 \begin{algorithm}[H]
