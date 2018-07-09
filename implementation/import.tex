@@ -12,12 +12,15 @@ Los pasos que se realizan durante esta importación y procesamiento inicial son 
 
 \subsection{Acceso al código fuente}
 
-\subsection{Parseo VER MEJOR NOMBRE}
+\subsection{Construcción de un AST}
+TODO (incluir sección de AST y GO?)
 
-\subsection{Extracción de información requerida}
+\subsection{Análisis semántico}
 Algunos algoritmos, tanto de división como de expansión, requieren de cierta información contextual para poder llevar adelante su tarea.
 Por ejemplo, dentro de los algoritmos de división, \textit{Samurai} depende de dos tablas de frecuencia, una de las cuales es específica al programa bajo análisis; y la otra corresponde a un universo mayor de código fuente, independiente del código en cuestión.
 Así mismo, el algoritmo de \textit{Expansión Básica} utiliza listas tanto de palabras como frases, extraídas de los comentarios e identificadores asociados a cada una de las funciones analizadas.
 En el caso de \textit{AMAP}, para poder efectuar las expansiones, se necesitan establecer tablas de frecuencia por métodos, clases, paquetes e incluso proyectos.
+
+Para poder extraer la información contextual requerida, se realiza un \textbf{análisis semántico} sobre \textit{árbol de sintáxis abstracta (AST)} resultante del paso anterior.
 
 \subsection{Almacenamiento de los resultados}
