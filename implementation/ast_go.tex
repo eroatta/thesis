@@ -17,11 +17,22 @@ La función de cada uno de estos, y su participación en el proceso, se indica a
   \item \textbf{go/scanner} TODO
   
   \item \textbf{go/ast} TODO
+  Las principales estructuras y funciones de este paquete son:
+  \begin{itemize}
+    \item \textbf{Visitor} Es la interfaz que define el contrato que tiene que cumplir una estructura para considerarse Visitor, y especifica una función \textit{Visit}, la cual se utiliza para recorrer el AST, y recibe un nodo del mismo como parámetro.
+    El argumento de salida de esta función es otro elemento que cumple la interfaz \textit{Visitor}.
+
+    \item \textbf{Node} Es una interfaz que implementan todos los elementos que componen un AST, y define el contrato para identificar el inicio y fin del nodo a nivel de tokens.
+
+    \item \textbf{Walk(v Visitor, node Node)} Esta función recorre el AST, nodo por nodo, siguiendo el enfoque de \textit{depth-first}.
+    El proceso comienza cuando se llama a \textit{v.Visit(node)}, y si este no es nulo, procede recursivamente llamando a esa función con cada uno de los hijos no nulos.
+    En caso de alcanzar un nodo final, la visita a éste retorna nulo y así puede volver sobre el árbol y continuar con los nodos de otro nivel.
+  \end{itemize}
   
   \item \textbf{go/parser} El paquete contiene las funciones y configuraciones necesarias para el parseo de código fuente sea a través de directorios, archivos o directamente expresiones. Cabe destacar que, el parsing, aplica y reconoce solamente la sintaxis de Go.
   El resultado del parseo es un árbol de sintáxis abstracta (AST), el cual puede luego ser procesado para evaluar, extraer información e incluso modificarlo.
   Los principales elementos de este paquete son:
-  
+
   \begin{itemize}
     \item \textbf{ParseFile(fset *token.FileSet, filename string, src interface{}, mode Mode) (f *ast.File, err error)} Es la función realiza el parseo de un sólo archivo de Go y retorna el nodo correspondiente a \textbf{ast.File}.
     El elemento devuelto representa solamente el archivo en cuestión, sin tener en cuenta el resto de archivos que compone el paquete/proyecto, por lo que para obtener el árbol completo del proyecto, es necesario combinar los resultados de cada una de sus llamadas.
