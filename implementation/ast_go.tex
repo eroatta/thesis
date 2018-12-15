@@ -12,11 +12,11 @@ Además, esto nos asegura que se soportan todas las estructuras que componen el 
 En la figura X se establece la correlación entre las etapas del proceso de creación de un AST a partir de código fuente y los paquetes provistos en el lenguaje de programación.
 La función de cada uno de estos, y su participación en el proceso, se indica a continuación:
 \begin{itemize}
-  \item \textbf{go/token} Contiene el conjunto de tokens del léxico que conforman el lenguaje de programación Go, junto con las operaciones que pueden aplicarse a los mismos.
+  \item \textbf{go/token} Contiene el conjunto de \textit{tokens} del léxico que conforman el lenguaje de programación Go, junto con las operaciones que pueden aplicarse a los mismos.
   
-  \item \textbf{go/scanner} TODO
+  \item \textbf{go/scanner} El paquete \textit{scanner} ofrece las estructuras, interfaces y funciones necesarias para tokenizar un string que represente un fragmento o archivo de código fuente de Go.
   
-  \item \textbf{go/ast} TODO
+  \item \textbf{go/ast} Es el paquete donde se especifican las estructuras y tipos de datos para representar los elementos del árbol de sintaxis abstracta, al igual que las operaciones aplicables sobre los mismos.
   Las principales estructuras y funciones de este paquete son:
   \begin{itemize}
     \item \textbf{Visitor} Es la interfaz que define el contrato que tiene que cumplir una estructura para considerarse Visitor, y especifica una función \textit{Visit}, la cual se utiliza para recorrer el AST, y recibe un nodo del mismo como parámetro.
