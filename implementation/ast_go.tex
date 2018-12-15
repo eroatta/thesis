@@ -18,13 +18,17 @@ La función de cada uno de estos, y su participación en el proceso, se indica a
   
   \item \textbf{go/ast} TODO
   
-  \item \textbf{go/parser} El paquete contiene las funciones y estructuras necesarias para el parseo de archivos Go, los cuales se pueden prover de diferentes formas (por archivo, directorio, etc).
-  El resultado del parseo es el árbol de sintáxis abstracta (AST), el cual puede luego ser procesado para evaluar, extraer información e incluso modificarlo.
-  Las funciones y configuraciones principales de este paquete son:
+  \item \textbf{go/parser} El paquete contiene las funciones y configuraciones necesarias para el parseo de código fuente sea a través de directorios, archivos o directamente expresiones. Cabe destacar que, el parsing, aplica y reconoce solamente la sintaxis de Go.
+  El resultado del parseo es un árbol de sintáxis abstracta (AST), el cual puede luego ser procesado para evaluar, extraer información e incluso modificarlo.
+  Los principales elementos de este paquete son:
+  
   \begin{itemize}
-    \item \textbf{ParseFile(fset *token.FileSet, filename string, src interface{}, mode Mode) (f *ast.File, err error)} Esta función realiza el parseo de un sólo archivo de Go y retorna el nodo correspondiente a \textbf{ast.File}. El elemento retornado solamente representa el archivo en cuestión, sin tener en cuenta los demás elementos del paquete/proyecto, por lo que es necesario armar el árbol completo con los resultados de cada una de sus llamadas.
-    
-    VER qué más de acá: ParseFile parses the source code of a single Go source file and returns the corresponding ast.File node. The source code may be provided via the filename of the source file, or via the src parameter. If src != nil, ParseFile parses the source from src and the filename is only used when recording position information. The type of the argument for the src parameter must be string, []byte, or io.Reader. If src == nil, ParseFile parses the file specified by filename. The mode parameter controls the amount of source text parsed and other optional parser functionality. Position information is recorded in the file set fset, which must not be nil. If the source couldn't be read, the returned AST is nil and the error indicates the specific failure. If the source was read but syntax errors were found, the result is a partial AST (with ast.Bad* nodes representing the fragments of erroneous source code). Multiple errors are returned via a scanner.ErrorList which is sorted by file position.
+    \item \textbf{ParseFile(fset *token.FileSet, filename string, src interface{}, mode Mode) (f *ast.File, err error)} Es la función realiza el parseo de un sólo archivo de Go y retorna el nodo correspondiente a \textbf{ast.File}.
+    El elemento devuelto representa solamente el archivo en cuestión, sin tener en cuenta el resto de archivos que compone el paquete/proyecto, por lo que para obtener el árbol completo del proyecto, es necesario combinar los resultados de cada una de sus llamadas.
+    El primer argumento de entrada, de tipo \textit{token.FileSet}, representa un conjunto de archivos y métodos para acceder de forma sincronizada a los mismos, evitando inconvenientes por concurrencia.
+    Los argumentos de entrada \textit{filename} y \textit{src} indican cuál será el archivo a procesar.
+    El primero, lo hace a través del nombre del archivo; mientras que el segundo se utiliza para brindar directamente el contenido del mismo.
+    Por último, \textit{mode} configura cómo debe correr el parser para esa ejecución.
 
     \item \textbf{Mode} Es un indicador de cuánto código debe importarse, junto con otras opciones para el parser.
     Permite establecer diferentes niveles de importación, como por ejemplo sólo la definición del paquete, las importaciones, la inclusión de comentarios y el tratamiento de errores.
