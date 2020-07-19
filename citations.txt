@@ -1,0 +1,215 @@
+@inproceedings{inproceedings,
+author = {Aversano, L. and Canfora, Gerardo and Cimitile, Aniello and Lucia, Andrea},
+year = {2001},
+month = {02},
+pages = {148-157},
+title = {Migrating legacy systems to the Web: An experience report},
+isbn = {0-7695-1028-0},
+journal = {Proceedings of the European Conference on Software Maintenance and Reengineering, CSMR},
+doi = {10.1109/.2001.914979}
+}
+
+@inproceedings{inproceedings,
+author = {Aversano, L. and Canfora, Gerardo and Stefanucci, Silvio},
+year = {2001},
+month = {01},
+pages = {199-208},
+title = {Understanding and Improving the Maintenance Process: A Method and Two Case Studies.},
+doi = {10.1109/WPC.2001.921731}
+}
+
+Cite this paper as:
+    Ball T. (1999) The Concept of Dynamic Analysis. In: Nierstrasz O., Lemoine M. (eds) 
+    Software Engineering — ESEC/FSE ’99. ESEC 1999, SIGSOFT FSE 1999. 
+    Lecture Notes in Computer Science, vol 1687. Springer, Berlin, Heidelberg
+
+@inproceedings{10.1145/336512.336534,
+author = {Bennett, Keith H. and Rajlich, V\'{a}clav T.},
+title = {Software Maintenance and Evolution: A Roadmap},
+year = {2000},
+isbn = {1581132530},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/336512.336534},
+doi = {10.1145/336512.336534},
+booktitle = {Proceedings of the Conference on The Future of Software Engineering},
+pages = {73–87},
+numpages = {15},
+location = {Limerick, Ireland},
+series = {ICSE ’00}
+}
+  
+@article{article,
+author = {Berón, Mario and Rangel Henriques, Pedro and Pereira, Maria and Uzal, Roberto},
+year = {2007},
+month = {01},
+pages = {},
+title = {Program inspection to interconnect behavioral and operational view for program comprehension}
+}
+
+@article{article,
+author = {Butler, Simon and Wermelinger, Michel and Yu, Yijun and Sharp, Helen},
+year = {2010},
+month = {03},
+pages = {},
+title = {Exploring the Influence of Identifier Names on Code Quality: An Empirical Study},
+journal = {Proceedings of the Euromicro Conference on Software Maintenance and Reengineering, CSMR},
+doi = {10.1109/CSMR.2010.27}
+}
+
+@article{article,
+author = {Eisenbarth, Thomas and Koschke, Rainer and Simon, Daniel},
+year = {2001},
+month = {10},
+pages = {},
+title = {Aiding Program Comprehension by Static and Dynamic Feature Analysis},
+doi = {10.1109/ICSM.2001.972777}
+}
+
+@inproceedings{inproceedings,
+author = {Embley, David},
+year = {2004},
+month = {01},
+pages = {3},
+title = {Towards Semantic Understanding -- An Approach Based on Information Extraction Ontologies.}
+}
+
+@article{article,
+author = {Feild, Henry and Binkley, David and Lawrie, Dawn},
+year = {2006},
+month = {01},
+pages = {},
+title = {An empirical comparison of techniques for extracting concept abbreviations from identifiers}
+}
+
+@inproceedings{inproceedings,
+author = {Fonseca, Ruben and Cruz, Daniela and Rangel Henriques, Pedro and Pereira, Maria},
+year = {2008},
+month = {06},
+pages = {263-267},
+title = {How to Interconnect Operational and Behavioral Views of Web Applications},
+doi = {10.1109/ICPC.2008.25}
+}
+
+@inproceedings{inproceedings,
+author = {Hasselbring, Wilhelm and Fuhr, Andreas and Riediger, Volker},
+year = {2011},
+month = {03},
+pages = {299-300},
+title = {First International Workshop on Model-Driven Software Migration (MDSM 2011)},
+doi = {10.1109/CSMR.2011.37}
+}
+
+@inproceedings{inproceedings,
+author = {Pereira, Maria and Berón, Mario and Cruz, Daniela and Oliveira, Nuno and Rangel Henriques, Pedro},
+year = {2012},
+month = {01},
+pages = {91-105},
+title = {Problem Domain Oriented Approach for Program Comprehension},
+isbn = {9783939879408},
+doi = {10.4230/OASIcs.SLATE.2012.91}
+}
+
+@article{article,
+author = {Petre, Marian and De Quincey, Ed},
+year = {2006},
+month = {01},
+pages = {},
+title = {A gentle overview of software visualisation},
+journal = {PPIG Newsletter}
+}
+
+@inproceedings{inproceedings,
+author = {Storey, Margaret-Anne and Fracchia, F. and Müller, Hausi},
+year = {1997},
+month = {03},
+pages = {17-28},
+title = {Cognitive Design Elements to Support the Construction of a Mental Model during Software Visualization},
+doi = {10.1109/WPC.1997.601257}
+}
+
+@article{article,
+author = {Teyseyre, Alfredo and Campo, Marcelo},
+year = {2009},
+month = {01},
+pages = {87-105},
+title = {An Overview of 3D Software Visualization},
+volume = {15},
+journal = {IEEE transactions on visualization and computer graphics},
+doi = {10.1109/TVCG.2008.86}
+}
+
+@inproceedings{inproceedings,
+author = {Torchiano, Marco and Di Penta, Massimiliano and Ricca, Filippo and Lucia, Andrea and Lanubile, Filippo},
+year = {2008},
+month = {09},
+pages = {35-42},
+title = {Software migration projects in Italian industry: Preliminary results from a state of the practice survey},
+doi = {10.1109/ASEW.2008.4686319}
+}
+
+@inproceedings{inproceedings,
+author = {Zou, Ying},
+year = {2003},
+month = {10},
+pages = {175- 185},
+title = {Incorporating quality requirements in software migration process},
+isbn = {0-7695-2218-1},
+doi = {10.1109/STEP.2003.15}
+}
+
+@inproceedings{inproceedings,
+author = {Zou, Ying and Kontogiannis, Kostas},
+year = {2002},
+month = {02},
+pages = {530 - 539},
+title = {Migration to object oriented platforms: A state transformation approach},
+isbn = {0-7695-1819-2},
+journal = {Conference on Software Maintenance},
+doi = {10.1109/ICSM.2002.1167814}
+}
+
+@article{article,
+author = {Bassil, Sarita and Keller, Rudolf},
+year = {2001},
+month = {01},
+pages = {},
+title = {A Qualitative and Quantitative Evaluation of Software Visualization Tools}
+}
+
+@book{book,
+author = {Chen, Chaomei},
+year = {2006},
+month = {01},
+pages = {},
+title = {Information Visualization: Beyond the Horizon},
+volume = {1},
+isbn = {978-1-84628-340-6},
+journal = {Information Visualization: Beyond the Horizon},
+doi = {10.1007/1-84628-579-8}
+}
+
+@inproceedings{inproceedings,
+author = {Schulte, Carsten and Clear, Tony and Taherkhani, Ahmad and Busjahn, Teresa and Paterson, James},
+year = {2010},
+month = {01},
+pages = {65-86},
+title = {An introduction to program comprehension for computer science educators},
+isbn = {9781450306775},
+journal = {Proceedings of the Conference on Integrating Technology into Computer Science Education, ITiCSE},
+doi = {10.1145/1971681.1971687}
+}
+
+@InProceedings{Cousot77,
+  author = {Cousot, Patrick and Cousot, Radhia},
+  year   = {1977},
+  month  = {01},
+  pages  = {238-252},
+  title  = {Abstract Interpretation: A Unified Lattice Model for Static Analysis of Programs by Construction or Approximation of Fixpoints},
+  doi    = {10.1145/512950.512973},
+}
+
+D.M. Butler, J.C. Almond, R.D. Bergeron, K.W. Brodlie, and
+A.B. Haber, “Visualization Reference Models,” Proc. Fourth
+IEEE Conf. Visualization, G.M. Nielson and D. Bergeron, eds.,
+pp. 337-342, Oct. 1993.
