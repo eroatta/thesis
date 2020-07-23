@@ -101,15 +101,6 @@ isbn = {9783939879408},
 doi = {10.4230/OASIcs.SLATE.2012.91}
 }
 
-@article{article,
-author = {Petre, Marian and De Quincey, Ed},
-year = {2006},
-month = {01},
-pages = {},
-title = {A gentle overview of software visualisation},
-journal = {PPIG Newsletter}
-}
-
 @inproceedings{inproceedings,
 author = {Storey, Margaret-Anne and Fracchia, F. and Müller, Hausi},
 year = {1997},
@@ -117,17 +108,6 @@ month = {03},
 pages = {17-28},
 title = {Cognitive Design Elements to Support the Construction of a Mental Model during Software Visualization},
 doi = {10.1109/WPC.1997.601257}
-}
-
-@article{article,
-author = {Teyseyre, Alfredo and Campo, Marcelo},
-year = {2009},
-month = {01},
-pages = {87-105},
-title = {An Overview of 3D Software Visualization},
-volume = {15},
-journal = {IEEE transactions on visualization and computer graphics},
-doi = {10.1109/TVCG.2008.86}
 }
 
 @inproceedings{inproceedings,
@@ -190,8 +170,3 @@ isbn = {9781450306775},
 journal = {Proceedings of the Conference on Integrating Technology into Computer Science Education, ITiCSE},
 doi = {10.1145/1971681.1971687}
 }
-
-D.M. Butler, J.C. Almond, R.D. Bergeron, K.W. Brodlie, and
-A.B. Haber, “Visualization Reference Models,” Proc. Fourth
-IEEE Conf. Visualization, G.M. Nielson and D. Bergeron, eds.,
-pp. 337-342, Oct. 1993.
