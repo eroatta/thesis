@@ -191,15 +191,6 @@ journal = {Proceedings of the Conference on Integrating Technology into Computer
 doi = {10.1145/1971681.1971687}
 }
 
-@InProceedings{Cousot77,
-  author = {Cousot, Patrick and Cousot, Radhia},
-  year   = {1977},
-  month  = {01},
-  pages  = {238-252},
-  title  = {Abstract Interpretation: A Unified Lattice Model for Static Analysis of Programs by Construction or Approximation of Fixpoints},
-  doi    = {10.1145/512950.512973},
-}
-
 D.M. Butler, J.C. Almond, R.D. Bergeron, K.W. Brodlie, and
 A.B. Haber, “Visualization Reference Models,” Proc. Fourth
 IEEE Conf. Visualization, G.M. Nielson and D. Bergeron, eds.,
