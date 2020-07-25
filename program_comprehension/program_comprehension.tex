@@ -4,18 +4,18 @@
 
 La \textit{Comprensión de Programas} es una disciplina de la Ingeniería de Software
 cuyo objetivo es proveer \textit{Modelos, Métodos, Técnicas} y \textit{Herramientas}
-para facilitar el estudio y entendimiento de los sistemas de software \cite{BeronHenriquesPereiraXX}.
+para facilitar el estudio y entendimiento de los sistemas de software \cite{BeronHenriquesPereira10}.
 
 "Permite que el programador pueda localizar rápidamente los objetos del programa que se
 utilizaron para una funcionalidad específica del sistema de estudio.
 Si el sistema que se está analizando es pequeño (5 Kloc o menos) entonces las bondades 
 de este tipo de relación no se pueden apreciar claramente.
 Pero si el sistema es de gran envergadura la relación antes mencionada disminuye el
-esfuerzo del programador."\cite{BeronHenriquesPereiraXX}
+esfuerzo del programador."\cite{BeronHenriquesPereira10}
 
 "Por otra parte, los costos implicados en la modificación, mantenimiento o evolución
 del sistema disminuyen debido a que se reduce el tiempo requerido por el programador
-para la realización de la tarea."\cite{BeronHenriquesPereiraXX}
+para la realización de la tarea."\cite{BeronHenriquesPereira10}
 
 "Software development is a complex undertaking, involving a number of related tasks: specification,
 design, implementation, testing, debugging, maintenance, modification, re-engineering. Each of those
@@ -23,7 +23,7 @@ tasks involves a number of cognitive demands, such as search, comprehension, ana
 solving, representation. It’s no wonder that software development is so often described as complex.
 The complexity derives from the nature of the problems addressed, the diversity of the tasks involved,
 the nature of the artefacts produced, the changing social and organisational environment in which it is
-conducted, and the impact of time on environment, needs, teams, and artefacts."\cite{PetreDeQuency06}
+conducted, and the impact of time on environment, needs, teams, and artefacts."\cite{PetreDeQuincey06}
 
 "Los modelos cognitivos [12] son importantes porque son la base para la construcción de herramientas
 de comprensión de programas [16].
@@ -34,7 +34,7 @@ desde conceptos específicos hacia conceptos generales (Bottom Up), desde concep
 hacia conceptos específicos (Top Down), Comprensión Basada en una Base de Conocimiento (Knowledge
 based Understanding Model), Comprensión Oportunista y Sistemática (Systematic and As Needed Program
 Understanding), Modelos Integrados (Strategies and Integrated Techniques)."
-\cite{BeronHenriquesPereiraUzalXX}
+\cite{BeronHenriquesPereiraUzal07}
 
 
 \section{Modelos de Comprensión de Programas}
@@ -119,74 +119,6 @@ conoce como proceso de asimilación.
 
 \end{description}
 
-\section{Visualización de Software}
-
-La visualización de software refiere al uso de diversos elementos (texto, 
-gráficos 2D y 3D, diagramas, imágenes, vídeos, entre otros) para representar algún
-aspecto de un programa y facilitar su comprensión.\cite{PetreDeQuincey06,Chen06}
-\cite{[GH01]}
-Estos aspectos u objetos de interés pueden ser abstracciones de componentes, de
-un sistema completo e incluso del comportamiento en tiempo en ejecución de los
-mismos. \cite{TeysereCampo09}
-
-Las visualizaciones pueden ayudan al programador con tres procesos cognitivos
-\cite{ButlerAlmond93}:
-durante un proceso de descubrimiento o exploratorio, en donde el usuario no
-sabe específicamente qué está buscando;
-durante un proceso de toma de decisión o analítico, en el cuál el usuario sabe lo que
-está buscando y sólo necesito encontrarlo;
-durante un proceso descriptivo, en el cuál es conocido el patrón que aparece en los
-datos pero necesita una visualización acorde para expresarlo.
-
-Estos procesos cognitivos que se pueden ver beneficiados por las visualizaciones, suelen
-emplearse en diferentes tareas que puede llevar a cabo un programador.
-Dentro de esta lista de tareas \cite{MalleticMarcusCollard02} encontramos: desarollo,
-debugging, pruebas, mantenimiento y detección de errores, re-ingeniería, ingeniería reversa,
-administración del proceso de software, y marketing.
-En las primeras etapas del desarrollo de un nuevo sistema o aplicación, las visualizaciones
-permiten la colaboración entre desarrolladores y ayudar en la definición y validación de los
-requerimientos.
-A medida que se avanza en la construcción del software, las herramientas permiten validar
-los avances y encontrar defectos.
-En el caso de mantenimiento, ayudan en la comprensión del programa, entender su diseño y
-así plantear su evolución \cite{PetreDeQuincey06}.
-
-Algoritmos, programas y sistemas son los diferentes alcances que se consideran
-dento de la disciplina de Visualización de Software.\cite{[PBS93][Mye90]}
-La Visualización de Sistemas se emplea para representar el sistema en su conjunto,
-a través de los diferentes módulos que lo componen.
-En la visualización de Programas, se busca mostrar el comportamiento de los mismos
-y la relación entre sus componentes \cite{BA01}.
-Por último, la Visualización de Algoritmos se utiliza principalmente en el campo de la enseñanza,
-para demostrar el funcionamiento de algoritmos y estructuras de datos.
-Así mismo, tal como denota la expresión 
-"Alg. V isualization < P rog. V isualization < Sys. V isualization"\cite{PIROBV-YDS-2007}
-las técnicas implementadas en un determinado alcance, pueden ser implementadas
-también en un conjunto de mayor nivel de abstracción.
-
-La taxonomía de Price, Baecker y Small \cite{PriceBaeckerSmall93}, establece que
-existen seis categorías de atributos para los sistemas de visualización.
-Dentro de las mismas podemos encontrar:
-\begin{enumerate}
-    \item \textbf{Alcance:} refiere al espectro de programas que pueden ser analizados.
-    \item \textbf{Contenido:} corresponde al conjunto de propiedades del sistema que se pueden
-    extraer y visualizar.
-    \item \textbf{Forma:} relacionada a la salida de los resultados de la visualización.
-    \item \textbf{Método:} determina cómo está especificada la visualización.
-    \item \textbf{Interacción:} referida la manera en la que el usuario pueda controlar e
-    interactuar con la visualización.
-    \item \textbf{Efectividad:} grado de adecuación con el cual se comunica la información
-    al usuario.
-\end{enumerate}
-Del listado anterior, la categoría y por lo tanto la característica más importante corresponde
-a la \textit{efectividad}.
-
-Dependiendo de la fuente de datos, las visualizaciones pueden estar basadas en
-estructuras estáticas (cuando se obtienen de vistas del código fuente), o de
-información extraída en tiempo de ejecución (vistas dinámicas, así sean de flujo de datos
-o control de flujo). \cite{PetreDeQuincey06}
-Las estrategias para la obtención de los datos se discuten a continuación.
-
 \section{Métodos de Extracción de la Información}
 
 Para poder lograr comprender una pieza de código fuente o programa bajo estudio, un
@@ -216,6 +148,73 @@ Generalmente, se obtiene a través de la instrumentación del código fuente, y 
 analizar los aspectos que son de interés; y es muy dependiente del input que reciba
 el programa.
 \cite{Ball99}
+
+\section{Visualización de Software}
+
+La visualización de software refiere al uso de diversos elementos (texto, 
+gráficos 2D y 3D, diagramas, imágenes, vídeos, entre otros) para representar algún
+aspecto de un programa y facilitar su comprensión.\cite{PetreDeQuincey06,Chen06,GomezHenriquez01}
+Estos aspectos u objetos de interés pueden ser abstracciones de componentes, de
+un sistema completo e incluso del comportamiento en tiempo en ejecución de los
+mismos. \cite{TeysereCampo09}
+
+Las visualizaciones pueden ayudan al programador con tres procesos cognitivos
+\cite{ButlerAlmond93}:
+durante un proceso de descubrimiento o exploratorio, en donde el usuario no
+sabe específicamente qué está buscando;
+durante un proceso de toma de decisión o analítico, en el cuál el usuario sabe lo que
+está buscando y sólo necesito encontrarlo;
+durante un proceso descriptivo, en el cuál es conocido el patrón que aparece en los
+datos pero necesita una visualización acorde para expresarlo.
+
+Estos procesos cognitivos que se pueden ver beneficiados por las visualizaciones, suelen
+emplearse en diferentes tareas que puede llevar a cabo un programador.
+Dentro de esta lista de tareas \cite{MalleticMarcusCollard02} encontramos: desarollo,
+debugging, pruebas, mantenimiento y detección de errores, re-ingeniería, ingeniería reversa,
+administración del proceso de software, y marketing.
+En las primeras etapas del desarrollo de un nuevo sistema o aplicación, las visualizaciones
+permiten la colaboración entre desarrolladores y ayudar en la definición y validación de los
+requerimientos.
+A medida que se avanza en la construcción del software, las herramientas permiten validar
+los avances y encontrar defectos.
+En el caso de mantenimiento, ayudan en la comprensión del programa, entender su diseño y
+así plantear su evolución \cite{PetreDeQuincey06}.
+
+Algoritmos, programas y sistemas son los diferentes alcances que se consideran
+dento de la disciplina de Visualización de Software.\cite{PriceBaeckerSmall93,Myers90}
+La Visualización de Sistemas se emplea para representar el sistema en su conjunto,
+a través de los diferentes módulos que lo componen.
+En la visualización de Programas, se busca mostrar el comportamiento de los mismos
+y la relación entre sus componentes \cite{BenAri01}.
+Por último, la Visualización de Algoritmos se utiliza principalmente en el campo de la enseñanza,
+para demostrar el funcionamiento de algoritmos y estructuras de datos.
+Así mismo, tal como denota la expresión 
+"Alg. V isualization < P rog. V isualization < Sys. V isualization"\cite{BeronHenriquesPereiraUzal07}
+las técnicas implementadas en un determinado alcance, pueden ser implementadas
+también en un conjunto de mayor nivel de abstracción.
+
+La taxonomía de Price, Baecker y Small \cite{PriceBaeckerSmall93}, establece que
+existen seis categorías de atributos para los sistemas de visualización.
+Dentro de las mismas podemos encontrar:
+\begin{enumerate}
+    \item \textbf{Alcance:} refiere al espectro de programas que pueden ser analizados.
+    \item \textbf{Contenido:} corresponde al conjunto de propiedades del sistema que se pueden
+    extraer y visualizar.
+    \item \textbf{Forma:} relacionada a la salida de los resultados de la visualización.
+    \item \textbf{Método:} determina cómo está especificada la visualización.
+    \item \textbf{Interacción:} referida la manera en la que el usuario pueda controlar e
+    interactuar con la visualización.
+    \item \textbf{Efectividad:} grado de adecuación con el cual se comunica la información
+    al usuario.
+\end{enumerate}
+Del listado anterior, la categoría y por lo tanto la característica más importante corresponde
+a la \textit{efectividad}.
+
+Dependiendo de la fuente de datos, las visualizaciones pueden estar basadas en
+estructuras estáticas (cuando se obtienen de vistas del código fuente), o de
+información extraída en tiempo de ejecución (vistas dinámicas, así sean de flujo de datos
+o control de flujo). \cite{PetreDeQuincey06}
+Las estrategias para la obtención de los datos se discuten a continuación.
 
 \section{Estrategias de Interrelación de Dominios}
 
