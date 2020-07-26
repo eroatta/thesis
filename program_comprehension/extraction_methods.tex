@@ -5,11 +5,11 @@ programador debe ser capaz de poder obtener información del mismo.
 El tipo de información que el usuario necesita, depende de la tarea que tenga que llevar
 adelante respecto al software.
 Dentro la disciplina de Comprensión de Programas, para extraer la información requerida 
-por los diferentes procesos cognitivos, se utilizan dos tipos de análisis de código:
+por los diferentes procesos cognitivos, se utilizan dos tipos de análisis:
 \textit{Análisis Estático} y \textit{Análisis Dinámico}.
 
 El \textbf{análisis estático} del software consiste en obtener información sobre el 
-sistema de interés, pero sin ejecutarlo.
+sistema de interés, pero sin ejecutarlo \cite{Binkley07}.
 Los \textit{analizadores sintácticos} operan a nivel de código fuente, empleando
 técnicas tanto de \textit{pattern matching} como de construcción de árboles de sintáxis
 abstracta (\textit{Abstract-Syntax Tree}).
@@ -20,10 +20,28 @@ punto determinado, son suficientes para probar propiedades estáticas del mismo.
 \cite{Cousot77}
 
 El \textbf{análisis dinámico} corresponde a la extracción de propiedades de un sistema
-en ejecución.
-Estas propiedades son obtenidas al examinar una o más ejecuciones de un programa, a
-través de diferentes técnicas.
-Generalmente, se obtiene a través de la instrumentación del código fuente, y así
-analizar los aspectos que son de interés; y es muy dependiente del input que reciba
-el programa.
-\cite{Ball99}
+en ejecución, empleando diferentes técnicas.
+La \textit{instrumentación de código} es una de éstas, y permite obtener información sobre
+las llamadas realizadas a una función dentro de una traza, junto con su contexto.
+Es importante destacar que hay que identificar los aspectos de interés para el análisis,
+y así reducir el overhead que trae aparejado esta técnica.
+Los resultados tienen una gran precisión, pero sólo se garantizan para un conjunto particular
+de datos de entrada, ya que es muy dependiente del input \cite{Ball99}.
+
+La tabla \refeq{tab:dinamyc_static_analysis} muestra una comparativa \cite{GosainSharma15} 
+entre los dos tipos de análisis, los cuales extraen información que luego debe ser
+accedida e interpretada a través de distintas herramientas de visualización.
+
+\begin{table}[]
+    \caption{Comparación entre análisis estático y dinámico}
+    \label{tab:dinamyc_static_analysis}
+    \begin{tabular}{ll}
+        \hline
+        \textbf{Análisis Dinámico}             & \textbf{Análisis Estático}        \\ \hline
+        Requiere que el programa sea ejecutado & No requiere ejecuciones           \\
+        Mayor precisión                        & Menor precisión                   \\
+        Válido para una ejecución particular   & Válido para todas las ejecuciones \\
+        \begin{tabular}[c]{@{}l@{}}Adecuado para manejar características \\ de los lenguajes en tiempo de ejecución \\ (polimorfismo, hilos, enlaces dinámicos)\end{tabular}              & \begin{tabular}[c]{@{}l@{}}Carece de manejo de características \\ de los lenguajes en tiempo de \\ ejecución\end{tabular}         \\
+        \begin{tabular}[c]{@{}l@{}}Implica mayor overhead en tiempo \\ de ejecución\end{tabular}              & No implica overhead               \\ \hline
+    \end{tabular}
+\end{table}

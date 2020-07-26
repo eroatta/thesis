@@ -2,41 +2,43 @@
 
 La visualización de software refiere al uso de diversos elementos (texto, 
 gráficos 2D y 3D, diagramas, imágenes, vídeos, entre otros) para representar algún
-aspecto de un programa y facilitar su comprensión.\cite{PetreDeQuincey06,Chen06,GomezHenriquez01}
+aspecto de un programa y facilitar su comprensión \cite{PetreDeQuincey06,Chen06,GomezHenriquez01}.
 Estos aspectos u objetos de interés pueden ser abstracciones de componentes, de
 un sistema completo e incluso del comportamiento en tiempo en ejecución de los
-mismos. \cite{TeysereCampo09}
+mismos \cite{TeysereCampo09}.
 
-Las visualizaciones pueden ayudan al programador con tres procesos cognitivos
+Las visualizaciones pueden ayudan al programador durante tres procesos cognitivos
 \cite{ButlerAlmond93}:
-durante un proceso de descubrimiento o exploratorio, en donde el usuario no
-sabe específicamente qué está buscando;
-durante un proceso de toma de decisión o analítico, en el cuál el usuario sabe lo que
-está buscando y sólo necesito encontrarlo;
-durante un proceso descriptivo, en el cuál es conocido el patrón que aparece en los
-datos pero necesita una visualización acorde para expresarlo.
+\begin{enumerate}[a)]
+    \item \textit{proceso de descubrimiento o exploratorio}, en donde el usuario no
+    sabe específicamente qué está buscando;
+    \item \textit{proceso de toma de decisión o analítico}, en el cuál el usuario sabe lo que
+    está buscando y sólo necesita encontrarlo;
+    \item \textit{proceso descriptivo}, en el cuál es conocido el patrón que aparece en los
+    datos pero necesita una visualización acorde para expresarlo.
+\end{enumerate}
 
-Estos procesos cognitivos que se pueden ver beneficiados por las visualizaciones, suelen
-emplearse en diferentes tareas que puede llevar a cabo un programador.
+Los procesos cognitivos enumerados anteriormente suelen emplearse en diferentes tareas 
+que puede llevar a cabo un programador.
 Dentro de esta lista de tareas \cite{MalleticMarcusCollard02} encontramos: desarollo,
 debugging, pruebas, mantenimiento y detección de errores, re-ingeniería, ingeniería reversa,
 administración del proceso de software, y marketing.
 En las primeras etapas del desarrollo de un nuevo sistema o aplicación, las visualizaciones
-permiten la colaboración entre desarrolladores y ayudar en la definición y validación de los
-requerimientos.
+permiten la colaboración entre desarrolladores, y de esta manera ayudar en la definición y 
+validación de los requerimientos.
 A medida que se avanza en la construcción del software, las herramientas permiten validar
 los avances y encontrar defectos.
-En el caso de mantenimiento, ayudan en la comprensión del programa, entender su diseño y
-así plantear su evolución \cite{PetreDeQuincey06}.
+En el caso de mantenimiento, ayudan en la comprensión del programa, en el entendimiento 
+de su diseño y el planteo de su evolución \cite{PetreDeQuincey06}.
 
 Algoritmos, programas y sistemas son los diferentes alcances que se consideran
 dento de la disciplina de Visualización de Software \cite{PriceBaeckerSmall93,Myers90}.
-La Visualización de Sistemas se emplea para representar el sistema en su conjunto,
+La \textit{visualización de sistemas} se emplea para representar el sistema en su conjunto,
 a través de los diferentes módulos que lo componen.
-En la visualización de Programas, se busca mostrar el comportamiento de los mismos
+En la \textit{visualización de programas}, se busca mostrar el comportamiento de los mismos
 y la relación entre sus componentes \cite{BenAri01}.
-Por último, la Visualización de Algoritmos se utiliza principalmente en el campo de la enseñanza,
-para demostrar el funcionamiento de algoritmos y estructuras de datos.
+Por último, la \textit{visualización de algoritmos} se utiliza principalmente en el campo 
+de la enseñanza, para demostrar el funcionamiento de algoritmos y estructuras de datos.
 Así mismo, tal como denota la expresión 
 \begin{center}
     $Alg. Visualization \subseteq Prog. Visualization \subseteq System Visualization$
@@ -48,11 +50,11 @@ La taxonomía de Price, Baecker y Small \cite{PriceBaeckerSmall93}, establece qu
 existen seis categorías de atributos para los sistemas de visualización.
 Dentro de las mismas podemos encontrar:
 \begin{enumerate}
-    \item \textbf{Alcance:} refiere al espectro de programas que pueden ser analizados.
-    \item \textbf{Contenido:} corresponde al conjunto de propiedades del sistema que se pueden
-    extraer y visualizar.
-    \item \textbf{Forma:} relacionada a la salida de los resultados de la visualización.
-    \item \textbf{Método:} determina cómo está especificada la visualización.
+    \item \textbf{Alcance:} dado por el espectro de programas que pueden ser analizados.
+    \item \textbf{Contenido:} correspondiente al conjunto de propiedades del sistema que se 
+    pueden extraer y visualizar.
+    \item \textbf{Forma:} relacionado a la salida de los resultados de la visualización.
+    \item \textbf{Método:} determinado por cómo está especificada la visualización.
     \item \textbf{Interacción:} referida la manera en la que el usuario pueda controlar e
     interactuar con la visualización.
     \item \textbf{Efectividad:} grado de adecuación con el cual se comunica la información
@@ -61,8 +63,8 @@ Dentro de las mismas podemos encontrar:
 Del listado anterior, la categoría y por lo tanto la característica más importante corresponde
 a la \textit{efectividad}.
 
-Dependiendo de la fuente de datos, las visualizaciones pueden estar basadas en
-estructuras estáticas (cuando se obtienen de vistas del código fuente), o de
-información extraída en tiempo de ejecución (vistas dinámicas, así sean de flujo de datos
-o control de flujo). \cite{PetreDeQuincey06}
-Las estrategias para la obtención de los datos se discuten a continuación.
+La visualización de la información, extraída tanto de forma estática como dinámica,
+es necesaria para ayudar al modelo de comprensión de programas en el procesamiento de
+de la misma.
+De esta manera, los distintos componentes facilitan la difícil tarea de
+interconectar los dominios del problema y el programa.
