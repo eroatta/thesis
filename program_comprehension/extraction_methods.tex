@@ -1,0 +1,29 @@
+\section{Métodos de Extracción de la Información}
+
+Para poder lograr comprender una pieza de código fuente o programa bajo estudio, un
+programador debe ser capaz de poder obtener información del mismo.
+El tipo de información que el usuario necesita, depende de la tarea que tenga que llevar
+adelante respecto al software.
+Dentro la disciplina de Comprensión de Programas, para extraer la información requerida 
+por los diferentes procesos cognitivos, se utilizan dos tipos de análisis de código:
+\textit{Análisis Estático} y \textit{Análisis Dinámico}.
+
+El \textbf{análisis estático} del software consiste en obtener información sobre el 
+sistema de interés, pero sin ejecutarlo.
+Los \textit{analizadores sintácticos} operan a nivel de código fuente, empleando
+técnicas tanto de \textit{pattern matching} como de construcción de árboles de sintáxis
+abstracta (\textit{Abstract-Syntax Tree}).
+Los \textit{analizadores semánticos} trajaban de una manera diferente, ya que consideran
+la secuencia en la que pueden darse los estados de un programa, en una ejecución.
+La premisa principal consiste en que analizar los posibles estados de un programa en un
+punto determinado, son suficientes para probar propiedades estáticas del mismo.
+\cite{Cousot77}
+
+El \textbf{análisis dinámico} corresponde a la extracción de propiedades de un sistema
+en ejecución.
+Estas propiedades son obtenidas al examinar una o más ejecuciones de un programa, a
+través de diferentes técnicas.
+Generalmente, se obtiene a través de la instrumentación del código fuente, y así
+analizar los aspectos que son de interés; y es muy dependiente del input que reciba
+el programa.
+\cite{Ball99}
