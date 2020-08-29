@@ -150,4 +150,43 @@ a continuación:
     para determinar si se cumplen los criterios establecidos.
 \end{description}
 
-A partir de acá, métricas.
+\textit{A partir de acá, métricas.
+Posibilidad de usar elementos de (measurement, measure, metric, etc) para la definición de
+la métrica puntual.}
+
+Así como la familia de normas ISO/IEC 25000 define un conjunto de características y
+subcaracterísticas, también provee un listado básico de métricas para efectuar la
+medición de las las nombradas previamente.
+Este listado no es exhaustivo, ya que se pueden utilizar métricas no definidas por el
+estándar, siempre y cuando se determine su correlación con alguna de las características
+establecidas.
+En la tabla \ref{Metrics} se listan las métricas definidas por el estándar, para la \textit{Mantenibilidad}
+y sus subcaracterísticas.
+
+\begin{figure}[H]
+    \label{Metrics}
+    \includegraphics[width=12cm]{quality_metrics/quality_metrics.png}
+    \centering
+    \caption{Métricas para Mantenibilidad y su subcaracterísticas}
+\end{figure}
+
+En el contexto de este trabajo, las subcaracterísticas de mayor interés corresponden
+a la \textbf{analizabilidad} y la \textbf{capacidad de ser modificado}, también llamada
+\textit{modificabilidad}.
+
+Desde el punto de vista de la \textbf{analizabilidad}, se definen tres métricas.
+La \textit{Completitud de Logs del Sistema} se refiere a la proporción de logs que son
+efectivamente registrados en un sistema.
+La \textit{Efectividad de las Funciones de Diagnóstico} y \textit{Suficiencia de las
+Funciones de Diagnóstico} miden la proporción de funciones de diagnóstico implementadas que
+son realmente útiles, y la proporción de funciones de diagnóstico requeridas que están
+implementadas, respectivamente.
+
+Con respecto a la \textbf{modificabilidad}, la \textit{Eficiencia de Modificación} se mide
+como el tiempo promedio que lleva un cambio, normalizado con respecto al tiempo esperado
+para el mismo.
+La \textit{Correctitud de Modificación} midel la proporción de cambios que no causan un
+degradamiento en la calidad del sistema; mientras que la \textit{Capacidad de Modificación}
+corresponde a una proporción de cambios que pueden ser implementados en un período determinado
+de tiempo.
+
