@@ -92,3 +92,62 @@ Importancia de trabajar e identificar aquellos fragmentos de código que no sigu
 determinado lineamiento.
 Distancia entre el nombre del indicador y el mejor obtenido, como métrica para identificar
 módulos que en los que se puede ver afectada la comprensibilidad del software.
+
+Dónde me quedé?
+
+Objetivo del capítulo:
+- Enumerar algunas de las métricas de software, los tipos de mediciones que hay.
+- Ver características de lo mismo.
+
+\section{Introducción}
+
+La \textbf{calidad del software}, tanto a nivel \textit{producto} como \textit{proceso}, 
+es un aspecto muy importante dentro de la disciplina de desarrollo de software, ya que
+determina el grado en que un producto satisface los requerimientos de sus usuarios, y cómo
+les aporta valor.
+La familia de normas ISO/IEC 25000 \cite{ref} tiene el objetivo de guiar el proceso de
+desarrollo de software para obtener un producto de calidad, mediante la especificación 
+de requisitos y características de calidad, así como la evaluación de las mismas.
+Esta familia de normas está bastada en dos normas anteriores (ISO/IEC 9126 \cite{ref}
+e ISO/IEC 14598 \cite{ref}), y proporcian el estándar conocido como SQuaRE 
+\textit{(System and Software Requirements and Evaluation)}.
+
+ISO/IEC 25000 presenta cinco divisiones, las cuales se enfocan en diferentes aspectos
+de la calidad de software, y su proceso.
+Particularmente, la norma ISO/IEC 25010, describe el modelo de calidad tanto para el producto
+y uso; definiendo así las características y subcaracterísticas utilizadas en la evaluación
+de un elemento.
+Este modelo determina ocho características, junto con sus subcaracterísticas, y éstas son:
+\begin{itemize}
+    \item Adecuación funcional
+    \item Eficiencia de desempeño
+    \item Compatibilidad
+    \item Usabilidad
+    \item Fiabilidad
+    \item Seguridad
+    \item Mantenibilidad
+    \item Portabilidad
+\end{itemize}
+
+La que mayor interés suscinta para el presente informe, corresponde a la característica
+de \textbf{Mantenibilidad}, la cual representa la \textit{capacidad del software para ser modificado
+de forma eficiente y efectiva, ya sea por motivos correctivos, evolutivos o perfectivos}.
+Ésta, se compone así mismo de cinco subcaracterísticas, las cuales son descritas
+a continuación:
+\begin{description}
+    \item [Modularidad] Corresponde al grado de descomposición de un programa en otros más pequeños
+    con interfaces estandarizadas, y la capacidad de permitir que un cambio en un componente tenga
+    un impacto mínimo en los demás.
+    \item [Reusabilidad] Determina la capacidad de que un activo o elemento sea empleado en más
+    de un sistema de software, o en la construcción de otros elementos.
+    \item [Analizabilidad] Asociada a la facilidad con la que se puede identificar las partes
+    a modificar y la evaluación del impacto generado por el cambio, así como también el diagnóstico
+    de problemas o causas de fallas en el software.
+    \item [Capacidad para ser modificado] Es la capacidad del producto para ser modificado de
+    forma efectiva y eficiente, sin introducir defectos o afectar la performance.
+    \item [Capacidad para ser probado] Corresponde a la facilidad con la que se pueden definir
+    parámetros de prueba de un sistema/componente, y la posibilidad de ejecución de dichas pruebas,
+    para determinar si se cumplen los criterios establecidos.
+\end{description}
+
+A partir de acá, métricas.
