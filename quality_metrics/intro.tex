@@ -105,8 +105,10 @@ La \textbf{calidad del software}, tanto a nivel \textit{producto} como \textit{p
 es un aspecto muy importante dentro de la disciplina de desarrollo de software, ya que
 determina el grado en que un producto satisface los requerimientos de sus usuarios, y cómo
 les aporta valor.
-La familia de normas ISO/IEC 25000 \cite{ref} tiene el objetivo de guiar el proceso de
-desarrollo de software para obtener un producto de calidad, mediante la especificación 
+Se considera que un \textit{modelo de calidad} tiene el objetivo de describir, evaluar y/o 
+predecir la calidad de un componente \cite{Wagner2013}.
+Uno de los modelos actuales, viene establecido por la familia de normas ISO/IEC 25000 \cite{ref}, 
+la cual provee guías para obtener un producto de calidad, mediante la especificación 
 de requisitos y características de calidad, así como la evaluación de las mismas.
 Esta familia de normas está bastada en dos normas anteriores (ISO/IEC 9126 \cite{ref}
 e ISO/IEC 14598 \cite{ref}), y proporcian el estándar conocido como SQuaRE 
@@ -190,3 +192,56 @@ degradamiento en la calidad del sistema; mientras que la \textit{Capacidad de Mo
 corresponde a una proporción de cambios que pueden ser implementados en un período determinado
 de tiempo.
 
+Todas estas métricas tratan de ayudar a determinar cuál es el nivel de calidad correspondiente a
+un sistema o componente de software, de acuerdo a las características antes mencionadas.
+Sin embargo, este conjunto de normas como otras existentes o anteriores sólo ofrecen una
+guía muy abstracta sobre la definición de calidad de software, y no indican cómo lograr
+que el software sea de calidad \cite{Relf04}.
+
+"ISO-9126 defines a set of six quality attributes: efficiency, functionality, maintanability,
+portability, realiability and usability.
+However, standards like ISO-9126 only offer top-level guidance that define software quality,
+they do not prescribe how to insert quality into software (Dromey, 1995).
+Some objective measure of software quality is required in order to categorise acceptable
+practices (Vollman, 1993) and software quality will not improve until there is a comprehensive
+definition available"\cite{Relf04}.
+
+\section{Modelos de Calidad -Historia y falencias}
+
+La investigación relacionada a la calidad de software, viene desde casi tanto tiempo como
+la investigación del software en sí misma.
+A lo largo de las últimas cuatro décadas, se han ido proponiendo diferentes y diversos 
+modelos \cite{Deissenboeck2009}.
+Dentro de los primeros modelos, escritos a finales de la década de 1970, aparecen los
+propuestos por Boehm et al. \cite{Boehm1978} y McCall et al. \cite{McCall1977}, los cuales trataban
+de definir la calidad de software como una descomposición jerárquica de características y
+subcaracterísticas.
+Si bien proveyeron definiciones sólidas sobre los diferentes aspectos de la calidad de software,
+no propusieron una forma de, confiablemente, evaluar las características tanto individualmente
+o como un todo.
+Por lo tanto, la investigación subsiguiente se enfocó principalmente en encontrar maneras de
+cuantificar las propiedas definidas por los estudios anteriores.
+Los trabajos de Dromey \cite{Dromey1995} y de Bansiya y Davis \cite{Bansiya2002}, son los más 
+importantes ya que forman la base sobre la cual se construyeron los modelos más recientes, al 
+describir cómo los atributos de alto nivel de calidad pueden medirse a partir de \textit{propiedades
+de bajo nivel}, cuantificadas desde métricas de software y análisis estático.
+
+Las contribuciones más significativas en el campo de la \textit{evaluación cuantitativa de la calidad},
+basadas en el \textbf{análisis estático de código fuente} vienen dadas por el Modelo de Mantenibilidad 
+SIG \cite{Heitlager2007}, junto con Quamcoco tool chain \cite{ref}.
+
+\subsection{Modelo de Mantenibilidad SIG}
+
+Este modelo de evaluación de calidad \cite{Heitlager2007} permite determinar la mantenibilidad
+de un proyecto de software.
+Las características de mantenibilidad son descompuestas en un conjunto de subcaracterísticas,
+y estas últimas en \textit{propiedades}.
+Estas propiedades son cuantificables directamente desde el código fuente del producto, utilizando
+análisis estático.
+
+
+\subsection{Quamcoco Tool Chain}
+
+\subsection{Low-level metrics}
+
+\section{Impacto de los identificadores en Calidad de Software}
