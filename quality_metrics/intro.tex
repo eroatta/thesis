@@ -1,20 +1,5 @@
 \section{Introducción}
 
-"Identifier names constitute the majority of tokens in source code" \cite{DeiBenbockPizka05}.
-
-"Identifiers are the primary source of conceptual information for program
-comprehension" \cite{RajlichWilde02}.
-
-"Identifier names are created by designers and programmers and reflect their
-understanding, cognition and idiosyncrasies" \cite{HostOstvold07}
-
-"The impact of low quality identifier names on program comprehension is reasonably
-well understood \cite{DeiBenbockPizka05,Lawrie2007,Lawrie2006}, but little is known
-about the extent to which the quality of identifier names might influence the quality
-of source code" \cite{ButlerWemelingerYu10}.
-
-\textbf{"a low-cost heuristic to identify potentially problematic regions of source code"}
-
 "Existing research on source code readability focuses on the contribution the
 components of source code make to readability" \cite{Buse2008}.
 
@@ -26,37 +11,6 @@ abbreviations than open source code.
 However, the study also found that identifiers change little following its initial period
 of software development".
 
-"In \cite{Lawrie2006}, detail an empirical study which found identifier names composed
-of dictionary words were more easily understood than those composed of abbreviations
-or single letters".
-
-"Buse and Weimer \cite{Buse2008} developed a readability metric for Java derived from measurements 
-of, among others, the number of parentheses and braces, line length, the number
-of blank lines, and the number, frequency and length of identifiers.
-Using machine learning, the readability metric was trained to agree with the judgement 
-of human source code readers.
-Buse and Weimer found a significant statistical relationship between the readability of 
-methods and the presence of defects found by FindBugs in open source code bases. 
-Although their work makes a link between readability and software quality, their notion
-of readability ignores the quality of identifier names".
-
-Se ignora el contenido semántico.
-
-"The predictive probability associated with each relationship illustrates the utility
-of the identifier flaws as light-weight classifiers for source code quality"
-\cite{ButlerWemelingerYu10}.
-
-"Software quality is not defined in terms of quality attributes but instead must be
-inferred from characteristics that correlate to quality attributes and defect attributes.
-One of these quality attributes is the readability of the software.
-However, the software engineer, who is ultimately responsible for software quality,
-is not supported well by their formal education, the software engineering culture, the
-existence of useful tools and where these tools do exist by their limited up-take by industry.
-Human cognitive limitations similarly frustrate the development of readable source code.
-Software characteristics have been identified, which correlate well to source code readability.
-One of these software characteristics, which have been supported by empirical research,
-is the choice of identifier name".\cite{Relf04}
-
 "ISO-9126 defines a set of six quality attributes: efficiency, functionality, maintanability,
 portability, realiability and usability.
 However, standards like ISO-9126 only offer top-level guidance that define software quality,
@@ -64,40 +18,6 @@ they do not prescribe how to insert quality into software (Dromey, 1995).
 Some objective measure of software quality is required in order to categorise acceptable
 practices (Vollman, 1993) and software quality will not improve until there is a comprehensive
 definition available"\cite{Relf04}.
-
-"Spinellis (2003) observes that programmers are poor at choosing meaningful identifier names
-because they find it difficult to concurrently manage the expression of programming constructs
-along with the managing of natural language description, say to invent identifier names.
-This activities appears too taxing on the programmer as it requires rapid context shifting
-between two different cognitive processes that use the same underlying apparaturs"\cite{Relf04}.
-
-"A software characteristic that has the potential to improve software quality is the choice of
-identifier name, and this is particularly so in large software systems.
-identifier-naming sytle guidelines, supported by empirical evidence and generally accepted by
-software professionals to direct towards improved source code readabiity are candidates for
-automation by a tool.
-Such an automated tool could make visibile aspects of software quality that are less keenly
-perceived by the novice programmer and could assist in ther education along the path to
-expert status"\cite{Relf04}.
-
-"Software quality assesment is an important task in software engineering, because it can
-reduce maintenance effort, a main cost in software development.
-A typical way to asses quality facets, such as program comprehension, is to use software
-measures.
-Software measures are computed based on properties of source code"\cite{Feigenspan2011}.
-
-REVISAR OTROS PAPERS
-
-Importancia de trabajar e identificar aquellos fragmentos de código que no siguen un
-determinado lineamiento.
-Distancia entre el nombre del indicador y el mejor obtenido, como métrica para identificar
-módulos que en los que se puede ver afectada la comprensibilidad del software.
-
-Dónde me quedé?
-
-Objetivo del capítulo:
-- Enumerar algunas de las métricas de software, los tipos de mediciones que hay.
-- Ver características de lo mismo.
 
 \section{Introducción}
 
@@ -151,10 +71,6 @@ a continuación:
     parámetros de prueba de un sistema/componente, y la posibilidad de ejecución de dichas pruebas,
     para determinar si se cumplen los criterios establecidos.
 \end{description}
-
-\textit{A partir de acá, métricas.
-Posibilidad de usar elementos de (measurement, measure, metric, etc) para la definición de
-la métrica puntual.}
 
 Así como la familia de normas ISO/IEC 25000 define un conjunto de características y
 subcaracterísticas, también provee un listado básico de métricas para efectuar la
@@ -228,7 +144,7 @@ de bajo nivel}, cuantificadas desde métricas de software y análisis estático.
 
 Las contribuciones más significativas en el campo de la \textit{evaluación cuantitativa de la calidad},
 basadas en el \textbf{análisis estático de código fuente} vienen dadas por el Modelo de Mantenibilidad 
-SIG \cite{Heitlager2007}, junto con Quamcoco tool chain \cite{ref}.
+SIG \cite{Heitlager2007}, junto con Quamoco tool chain \cite{Wagner2012}.
 
 \subsection{Modelo de Mantenibilidad SIG}
 
@@ -237,11 +153,76 @@ de un proyecto de software.
 Las características de mantenibilidad son descompuestas en un conjunto de subcaracterísticas,
 y estas últimas en \textit{propiedades}.
 Estas propiedades son cuantificables directamente desde el código fuente del producto, utilizando
-análisis estático.
+análisis estático, y a partir de estos valores junto con unos determinados umbrales,
+cada propiedad recibe un \textit{perfil de calidad}.
+Al poder cuantificar estas propiedades y obtener los perfiles, también se pueden agregar
+para así establecer un puntaje global de calidad del sistema.
+Los umbrales empleados en la evaluación de los propiedades son obtenidos a través de
+benchmarking, con el fin de mantener la objetividad \cite{Alves2010}.
 
+\subsection{Quamoco Tool Chain}
 
-\subsection{Quamcoco Tool Chain}
+Similar al Modelo de Mantenibilidad SIG \cite{Heitlager2007}, Quamoco Tool Chain \cite{Wagner2012}
+se basa en propiedades extraídas desde el código fuente a través de análisis estático del mismo,
+con la diferencia de que permite a los interesados definir sus propios modelos jerárquicos
+de calidad.
+Quamoco define un meta-modelo, facilitando la creación de modelos más genéricos, en lugar de
+estar restringidos a ciertos atributos de calidad, como lo es la mantenibilidad.
+
+The meta model introduces the new concept of a product factor, which bridges the gap between
+concrete measurements and abstract quality aspects.
+Product factors have measures and instruments to operationalise quality by measurements from
+manual inspection and tool analysis.
+The base model uses the ISO 25010 quality attributes, which we refine by 200 factors and 600
+measures for Java and C Sharp systems.
 
 \subsection{Low-level metrics}
 
 \section{Impacto de los identificadores en Calidad de Software}
+
+"The impact of low quality identifier names on program comprehension is reasonably
+well understood \cite{DeiBenbockPizka05,Lawrie2007,Lawrie2006}, but little is known
+about the extent to which the quality of identifier names might influence the quality
+of source code" \cite{ButlerWemelingerYu10}.
+
+"Buse and Weimer \cite{Buse2008} developed a readability metric for Java derived from measurements 
+of, among others, the number of parentheses and braces, line length, the number
+of blank lines, and the number, frequency and length of identifiers.
+Using machine learning, the readability metric was trained to agree with the judgement 
+of human source code readers.
+Buse and Weimer found a significant statistical relationship between the readability of 
+methods and the presence of defects found by FindBugs in open source code bases. 
+Although their work makes a link between readability and software quality, their notion
+of readability ignores the quality of identifier names".
+
+Se ignora el contenido semántico.
+
+"The predictive probability associated with each relationship illustrates the utility
+of the identifier flaws as light-weight classifiers for source code quality"
+\cite{ButlerWemelingerYu10}.
+
+\textbf{"a low-cost heuristic to identify potentially problematic regions of source code"}
+
+"Software quality is not defined in terms of quality attributes but instead must be
+inferred from characteristics that correlate to quality attributes and defect attributes.
+One of these quality attributes is the readability of the software.
+However, the software engineer, who is ultimately responsible for software quality,
+is not supported well by their formal education, the software engineering culture, the
+existence of useful tools and where these tools do exist by their limited up-take by industry.
+Human cognitive limitations similarly frustrate the development of readable source code.
+Software characteristics have been identified, which correlate well to source code readability.
+One of these software characteristics, which have been supported by empirical research,
+is the choice of identifier name".\cite{Relf04}
+
+"A software characteristic that has the potential to improve software quality is the choice of
+identifier name, and this is particularly so in large software systems.
+identifier-naming sytle guidelines, supported by empirical evidence and generally accepted by
+software professionals to direct towards improved source code readabiity are candidates for
+automation by a tool.
+Such an automated tool could make visibile aspects of software quality that are less keenly
+perceived by the novice programmer and could assist in ther education along the path to
+expert status"\cite{Relf04}.
+
+\textit{A partir de acá, métricas.
+Posibilidad de usar elementos de (measurement, measure, metric, etc) para la definición de
+la métrica puntual.}
