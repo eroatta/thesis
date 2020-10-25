@@ -36,6 +36,8 @@ es muy difícil predecir un determinado nivel de calidad sin saber cómo evaluar
 
 AGREGAR ENGANCHE CON MANTENIBILIDAD.
 Cuál sería?
+Paper de Xi. Habla que la mantenibilidad es uno de los principales temas que atacan los diversos
+estudios.
 
 \section{Mantenibilidad}
 
@@ -144,7 +146,7 @@ estar restringidos a ciertos atributos de calidad como lo es la mantenibilidad, 
 el elementos que permiten cerrar la brecha entre medidas concretas y aspectos abstractos de
 calidad.
 Toma como base los atributos de calidad definidos en la norma ISO 25010, pero los refina
-aplicando 200 factores y 600 mediciones para sistema Java y C Sharp.
+aplicando 200 factores y 600 mediciones para sistema Java y C\#.
 
 \subsection{Predicción}
 
@@ -152,10 +154,21 @@ aplicando 200 factores y 600 mediciones para sistema Java y C Sharp.
 
 \section{Impacto de los identificadores en Calidad de Software}
 
-"The impact of low quality identifier names on program comprehension is reasonably
-well understood \cite{DeiBenbockPizka05,Lawrie2007,Lawrie2006}, but little is known
-about the extent to which the quality of identifier names might influence the quality
-of source code" \cite{ButlerWemelingerYu10}.
+Tal como se establece en los diferentes estudios sobre los modelos de evaluación de
+calidad \cite{XXX}, las métricas más utilizadas están relacionadas a la complejidad,
+diseño y tamaño del código.
+La particularidad de estas métricas, es que vienen dadas desde la extracción de
+información a partir del código fuente.
+
+Si bien el impacto que genera la baja calidad en el nombrado de los identificadores a la
+comprensión de programas está razonablemente clara \cite{DeiBenbockPizka05,Lawrie2007,Lawrie2006},
+se conoce relativamente poco sobre influencia que podría ejercer sobre la calidad del código fuente,
+la calidad de los nombres de los indicadores per sé \cite{ButlerWemelingerYu10}.
+
+"Existing research on source code readability focuses on the contribution the
+components of source code make to readability" \cite{Buse2008}.
+
+identificadores, y matching con convenciones vs. significado. \textbf{VER: YuSharp10}.
 
 "Buse and Weimer \cite{Buse2008} developed a readability metric for Java derived from measurements 
 of, among others, the number of parentheses and braces, line length, the number
@@ -194,6 +207,3 @@ automation by a tool.
 Such an automated tool could make visibile aspects of software quality that are less keenly
 perceived by the novice programmer and could assist in ther education along the path to
 expert status"\cite{Relf04}.
-
-"Existing research on source code readability focuses on the contribution the
-components of source code make to readability" \cite{Buse2008}.

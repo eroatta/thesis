@@ -1,0 +1,7 @@
+"The impact of low quality identifier names on program comprehension is reasonably
+well understood \cite{DeiBenbockPizka05,Lawrie2007,Lawrie2006}, but little is known
+about the extent to which the quality of identifier names might influence the quality
+of source code" \cite{ButlerWemelingerYu10}.
+
+"Existing research on source code readability focuses on the contribution the
+components of source code make to readability" \cite{Buse2008}.
