@@ -10,9 +10,9 @@ Se considera que un \textit{modelo de calidad} tiene el objetivo de describir, e
 predecir la calidad de un componente \cite{Wagner2013}; y a lo largo de las últimas cuatro
 décadas se han propuesto diferentes y diversos modelos \cite{Deissenboeck2009}.
 Dentro de este conjunto de diversas propuestas podemos encontrar: modelos taxonómicos, como
-lo es la familia de normas ISO/IEC 25000 \cite{ref}; modelos basados en métricas como el
-índice de mantenibilidad (MI) \cite{ref}; modelos estocásticos, como los modelos de crecimiento
-de confiabilidad (RGMs) \cite{ref}.
+lo es la familia de normas ISO/IEC 25000 \cite{iso25000}; modelos basados en métricas como el
+índice de mantenibilidad (MI) \cite{Coleman1995}; modelos estocásticos, como los modelos de
+crecimiento de confiabilidad (RGMs) \cite{Lyu1996}.
 
 El problema existente con los tipos de modelos nombrados anteriormente viene dado por sus
 diferentes propósitos, los cuales fueron clasificados por Deissenbock et al. \cite{Deissenboeck2009}
@@ -38,7 +38,7 @@ de mucha importancia ya que suelen proveer una guía clara sobre cómo evaluar u
 la brecha entre las métricas de software y los factores de calidad.
 
 Una revisión sistemática de diversos estudios sobre clasificaciones y análisis de los distintos
-modelos de calidad, factores o herramientas \cite{Yin} establece que los factores de calidad
+modelos de calidad, factores o herramientas \cite{Yan2019} establece que los factores de calidad
 que son empleados mayoritariamente para determinar la validez de un modelo corresponden a la
 mantenibilidad, confiabilidad y eficiencia.
 Siendo la mantenibilidad el factor que más se destaca incluso en el conjunto mayormente
@@ -50,11 +50,11 @@ predicen este aspecto en particular.
 \subsection{Definición}
 
 Uno de de los modelos enfocados en la definición de calidad y sus diferentes aspectos
-viene establecido por la familia de normas ISO/IEC 25000 \cite{ref}, 
+viene establecido por la familia de normas ISO/IEC 25000, 
 la cual provee guías para obtener un producto de calidad, mediante la especificación 
 de requisitos y características de calidad, así como la evaluación de las mismas.
-Esta familia de normas está basada en dos normas anteriores (ISO/IEC 9126 \cite{ref}
-e ISO/IEC 14598 \cite{ref}), y presenta cinco divisiones, las cuales se enfocan en diferentes
+Esta familia de normas está basada en dos normas anteriores (ISO/IEC 9126
+e ISO/IEC 14598), y presenta cinco divisiones, las cuales se enfocan en diferentes
 elementos y su proceso.
 
 Particularmente, la norma ISO/IEC 25010, describe el modelo de calidad tanto para el producto
@@ -160,7 +160,7 @@ aplicando 200 factores y 600 mediciones para sistema Java y C\#.
 
 \section{Impacto de los Identificadores}
 
-De acuerdo al relevamiento de los diferentes modelos de evaluación de calidad \cite{XXX},
+De acuerdo al relevamiento de los diferentes modelos de evaluación de calidad \cite{Yan2019},
 las métricas más utilizadas están asociadas a la complejidad, diseño y tamaño del código,
 con el fin de obtener mediciones que se correlacionen con los principales factores como la
 mantenibilidad, confiabilidad y eficiencia.
@@ -176,8 +176,8 @@ número de paréntesis, tamaño de línea, cantidad de espacios en blanco, así 
 número, frecuencia y longitud de los identificadores \cite{Buse2008}.
 Otros estudios propusieron un conjunto de guías de estilo para el nombrado
 de identificadores, independiente del lenguaje, para validar su aceptación empírica entre los
-programadores \cite{ref}; e incluso utilizar la gramática y otras falencias como pistas para
-analizar nombres que puedan ser reescritos \cite{ads}.
+programadores \cite{Relf2005}; e incluso utilizar la gramática y otras falencias como pistas para
+analizar nombres que puedan ser reescritos \cite{Abebe2009}.
 La particularidad de los diferentes estudios comentados anteriormente recae en que
 en todos ellos se ignora el contenido semántico de los nombres de los indicadores.
 
