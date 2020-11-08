@@ -3,7 +3,7 @@
 Un aspecto muy importante dentro de la disciplina de desarrollo de software, tanto
 a nivel de \textit{producto} como de \textit{proceso}, es la \textbf{calidad del
 software}.
-Ésta determina el grado en el que un producto satisface los requerimientos de sus usuarios
+Esta determina el grado en el que un producto satisface los requerimientos de sus usuarios
 tanto internos como externos, y cómo les aporta valor a los mismos.
 
 Se considera que un \textit{modelo de calidad} tiene el objetivo de describir, evaluar y/o
@@ -158,58 +158,33 @@ aplicando 200 factores y 600 mediciones para sistema Java y C\#.
 
 \textit{TBD}
 
-\section{Impacto de los identificadores en Calidad de Software}
+\section{Impacto de los Identificadores}
 
-Tal como se establece en los diferentes estudios sobre los modelos de evaluación de
-calidad \cite{XXX}, las métricas más utilizadas están relacionadas a la complejidad,
-diseño y tamaño del código.
-La particularidad de estas métricas, es que vienen dadas desde la extracción de
-información a partir del código fuente.
+De acuerdo al relevamiento de los diferentes modelos de evaluación de calidad \cite{XXX},
+las métricas más utilizadas están asociadas a la complejidad, diseño y tamaño del código,
+con el fin de obtener mediciones que se correlacionen con los principales factores como la
+mantenibilidad, confiabilidad y eficiencia.
+Estas métricas suelen extraerse desde el código fuente, incluso considerando los nombres de los
+indicadores, los cuales son centrales en el presente estudio.
 
-Si bien el impacto que genera la baja calidad en el nombrado de los identificadores a la
-comprensión de programas está razonablemente clara \cite{DeiBenbockPizka05,Lawrie2007,Lawrie2006},
-se conoce relativamente poco sobre influencia que podría ejercer sobre la calidad del código fuente,
-la calidad de los nombres de los indicadores per sé \cite{ButlerWemelingerYu10}.
+Si bien el impacto provocado por la baja calidad de los nombres de los indentificadores sobre
+la comprensión de programas está razonablemente claro \cite{DeiBenbockPizka05,Lawrie2007,Lawrie2006},
+se conoce relativamente poco sobre la influencia que podría ejercer la calidad de los nombres
+sobre la calidad total del código fuente \cite{ButlerWemelingerYu10}.
+Existen métricas respecto a la \textit{legibilidad} del código, derivadas de varios aspectos como el
+número de paréntesis, tamaño de línea, cantidad de espacios en blanco, así como también del
+número, frecuencia y longitud de los identificadores \cite{Buse2008}.
+Otros estudios propusieron un conjunto de guías de estilo para el nombrado
+de identificadores, independiente del lenguaje, para validar su aceptación empírica entre los
+programadores \cite{ref}; e incluso utilizar la gramática y otras falencias como pistas para
+analizar nombres que puedan ser reescritos \cite{ads}.
+La particularidad de los diferentes estudios comentados anteriormente recae en que
+en todos ellos se ignora el contenido semántico de los nombres de los indicadores.
 
-"Existing research on source code readability focuses on the contribution the
-components of source code make to readability" \cite{Buse2008}.
-
-identificadores, y matching con convenciones vs. significado. \textbf{VER: YuSharp10}.
-
-"Buse and Weimer \cite{Buse2008} developed a readability metric for Java derived from measurements 
-of, among others, the number of parentheses and braces, line length, the number
-of blank lines, and the number, frequency and length of identifiers.
-Using machine learning, the readability metric was trained to agree with the judgement 
-of human source code readers.
-Buse and Weimer found a significant statistical relationship between the readability of 
-methods and the presence of defects found by FindBugs in open source code bases. 
-Although their work makes a link between readability and software quality, their notion
-of readability ignores the quality of identifier names".
-
-Se ignora el contenido semántico.
-
-"The predictive probability associated with each relationship illustrates the utility
-of the identifier flaws as light-weight classifiers for source code quality"
-\cite{ButlerWemelingerYu10}.
-
-\textbf{"a low-cost heuristic to identify potentially problematic regions of source code"}
-
-"Software quality is not defined in terms of quality attributes but instead must be
-inferred from characteristics that correlate to quality attributes and defect attributes.
-One of these quality attributes is the readability of the software.
-However, the software engineer, who is ultimately responsible for software quality,
-is not supported well by their formal education, the software engineering culture, the
-existence of useful tools and where these tools do exist by their limited up-take by industry.
-Human cognitive limitations similarly frustrate the development of readable source code.
-Software characteristics have been identified, which correlate well to source code readability.
-One of these software characteristics, which have been supported by empirical research,
-is the choice of identifier name".\cite{Relf04}
-
-"A software characteristic that has the potential to improve software quality is the choice of
-identifier name, and this is particularly so in large software systems.
-identifier-naming sytle guidelines, supported by empirical evidence and generally accepted by
-software professionals to direct towards improved source code readabiity are candidates for
-automation by a tool.
-Such an automated tool could make visibile aspects of software quality that are less keenly
-perceived by the novice programmer and could assist in ther education along the path to
-expert status"\cite{Relf04}.
+Dado que algunos autores consideran que la elección del \textbf{nombre de un identificador},
+especialmente en sistemas de gran tamaño, tiene el potencial de impactar positivamente en el 
+nivel de calidad de un sistema \cite{Relf04}, deberían emplearse métricas que consideren este aspecto
+al momento de su evaluación.
+Además aprovechar la extracción desde el código fuente a través de \textit{análisis estático},
+ya que permite \textbf{heurísticas de bajo costo que para identificar regiones del código fuente 
+potencialmente problemáticas} \cite{ButlerWemelingerYu10}.
