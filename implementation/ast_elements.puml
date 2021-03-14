@@ -1,0 +1,52 @@
+@startuml elements
+
+class ast.File {
+    Name string
+}
+
+interface ast.Decl
+
+interface ast.Node {
+    + Pos() token.Pos
+    + End() token.Pos
+}
+
+class ast.CommentGroup {
+    + List []*ast.Comment
+    + Text() string
+}
+
+class ast.Comment {
+    + Slash token.Pos
+    + Text string
+}
+
+class ast.FuncDecl {
+    Doc *ast.CommentGroup
+    Recv *ast.FieldList
+    Name *ast.Ident
+    Type *ast.FuncType
+    Body *ast.BlockStmt
+}
+
+class ast.BlockStmt {
+    Lbrace token.Pos
+    List []Stmt
+    Rbrace token.Pos
+}
+
+interface ast.Stmt {
+    Node
+}
+
+ast.File *- ast.Decl
+
+class ast.FuncType {
+    Params ast.FieldList
+}
+
+class ast.FieldList {
+    List []ast.Field
+}
+
+@enduml
