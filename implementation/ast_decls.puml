@@ -1,0 +1,42 @@
+@startuml ast_decls
+
+package ast {
+    interface Decl {
+        # declNode()
+    }
+
+    interface Spec
+
+    class GenDecl {
+        + Lparen token.Pos
+        + Rparen token.Pos
+    }
+    GenDecl -> Decl
+    GenDecl -- CommentGroup : Doc
+    GenDecl --* Spec : Specs
+
+    class FuncDecl
+    FuncDecl -> Decl
+    FuncDecl -- CommentGroup : Doc
+
+    class BadDecl {
+        + From token.Pos
+        + To token.Pos
+    }
+    BadDecl --> Decl
+
+    class CommentGroup
+}
+
+package token {
+    enum TokenType as "Token" {
+        IMPORT
+        CONST
+        TYPE
+        VAR
+    }
+}
+
+GenDecl -- TokenType
+
+@enduml

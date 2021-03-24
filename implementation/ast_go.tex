@@ -1,4 +1,4 @@
-\section{Árboles de Sintáxis Abstracta en Golang}
+\section{Árboles de Sintáxis Abstracta en Go}
 
 \textit{Golang} provee una serie de paquetes que permiten trabajar con el código fuente escrito en ese 
 lenguaje de programación, facilitando la creación de \textbf{árboles de sintáxis abstracta}
@@ -67,7 +67,43 @@ La función de cada uno de estos, y su participación en el proceso, se indica a
 
 \subsection{Elementos del AST}
 
-La figura X contiene la jerarquía de elementos que componen a un AST, la relación entre los mismos.
+Dentro del conjunto de librerías estándar de Go, el paquete \textit{ast} contiene la definición de
+los tipos de datos que representan los diferentes elementos que pueden componer un árbol de
+sintáxis abstracta para este lenguaje.
+Estas representaciones son utilizadas por la misma librería estándar, además de permitir
+que los desarrolladores puedan explorar y manipular el código fuente, con miras a proveer nuevas
+herramientas.
+
+Cada una de estas representaciones es un nodo.
+Todos los nodos contienen información de posición, indicando el inicio del correspondiente segmento
+de texto que da origen al nodo.
+Existen \textit{tres clases principales de nodos}: \textbf{expresiones y tipos}, \textbf{sentencias},
+y \textbf{declaraciones}; tal como se muestra en la figura \ref{NodeClasses}.// TODO //
+Generalmente, los nombres de los nodos coinciden con el elemento de la especificación con el que
+se corresponden.
+
+\begin{figure}[H]
+  \label{NodeClasses}
+  \includegraphics[width=8cm]{implementation/ast_nodes.png}
+  \centering
+  \caption{Clases principales de nodos}
+\end{figure}
+
+En la figura X, pueden verse aquellos nodos que representan \textit{declaraciones}.
+Un nodo \textit{GenDecl} representa una importación de paquetes, o una declaración tanto de
+constantes, tipos o variables.
+En caso de que las declaraciones se encuentren en un bloque entre paréntesis, esta misma
+estructura es utilizada.
+El nodo \textit{FuncDecl}, representa una declaración de una función o método, y contiene
+la información asociada como la documentación, su nombre, firma y el cuerpo de la misma.
+
+\begin{figure}[H]
+  \includegraphics[width=12cm]{implementation/ast_decls.png}
+  \centering
+  \caption{AST: Declaraciones}
+\end{figure}
+
+// TODO: agregar información sobre archivos + paquetes.
 
 \begin{figure}[H]
   \includegraphics[width=12cm]{implementation/elements}

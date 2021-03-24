@@ -49,4 +49,8 @@ class ast.FieldList {
     List []ast.Field
 }
 
+package token {
+    class Pos
+}
+
 @enduml

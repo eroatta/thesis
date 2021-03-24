@@ -1,0 +1,31 @@
+@startuml ast_nodes
+
+package ast {
+    interface Node {
+        + Pos()
+        + End()
+    }
+
+    interface Expr {
+        # exprNode()
+    }
+    Expr --|> Node
+
+    interface Stmt {
+        # stmtNode()
+    }
+    Stmt --|> Node
+
+    interface Decl {
+        # declNode()
+    }
+    Decl --|> Node
+}
+
+package token {
+    class Pos
+}
+
+Node -- Pos
+
+@enduml
