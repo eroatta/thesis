@@ -1,0 +1,29 @@
+@startuml ast_statements
+
+package ast {
+    interface Stmt
+
+    class DeclStmt {
+        + Decl Decl
+    }
+
+    class BadStmt
+    BadStmt --> Stmt
+
+    class EmptyStmt
+    EmptyStmt --> Stmt
+
+    class LabeledStmt
+    LabeledStmt --> Stmt
+
+    class ExprStmt
+    ExprStmt --> Stmt
+
+    class SendStmt
+    SendStmt --> Stmt
+
+    class IncDecStmt
+    IncDecStmt --> Stmt
+}
+
+@enduml

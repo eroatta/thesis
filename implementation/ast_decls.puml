@@ -1,31 +1,70 @@
 @startuml ast_decls
 
 package ast {
+    interface Spec {
+        # specNode()
+    }
+
+    class ImportSpec {
+        + Doc *CommentGroup
+        + Name *Ident
+        + Path *BasicLit
+        + Comment *CommentGroup
+        + EndPos token.Pos
+    }
+    ImportSpec --|> Spec
+
+    class ValueSpec {
+        + Doc *CommentGroup
+        + Names []*Ident
+        + Type Expr
+        + Values []Expr
+        + Comment *CommentGroup
+    }
+    ValueSpec --|> Spec
+
+    class TypeSpec {
+        + Doc *CommentGroup
+        + Name *Ident
+        + Assign token.Pos
+        + Type Expr
+        + Comment *CommentGroup
+    }
+    TypeSpec --|> Spec
+
     interface Decl {
         # declNode()
     }
 
-    interface Spec
-
     class GenDecl {
+        + Doc *CommentGroup
         + Lparen token.Pos
         + Rparen token.Pos
     }
     GenDecl -> Decl
-    GenDecl -- CommentGroup : Doc
     GenDecl --* Spec : Specs
 
-    class FuncDecl
+    class FieldList {
+        + Opening token.Pos
+        + List *Field
+        + Closing token.Pos
+        + NumFields() int
+    }
+
+    class FuncDecl {
+        + Doc *CommentGroup
+        + Name *Ident
+        + Body *BlockStmt
+        + Type *FuncType
+    }
     FuncDecl -> Decl
-    FuncDecl -- CommentGroup : Doc
+    FuncDecl -- FieldList : Recv
 
     class BadDecl {
         + From token.Pos
         + To token.Pos
     }
     BadDecl --> Decl
-
-    class CommentGroup
 }
 
 package token {
@@ -37,6 +76,6 @@ package token {
     }
 }
 
-GenDecl -- TokenType
+GenDecl --- TokenType : Tok
 
 @enduml
