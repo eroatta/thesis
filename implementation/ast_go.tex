@@ -77,15 +77,25 @@ a extender las funcionalidades.
 Cada una de estas representaciones es un nodo, y todos los nodos contienen información de posición,
 indicando el inicio del correspondiente segmento de texto que le da origen.
 Dentro del conjunto de nodos, existen \textit{tres clases principales}: \textbf{expresiones y tipos},
-\textbf{sentencias}, y \textbf{declaraciones}; tal como se muestra en la figura \ref{NodeClasses}.// TODO //
+\textbf{sentencias}, y \textbf{declaraciones}; tal como se muestra en la figura X.
 Generalmente, los nombres de los nodos coinciden con el elemento de la especificación con el que
 se corresponden.
 
 \begin{figure}[H]
-  \label{NodeClasses}
   \includegraphics[width=8cm]{implementation/ast_nodes.png}
   \centering
   \caption{Clases principales de nodos}
+\end{figure}
+
+Las expresiones especifican el cómputo o cálculo de un valor, al aplicar operadores y funciones
+a operandos.
+En la figura X se resumen las principales expresiones, al menos desde la perspectiva
+del informe.
+
+\begin{figure}[H]
+  \includegraphics[width=12cm]{implementation/ast_exprs.png}
+  \centering
+  \caption{AST: Expresiones}
 \end{figure}
 
 Las sentencias son aquellas estructuras que dictaminan y controlan la ejecución de los programas,

@@ -1,0 +1,39 @@
+@startuml ast_exprs
+
+package ast {
+    interface Expr {
+        # exprNode()
+    }
+
+    class Ident implements Expr {
+        + NamePos token.Pos
+        + Name string
+        + Obj *Object
+    }
+
+    class BasicLit implements Expr {
+        + ValuePos token.Pos
+        + Kind token.Token //int, flat, etc
+        + Value string
+    }
+
+    class StarExpr implements Expr {
+        + Star token.Pos
+        + X Expr
+    }
+
+    class KeyValueExpr implements Expr {
+        + Key Expr
+        + Colon token.Pos
+        + Value Expr
+    }
+
+    class GeneralExpr as "..." implements Expr
+    note bottom of GeneralExpr
+        Otras expresiones,
+        pero que no son de importancia
+        para la herramienta.
+    end note
+}
+
+@enduml
