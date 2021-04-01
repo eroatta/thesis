@@ -1,29 +1,34 @@
 @startuml ast_statements
 
 package ast {
-    interface Stmt
-
-    class DeclStmt {
-        + Decl Decl
+    interface Stmt {
+        # stmtNode()
     }
 
-    class BadStmt
-    BadStmt --> Stmt
+    class AssignStmt implements Stmt {
+        + Lhs []Expr
+        + TokPos token.Pos
+        + Tok token.Token
+        + Rhs []Expr
+    }
 
-    class EmptyStmt
-    EmptyStmt --> Stmt
+    class RangeStmt implements Stmt {
+        + For token.Pos
+        + Init Stmt
+        + Key Expr
+        + Value Expr
+        + TokPos token.Pos
+        + Tok token.Token // ASSIGN, DEFINE
+        + X Expr
+        + Body *BlockStmt
+    }
 
-    class LabeledStmt
-    LabeledStmt --> Stmt
-
-    class ExprStmt
-    ExprStmt --> Stmt
-
-    class SendStmt
-    SendStmt --> Stmt
-
-    class IncDecStmt
-    IncDecStmt --> Stmt
+    class GeneralStmt as "..." implements Stmt
+    note bottom of GeneralStmt
+        Otros statements,
+        pero que no son de importancia
+        para la herramienta.
+    end note
 }
 
 @enduml

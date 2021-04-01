@@ -67,18 +67,17 @@ La función de cada uno de estos, y su participación en el proceso, se indica a
 
 \subsection{Elementos del AST}
 
-Dentro del conjunto de librerías estándar de Go, el paquete \textit{ast} contiene la definición de
-los tipos de datos que representan los diferentes elementos que pueden componer un árbol de
+Dentro del conjunto de librerías estándar de Go, el paquete \textit{ast} contiene
+las estructuras de datos que representan los diferentes elementos que pueden componer un árbol de
 sintáxis abstracta para este lenguaje.
-Estas representaciones son utilizadas por la misma librería estándar, además de permitir
-que los desarrolladores puedan explorar y manipular el código fuente, con miras a proveer nuevas
-herramientas.
+Estas representaciones son utilizadas por la misma librería estándar y herramientas del lenguaje,
+además de permitir que los desarrolladores puedan explorar y manipular el código fuente, con miras
+a extender las funcionalidades.
 
-Cada una de estas representaciones es un nodo.
-Todos los nodos contienen información de posición, indicando el inicio del correspondiente segmento
-de texto que da origen al nodo.
-Existen \textit{tres clases principales de nodos}: \textbf{expresiones y tipos}, \textbf{sentencias},
-y \textbf{declaraciones}; tal como se muestra en la figura \ref{NodeClasses}.// TODO //
+Cada una de estas representaciones es un nodo, y todos los nodos contienen información de posición,
+indicando el inicio del correspondiente segmento de texto que le da origen.
+Dentro del conjunto de nodos, existen \textit{tres clases principales}: \textbf{expresiones y tipos},
+\textbf{sentencias}, y \textbf{declaraciones}; tal como se muestra en la figura \ref{NodeClasses}.// TODO //
 Generalmente, los nombres de los nodos coinciden con el elemento de la especificación con el que
 se corresponden.
 
@@ -87,6 +86,17 @@ se corresponden.
   \includegraphics[width=8cm]{implementation/ast_nodes.png}
   \centering
   \caption{Clases principales de nodos}
+\end{figure}
+
+Las sentencias son aquellas estructuras que dictaminan y controlan la ejecución de los programas,
+y se componen a su vez de otras sentencias.
+Sin embargo, en el alcance del informe, sólo un subconjunto es de interés para el mismo,
+el cuál se establece en la figura X. 
+
+\begin{figure}[H]
+  \includegraphics[width=12cm]{implementation/ast_statements.png}
+  \centering
+  \caption{AST: Sentencias}
 \end{figure}
 
 En la figura X, pueden verse aquellos nodos que representan \textit{declaraciones}.
