@@ -1,0 +1,23 @@
+@startuml ast_packages
+
+package ast {
+    class File {
+        + Doc *CommentGroup
+        + Package token.Pos
+        + Name *Ident
+        + Decls []Decl
+        + Scope *Scope
+        + Imports []*ImportSpec
+        + Unresolved []*Ident
+        + Comments []*CommentGroup
+    }
+
+    class Package {
+        + Name string
+        + Scope *Scope
+        + Imports map[string]Object
+    }
+    Package *-- File
+}
+
+@enduml

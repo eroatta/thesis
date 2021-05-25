@@ -122,11 +122,20 @@ la información asociada como la documentación, su nombre, firma y el cuerpo de
   \centering
   \caption{AST: Declaraciones}
 \end{figure}
+// TODO: Ver detalle
 
-// TODO: agregar información sobre archivos + paquetes.
+Además de los principales nodos nombrados y expuestos anteriormente, otros elementos claves
+son los \textit{archivos y paquetes}.
+
+Un nodo \textit{File} representa un archivo de código fuente de Go.
+La particularidad destacable, es que contiene una lista de todos los comentarios
+existentes en el archivo de código fuente en el orden en el que aparecen, incluso aquellos asociados
+a otros nodos.
+Así mismo, un nodo \textit{Package} se refiere a un conjunto de archivos de código fuente,
+los cuales forman parte colectivamente de un paquete en Go.
 
 \begin{figure}[H]
-  \includegraphics[width=12cm]{implementation/elements}
+  \includegraphics[height=8cm]{implementation/ast_packages.png}
   \centering
-  \caption{Elementos del AST}
+  \caption{AST: Paquetes y archivos}
 \end{figure}
