@@ -52,7 +52,10 @@ unitarias y/o de integración, y por el momento se decidió descartar.
 
 Por último, con el conjunto de archivos a analizar ya determinado, se procede a la
 \textbf{construcción de los árboles de sintáxis abstracta}.
-
+Para ello, el proceso se apoya en las librerías provistas dentro de la distribución
+por defecto del lenguaje de programación, las cuales permiten leer los archivos,
+hacer la \textit{tokenización} y \textit{parsing} de los mismos, con la consecuente
+generación de los ASTs.
 
 %TODO (incluir sección de AST y GO?)
 %AST en Golang, convenciones de desarrollo, Effective Go, Levesthein distance.
@@ -62,13 +65,23 @@ de entrada para la etapa de procesamiento, la cual es explicada a continuación.
 
 \subsubsection{Etapa: Procesamiento}
 
+La correcta ejecución de algunos algoritmos, tanto de división como de expansión,
+requiere cierta \textbf{información contextual}, extraída desde el código fuente.
+Por ejemplo, y tal como se especificó en el capítulo X, el algorimo de división \textit{Samurai}
+depende de dos tablas de frencuencias.
+Una de estas tablas es específica al programa bajo análisis, mientras que la otra corresponde
+a un universo mayor de código fuente, independiente del código en cuestión.
+Así mismo, el algoritmo de \textit{Expansión Básica} utiliza listas tanto de palabras como frases,
+extraídas de los comentarios e identificadores asociados a cada una de las funciones analizadas.
+En el caso de \textit{AMAP}, para poder efectuar las expansiones, se necesitan establecer tablas
+de frecuencia por métodos, clases, paquetes e incluso proyectos.
+
+Esta información contextual necesaria, se extrae durante la etapa de \textbf{procesamiento},
+al realizar un \textbf{análisis semántico} sobre los diferentes \textit{árboles de sintáxis abstracta (ASTs)} 
+resultantes del paso anterior.
+
 \subsubsection{Etapa: Cálculo}
 
-\subsection{Análisis semántico}
-Algunos algoritmos, tanto de división como de expansión, requieren de cierta información contextual para poder llevar adelante su tarea.
-Por ejemplo, dentro de los algoritmos de división, \textit{Samurai} depende de dos tablas de frecuencia, una de las cuales es específica al programa bajo análisis; y la otra corresponde a un universo mayor de código fuente, independiente del código en cuestión.
-Así mismo, el algoritmo de \textit{Expansión Básica} utiliza listas tanto de palabras como frases, extraídas de los comentarios e identificadores asociados a cada una de las funciones analizadas.
-En el caso de \textit{AMAP}, para poder efectuar las expansiones, se necesitan establecer tablas de frecuencia por métodos, clases, paquetes e incluso proyectos.
 
 Para poder extraer la información contextual requerida, se realiza un \textbf{análisis semántico} sobre \textit{árbol de sintáxis abstracta (AST)} resultante del paso anterior.
 
