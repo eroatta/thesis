@@ -82,11 +82,20 @@ resultantes del paso anterior.
 
 \subsubsection{Etapa: Cálculo}
 
+Durante la etapa de \textbf{cálculo}, los identificadores son relevados desde el código fuente,
+y los distintos algoritmos aplicados.
+La aplicación de los algoritmos se hace de a pares, con una combinación preestablecida
+entre división y expansión.
 
-Para poder extraer la información contextual requerida, se realiza un \textbf{análisis semántico} sobre \textit{árbol de sintáxis abstracta (AST)} resultante del paso anterior.
+La expansión resultante, junto con el nombre original del identificador, son las
+entradas para el cálculo de la métrica, aplicando la distancia de Levesthein
+entre ambos.
+De esta manera, se obtiene un valor que representa la distancia entre los mismos.
 
-\subsection{Almacenamiento de los resultados}
-
+Cada identificador, junto con sus separaciones y expansiones obtenidas por los diferentes
+algoritmos, y el valor de la métrica, son almacenadas en una base de datos.
+De esta manera, luego es posible combinar los valores de cada, agregándolos al nivel
+que se desee explorar (paquete o proyecto).
 
 \subsection{Fase: Visualización}
 
