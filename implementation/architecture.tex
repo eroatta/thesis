@@ -110,7 +110,7 @@ de acuerdo al valor de la métrica.
 Las siguientes secciones explican al detalle los elementos de visualización, y
 la forma correcta de interpretarlos.
 
-\subsubsection{Visualización: Dashboard}
+\subsubsection{Visualización: Dashboards}
 
 
 
@@ -125,17 +125,36 @@ disponible en GitHub, donde se resalta tanto la línea de código como el texto 
 tal como puede verse en la figura X.
 
 \begin{figure}[H]
+  \includegraphics[width=12cm]{implementation/github_comparator.png}
+  \centering
+  \caption{Comparador de cambios de GitHub}
+\end{figure}
+
+Dentro del conjunto de información brindada por la herramienta, se destacan
+dos elementos particulares.
+
+Por un lado, el usuario final puede hacerse una idea general de qué tan acorde
+o no es el nombramiento de los identificadores en un archivo particular, al
+visualizar la \textbf{cantidad total de modificaciones} entre la versión original
+y la sobreescrita.
+Como la previsualización de reescritura sólo se enfoca en cambiar nombres de
+indicadores, el valor de sustracciones y adiciones siempre va a ser el mismo, con
+signo cambiado.
+Por ello, es el valor absoluto de cualquiera de las dos mediciones, el que nos
+determina la magnitud de indicadores con potenciales mejoras.
+
+Así mismo, la herramienta nos permite \textbf{previsualizar línea por línea}, cuál sería
+el fragmento modificado, y cómo quedaría con el nuevo nombre de indentificador,
+extraído del proceso de evaluación.
+Tal como puede observarse en la figura X, la línea donde se impacta el cambio
+es marcada con un verde claro, mientras que el nombre del identificador sugerido
+(y siendo éste el cambio efectivo) se representa con un verde más oscuro, para
+poder destacarse.
+
+\begin{figure}[H]
   \includegraphics[width=12cm]{implementation/diff_viewer.png}
   \centering
   \caption{Previsualización de Diferencias}
 \end{figure}
 
-Esta herramienta particular, disponibiliza al usuario final, la siguiente
-información:
-
-\begin{itemize}
-  \item Proyecto y archivo analizado.
-  \item Cantidad total de modificaciones tentativas.
-  \item Comparación línea por línea.
-\end{itemize}
-
+\textit{TODO: agregar cajas para marcar los dos puntos anteriores en la imagen.}
