@@ -7,10 +7,10 @@ La participación de cada uno de los componentes de la solución en las distinta
 etapas, será explicado en las próximas secciones.
 
 \begin{figure}[H]
-    \includegraphics[width=12cm]{implementation/architecture_overview.png}
-    \centering
-    \caption{Arquitectura general de la Solución}
-  \end{figure}
+  \includegraphics[width=12cm]{implementation/architecture_overview.png}
+  \centering
+  \caption{Arquitectura general de la Solución}
+\end{figure}
 
 \subsection{Fase: Cálculo}
 
@@ -99,6 +99,43 @@ que se desee explorar (paquete o proyecto).
 
 \subsection{Fase: Visualización}
 
-\subsubsection{Análisis realizados}
-\subsubsection{Proyecto Particular}
-\subsubsection{Comparación pre/post análisis}
+Una vez completada la fase de cálculo, los resultados quedan disponibles para la
+visualización de los mismos.
+Para ello, hay dos componentes particulares.
+Por un lado, el componente que permite la visualización de las métricas por proyecto,
+a nivel general; y por otro, la herramienta que permite previsualizar un archivo
+de código fuente, cambiando los nombres de los identificadores por su mejor expansión,
+de acuerdo al valor de la métrica.
+
+Las siguientes secciones explican al detalle los elementos de visualización, y
+la forma correcta de interpretarlos.
+
+\subsubsection{Visualización: Dashboard}
+
+
+
+\subsubsection{Visualización: Rewrite}
+
+La previsualización del reemplazo de los identificadores de un archivo
+por el resultado del procesamiento de división, expansión y cálculo de distancia,
+se realiza por medio de la herramienta \textsc{diff-viewer}.
+
+Esta herramienta presenta una disposición similar al comparador de código
+disponible en GitHub, donde se resalta tanto la línea de código como el texto modificado,
+tal como puede verse en la figura X.
+
+\begin{figure}[H]
+  \includegraphics[width=12cm]{implementation/diff_viewer.png}
+  \centering
+  \caption{Previsualización de Diferencias}
+\end{figure}
+
+Esta herramienta particular, disponibiliza al usuario final, la siguiente
+información:
+
+\begin{itemize}
+  \item Proyecto y archivo analizado.
+  \item Cantidad total de modificaciones tentativas.
+  \item Comparación línea por línea.
+\end{itemize}
+
