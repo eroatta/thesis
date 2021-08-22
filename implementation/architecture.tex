@@ -112,7 +112,133 @@ la forma correcta de interpretarlos.
 
 \subsubsection{Visualización: Dashboards}
 
+Para analizar la información extraída desde cada uno de los proyectos, el componente
+principal de visualización se apoya en un conjunto de tableros construidos sobre
+\textit{Grafana} (TODO, insertar link).
+Tal como se comentó en la \textbf{fase de procesamiento}, los resultados de cada proyecto
+son almacenados en una base de datos, y luego replicados a una instancia de \textit{ElasticSearch}.
+De esta manera, a través de los tableros se puede acceder a la información obtenida,
+además de poder trabajar sobre ella, principalmente en operaciones de agrupamientos
+y búsquedas.
 
+Accesibles desde la instancia de Grafana, existen varios dashboards, cada uno con
+un propósito específico.
+
+Los detalles de cada uno de los dashboards, son provistos a continuación.
+
+\paragraph{Insights Overview}
+El dashboard encargado de sumarizar las métricas de evaluación de distancia de las
+expansiones con su nombre original, a nivel de proyecto y su exploración por paquetes,
+es el tablero de \textit{Insights}.
+
+\begin{figure}[H]
+  \includegraphics[width=12cm]{implementation/dashboard_insights_overview.png}
+  \centering
+  \caption{Dashboard: Insights Overview}
+\end{figure}
+
+Como demuestra la figura X, este tablero permite visualizar:
+
+\begin{itemize}
+  \item Efectividad del nombramiento, a través de la métrica de distancia aplicada
+  a los identificadores.
+  \item Efectividad del proyecto, paquete por paquete, incluyendo la cantidad de identificadores
+  en los mismos, y su impacto dada su condición de exportado o no.
+\end{itemize}
+
+Además, permite el acceso a la visualización de \textbf{Rewrite}, partiendo desde la lista de archivos
+que componen al proyecto en cuestión.
+Esta visualización es descrita luego, en su sección correspondiente.
+
+Este tablero es quizás el más importante, ya que nos permite \textbf{evaluar la calidad del proyecto},
+comparando los resultados agregados de la métrica, contra unos rangos de valores esperados
+previamente definidos.
+Para este informe, los rangos de aceptación fueron establecidos empíricamente (TODO: ?),
+y se encuentra en el orden de:
+
+\textit{TODO: agregar tabla de valores esperados.}
+
+\paragraph{Analysis Overview}
+Este dashboard (\textit{Analysis Overview}, dado su nombre en inglés en la herramienta)
+permite observar los proyectos desde la perspectiva de post-ejecución de la fase
+de cálculo, y más puntualmente de las etapas que incluyen la división y expansión
+de los indicadores.
+Una pre-visualización del mismo se puede ver en la figura X, donde aparecen las
+principales métricas que el dashboard expone.
+Dentro de este conjunto podemos encontrar:
+
+\begin{itemize}
+  \item Cantidad de análisis realizados, junto con los pre-procesadores aplicados y las
+  combinaciones de algoritmos divisores y expansores.
+  \item Número total de archivos procesados, separando entre aquellos que no tuvieron
+  problemas de los que sí presentaron errores durante la ejecución.
+  \item Número total de indicadores extraídos, separando entre aquellos que no tuvieron
+  problemas de los que sí presentaron errores durante su procesamiento.
+  \item Lista de proyectos analizados hasta el momento, con sus detalles sobre archivos
+  procesados e indicadores extraídos, siempre considerando los que fueron válidos y los
+  que presentaron algún inconveniente.
+\end{itemize}
+
+\begin{figure}[H]
+  \includegraphics[width=12cm]{implementation/dashboard_analysis_overview.png}
+  \centering
+  \caption{Dashboard: Analysis Overview}
+\end{figure}
+
+\paragraph{Identifiers Overview}
+En este tablero (\textit{Identifiers Overview}, dado su nombre en inglés en la herramienta)
+ayuda a hacer un análisis respecto a los indicadores procesados, a nivel global, pero
+dejando de lado las particularidades de cada proyecto.
+De esta manera, podemos acceder a las siguientes métricas globales sobre los tipos de
+identificadores que se están procesando:
+
+\begin{itemize}
+  \item Cantidad de identificadores extraídos a nivel global, y promedio por proyecto.
+  \item Distribución por tipo (\textit{var, struct, interface, func, const}) de los
+  identificadores procesados (tanto en cantidad como porcentaje).
+  \item Identificadores a nivel de paquete, exportados o no (tanto en cantidad como porcentaje).
+\end{itemize}
+
+\begin{figure}[H]
+  \includegraphics[width=12cm]{implementation/dashboard_identifiers_details_part1.png}
+  \centering
+  \caption{Dashboard: Identifiers Overview - Métricas generales}
+\end{figure}
+
+Así mismo, tal como muestra la figura X, también se pueden visualizar los resultados
+de la aplicación de los diferentes algoritmos de división y expansión, por cada uno
+de los identificadores evaluados.
+Para ello, se utilizan unas tablas que indican detalles básicamos del identificador,
+como el proyecto al que pertenece, el archivo en que se encuentra, su nombre, su tipo,
+si es exportado o no.
+Junto con esta información básica, se muestran los resultados de los algoritmos de división
+por un lado, y por otro, los de los algoritmos de expansión (incluyendo varias opciones en
+caso que el algoritmo las arroje).
+
+\begin{figure}[H]
+  \includegraphics[width=12cm]{implementation/dashboard_identifiers_details_part2.png}
+  \centering
+  \caption{Dashboard: Identifiers Overview - Divisiones y expansiones}
+\end{figure}
+
+\paragraph{Projects Overview}
+Por último, el tablero de visualización de Proyectos (\textit{Projects Overview}),
+nos brinda \textbf{información contextual} sobre los repositorios analizados,
+como puede apreciarse en la figura X.
+Estos datos nos permiten conocer particularidades de los proyectos, ya que
+podemos observar la cantidad de repositorios considerados, en qué momento fueron creados y
+las licencias que aplican.
+Además, también se puede conocer la cantidad promedio de archivos que los componen y su
+tamaño promedio (en bytes).
+
+De esta manera, podemos entender mejor ciertas características sobre los proyectos que pueden
+impactar sobre la evaluación de la métrica de distancia en los distintos identificadores.
+
+\begin{figure}[H]
+  \includegraphics[width=12cm]{implementation/dashboard_projects_overview.png}
+  \centering
+  \caption{Dashboard: Projects Overview}
+\end{figure}
 
 \subsubsection{Visualización: Rewrite}
 
